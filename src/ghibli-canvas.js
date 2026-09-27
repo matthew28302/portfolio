@@ -1030,56 +1030,59 @@ export class GhibliSeasonsCanvas {
     }
   }
 
-  // 2. FRAMING ANCIENT FOREST BOUGHS (Overarching organic canopy - ZERO floating balls!)
-  // 2. FRAMING ANCIENT FOREST BOUGH (Slender, delicate branch reaching gracefully from top-left corner)
+  // 2. FRAMING ANCIENT FOREST BOUGH (Organic, graceful bough with natural volume from top-left corner)
   drawFramingForest(ctx, W, H, time) {
     const trunkColor = this.sampleColor('trunkColor');
     const foliagePrimary = this.sampleColor('foliagePrimary');
     const foliageSecondary = this.sampleColor('foliageSecondary');
     const foliageHighlight = this.sampleColor('foliageHighlight');
 
-    const windSway = Math.sin(time * 0.0012) * 2;
+    const windSway = Math.sin(time * 0.0012) * 2.5;
 
     ctx.save();
-    ctx.strokeStyle = trunkColor;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
 
-    // 1. Main slender branch reaching out gracefully from corner
-    ctx.lineWidth = 5.5;
+    // 1. Organic Tapered Wood Bough with solid presence & natural curving silhouette
+    ctx.fillStyle = trunkColor;
     ctx.beginPath();
-    ctx.moveTo(-10, -8);
-    ctx.bezierCurveTo(W * 0.035, H * 0.015, W * 0.08, H * 0.035, W * 0.13, H * 0.065 + windSway * 0.5);
+    ctx.moveTo(-15, -15);
+    // Upper contour reaching across into frame
+    ctx.bezierCurveTo(W * 0.045, -5, W * 0.09, H * 0.02, W * 0.145, H * 0.055 + windSway * 0.6);
+    // Tip of main bough
+    ctx.lineTo(W * 0.16, H * 0.062 + windSway * 0.7);
+    ctx.bezierCurveTo(W * 0.14, H * 0.072, W * 0.12, H * 0.076, W * 0.105, H * 0.068);
+    // Fork into downward drooping sub-branch
+    ctx.bezierCurveTo(W * 0.092, H * 0.085, W * 0.08, H * 0.115, W * 0.076, H * 0.138 + windSway * 0.5);
+    ctx.lineTo(W * 0.066, H * 0.135);
+    // Return contour of sub-branch
+    ctx.bezierCurveTo(W * 0.07, H * 0.10, W * 0.072, H * 0.065, W * 0.052, H * 0.048);
+    // Lower contour of main branch returning to left edge (natural wood taper)
+    ctx.bezierCurveTo(W * 0.03, H * 0.052, W * 0.01, H * 0.065, -15, H * 0.085);
+    ctx.closePath();
+    ctx.fill();
+
+    // Subtle Wood Bark striations & natural growth texture
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.32)';
+    ctx.lineWidth = 1.6;
+    ctx.beginPath();
+    // Central grain line along the bough
+    ctx.moveTo(-10, H * 0.018);
+    ctx.bezierCurveTo(W * 0.04, H * 0.016, W * 0.08, H * 0.036, W * 0.125, H * 0.058 + windSway * 0.5);
+    // Sub-branch grain line
+    ctx.moveTo(W * 0.082, H * 0.055);
+    ctx.bezierCurveTo(W * 0.08, H * 0.085, W * 0.074, H * 0.11, W * 0.07, H * 0.13 + windSway * 0.4);
     ctx.stroke();
 
-    // Delicate tapering tip
-    ctx.lineWidth = 2.8;
-    ctx.beginPath();
-    ctx.moveTo(W * 0.13, H * 0.065 + windSway * 0.5);
-    ctx.bezierCurveTo(W * 0.155, H * 0.075, W * 0.175, H * 0.085, W * 0.19, H * 0.09 + windSway * 0.7);
-    ctx.stroke();
-
-    // Small sub-twig 1 (drooping gently down)
-    ctx.lineWidth = 2.4;
-    ctx.beginPath();
-    ctx.moveTo(W * 0.065, H * 0.028);
-    ctx.bezierCurveTo(W * 0.072, H * 0.055, W * 0.068, H * 0.085, W * 0.062, H * 0.11 + windSway * 0.4);
-    ctx.stroke();
-
-    // Small sub-twig 2 (reaching forward)
-    ctx.lineWidth = 2.0;
-    ctx.beginPath();
-    ctx.moveTo(W * 0.105, H * 0.05);
-    ctx.bezierCurveTo(W * 0.12, H * 0.07, W * 0.13, H * 0.095, W * 0.14, H * 0.11 + windSway * 0.6);
-    ctx.stroke();
-
-    // 2. Delicate, small anime blossom clusters along the slender branch (petite & poetic)
-    this.drawAnimeLeafSpray(ctx, W * 0.03, H * 0.015 + windSway * 0.3, 24, foliagePrimary, foliageSecondary, foliageHighlight);
-    this.drawAnimeLeafSpray(ctx, W * 0.07, H * 0.035 + windSway * 0.5, 22, foliagePrimary, foliageSecondary, foliageHighlight);
-    this.drawAnimeLeafSpray(ctx, W * 0.062, H * 0.11 + windSway * 0.4, 18, foliagePrimary, foliageSecondary, foliageHighlight);
-    this.drawAnimeLeafSpray(ctx, W * 0.125, H * 0.062 + windSway * 0.6, 20, foliagePrimary, foliageSecondary, foliageHighlight);
-    this.drawAnimeLeafSpray(ctx, W * 0.14, H * 0.11 + windSway * 0.6, 17, foliagePrimary, foliageSecondary, foliageHighlight);
-    this.drawAnimeLeafSpray(ctx, W * 0.185, H * 0.09 + windSway * 0.7, 16, foliagePrimary, foliageSecondary, foliageHighlight);
+    // 2. Lush Painterly Anime Foliage Sprays (Substantial, beautiful blooming clusters)
+    // Corner anchor cluster
+    this.drawAnimeLeafSpray(ctx, W * 0.025, H * 0.012 + windSway * 0.3, 46, foliagePrimary, foliageSecondary, foliageHighlight);
+    // Mid upper bough cluster
+    this.drawAnimeLeafSpray(ctx, W * 0.078, H * 0.03 + windSway * 0.5, 42, foliageSecondary, foliagePrimary, foliageHighlight);
+    // Drooping lower twig cluster
+    this.drawAnimeLeafSpray(ctx, W * 0.072, H * 0.125 + windSway * 0.5, 36, foliagePrimary, foliageSecondary, foliageHighlight);
+    // Forward reaching bough cluster
+    this.drawAnimeLeafSpray(ctx, W * 0.128, H * 0.058 + windSway * 0.6, 38, foliagePrimary, foliageSecondary, foliageHighlight);
+    // Tip cluster accent
+    this.drawAnimeLeafSpray(ctx, W * 0.162, H * 0.065 + windSway * 0.7, 30, foliageHighlight, foliageSecondary, foliagePrimary);
 
     ctx.restore();
   }

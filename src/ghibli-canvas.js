@@ -2489,21 +2489,19 @@ export class GhibliSeasonsCanvas {
     const b = Math.round(lerp(lightB, darkB, this.darkFactor));
 
     if (W < 1024) {
-      // Mobile screens: Gentle sheer atmospheric veil (10% light, 18% dark), completely transparent to the painting
-      const mobAlpha = lerp(0.10, 0.18, this.darkFactor);
+      // Mobile screens: Ultra-sheer veil (4% light, 8% dark) for maximum landscape clarity
+      const mobAlpha = lerp(0.04, 0.08, this.darkFactor);
       ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${mobAlpha})`;
       ctx.fillRect(0, 0, W, H);
       return;
     }
     
-    // Desktop: Left ~28% is pure crystal anime focal clearing (sacred lake, mossy island, tree, deer, campfire).
-    // From W * 0.28 across to W, a feather-light gradient veil provides delicate softening
-    // with NO solid opaque white block.
+    // Desktop: Almost imperceptible mist veil (2% light, 5% dark)
     const shield = ctx.createLinearGradient(W * 0.28, 0, W, 0);
-    const maxAlpha = lerp(0.10, 0.18, this.darkFactor);
+    const maxAlpha = lerp(0.02, 0.05, this.darkFactor);
 
     shield.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0)`);
-    shield.addColorStop(0.35, `rgba(${r}, ${g}, ${b}, ${maxAlpha * 0.4})`);
+    shield.addColorStop(0.35, `rgba(${r}, ${g}, ${b}, ${maxAlpha * 0.3})`);
     shield.addColorStop(1, `rgba(${r}, ${g}, ${b}, ${maxAlpha})`);
 
     ctx.fillStyle = shield;

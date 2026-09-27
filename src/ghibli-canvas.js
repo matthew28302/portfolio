@@ -527,15 +527,15 @@ export class GhibliSeasonsCanvas {
         const distRab = Math.hypot(x - rabX, y - rabY);
         const islandX = W * 0.18;
         const islandY = H * 0.64;
-        const owlX = islandX - 68;
-        const owlY = islandY - 156;
+        const owlX = islandX + 7;
+        const owlY = islandY - 295;
         const distOwl = Math.hypot(x - owlX, y - owlY);
         
         if (distDeer < 65) {
           window.dispatchEvent(new CustomEvent('ghibliAnimalClick', { detail: { animal: 'deer' } }));
         } else if (distRab < 55) {
           window.dispatchEvent(new CustomEvent('ghibliAnimalClick', { detail: { animal: 'rabbit' } }));
-        } else if (this.darkFactor > 0.4 && distOwl < 45) {
+        } else if (this.darkFactor > 0.4 && distOwl < 55) {
           window.dispatchEvent(new CustomEvent('ghibliAnimalClick', { detail: { animal: 'owl' } }));
         }
       });
@@ -1387,11 +1387,11 @@ export class GhibliSeasonsCanvas {
       ctx.restore();
     }
 
-    // 4. Mystical Guardian Owl perched on the ancient tree bough in Dark Mode
-    this.drawGhibliOwl(ctx, islandX - 68, islandY - 156, time);
+    // 4. Mystical Guardian Owl perched on the ancient tree crown in Dark Mode
+    this.drawGhibliOwl(ctx, islandX + 7, islandY - 295, time);
   }
 
-  // 3.2 MYSTICAL GUARDIAN OWL (Studio Ghibli style cute anime owl on tree branch at night)
+  // 3.2 MYSTICAL GUARDIAN OWL (Studio Ghibli style chubby/plump anime owl perched on top tree crown at night)
   drawGhibliOwl(ctx, ox, oy, time) {
     if (this.darkFactor < 0.05) return; // Only appears in dark mode
 
@@ -1399,107 +1399,119 @@ export class GhibliSeasonsCanvas {
     ctx.globalAlpha = Math.min(1.0, this.darkFactor);
 
     // Subtle gentle breathing / night branch sway
-    const breathe = Math.sin(time * 0.0028) * 0.8;
+    const breathe = Math.sin(time * 0.0028) * 0.9;
     const py = oy + breathe;
 
     // Inquisitive anime head tilt (curious subtle owl head movement)
-    const headTilt = Math.sin(time * 0.0009) * 0.08;
+    const headTilt = Math.sin(time * 0.0009) * 0.09;
 
-    // Contact shadow beneath feet on tree branch
-    ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+    // Natural wood perch / branch nub beneath the owl's feet (ensures solid footing in all seasons)
+    ctx.fillStyle = this.sampleColor('trunkColor');
     ctx.beginPath();
-    ctx.ellipse(ox, py + 2, 11, 4, 0, 0, Math.PI * 2);
+    ctx.ellipse(ox, py + 4, 18, 5, -0.05, 0, Math.PI * 2);
     ctx.fill();
 
-    // 1. Little Golden-Orange Talons gripping the branch
+    // Contact shadow beneath plump body
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.50)';
+    ctx.beginPath();
+    ctx.ellipse(ox, py + 3, 16, 5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 1. Little Golden-Orange Talons (Cute chubby claws gripping the wood crown)
     ctx.fillStyle = '#f59e0b';
     ctx.beginPath();
     // Left claws
-    ctx.arc(ox - 5, py + 2, 2.0, 0, Math.PI * 2);
-    ctx.arc(ox - 3, py + 3, 2.0, 0, Math.PI * 2);
-    ctx.arc(ox - 1, py + 2, 2.0, 0, Math.PI * 2);
+    ctx.arc(ox - 7, py + 3, 2.5, 0, Math.PI * 2);
+    ctx.arc(ox - 4, py + 4, 2.5, 0, Math.PI * 2);
+    ctx.arc(ox - 1, py + 3, 2.5, 0, Math.PI * 2);
     // Right claws
-    ctx.arc(ox + 2, py + 2, 2.0, 0, Math.PI * 2);
-    ctx.arc(ox + 4, py + 3, 2.0, 0, Math.PI * 2);
-    ctx.arc(ox + 6, py + 2, 2.0, 0, Math.PI * 2);
+    ctx.arc(ox + 2, py + 3, 2.5, 0, Math.PI * 2);
+    ctx.arc(ox + 5, py + 4, 2.5, 0, Math.PI * 2);
+    ctx.arc(ox + 8, py + 3, 2.5, 0, Math.PI * 2);
     ctx.fill();
 
-    // 2. Main Plump Feathered Body (Soft warm charcoal-taupe)
-    const bodyGrad = ctx.createLinearGradient(ox - 10, py - 24, ox + 10, py);
+    // 2. Extra Chubby / Plump Feathered Body (Totoro-style spherical ball of fluff)
+    const bodyGrad = ctx.createLinearGradient(ox - 16, py - 28, ox + 16, py);
     bodyGrad.addColorStop(0, '#44403c');
     bodyGrad.addColorStop(0.55, '#292524');
     bodyGrad.addColorStop(1, '#1c1917');
     ctx.fillStyle = bodyGrad;
     ctx.beginPath();
-    ctx.ellipse(ox, py - 11, 10, 13, 0, 0, Math.PI * 2);
+    // Wide and plump body (width 32px, height 31px)
+    ctx.ellipse(ox, py - 13, 16, 15.5, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // 3. Folded Wing Silhouettes on sides
+    // 3. Chubby Folded Wings hugging the fat sides
     ctx.fillStyle = '#1c1917';
-    // Left wing
+    // Left plump wing
     ctx.beginPath();
-    ctx.ellipse(ox - 8, py - 9, 3.5, 9, 0.22, 0, Math.PI * 2);
+    ctx.ellipse(ox - 13, py - 12, 5.0, 12, 0.28, 0, Math.PI * 2);
     ctx.fill();
-    // Right wing
+    // Right plump wing
     ctx.beginPath();
-    ctx.ellipse(ox + 8, py - 9, 3.5, 9, -0.22, 0, Math.PI * 2);
+    ctx.ellipse(ox + 13, py - 12, 5.0, 12, -0.28, 0, Math.PI * 2);
     ctx.fill();
 
-    // Wing feather markings (fine delicate highlights)
-    ctx.strokeStyle = 'rgba(214, 211, 209, 0.25)';
-    ctx.lineWidth = 1;
+    // Delicate wing feather scalloped highlights
+    ctx.strokeStyle = 'rgba(214, 211, 209, 0.28)';
+    ctx.lineWidth = 1.2;
     ctx.beginPath();
-    ctx.arc(ox - 8, py - 8, 3.5, 0.2, Math.PI * 0.8);
-    ctx.arc(ox + 8, py - 8, 3.5, 0.2, Math.PI * 0.8);
+    ctx.arc(ox - 12.5, py - 11, 4.5, 0.2, Math.PI * 0.85);
+    ctx.arc(ox + 12.5, py - 11, 4.5, 0.15, Math.PI * 0.80);
     ctx.stroke();
 
-    // 4. Soft Cream/Beige Breast Feathers (Speckled Ghibli fluff)
+    // 4. Large Soft Cream Chubby Belly (Fat, round, speckled Ghibli tummy)
     ctx.fillStyle = '#f5f5f4';
     ctx.beginPath();
-    ctx.ellipse(ox, py - 8, 6.5, 8.5, 0, 0, Math.PI * 2);
+    ctx.ellipse(ox, py - 10, 11.5, 12, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Cute feather chevrons on chest (Totoro/Ghibli style ^ ^ ^)
+    // Cute feather chevrons on plump chest (Totoro style ^ ^ ^)
     ctx.strokeStyle = '#78716c';
-    ctx.lineWidth = 1.2;
+    ctx.lineWidth = 1.4;
     ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.moveTo(ox - 4, py - 11); ctx.lineTo(ox - 2, py - 13); ctx.lineTo(ox, py - 11);
-    ctx.moveTo(ox + 1, py - 11); ctx.lineTo(ox + 3, py - 13); ctx.lineTo(ox + 5, py - 11);
-    ctx.moveTo(ox - 2, py - 7); ctx.lineTo(ox, py - 9); ctx.lineTo(ox + 2, py - 7);
+    // Top row
+    ctx.moveTo(ox - 6, py - 14); ctx.lineTo(ox - 4, py - 16.5); ctx.lineTo(ox - 2, py - 14);
+    ctx.moveTo(ox + 2, py - 14); ctx.lineTo(ox + 4, py - 16.5); ctx.lineTo(ox + 6, py - 14);
+    // Mid row
+    ctx.moveTo(ox - 4, py - 9.5); ctx.lineTo(ox - 2, py - 12); ctx.lineTo(ox, py - 9.5);
+    ctx.moveTo(ox, py - 9.5); ctx.lineTo(ox + 2, py - 12); ctx.lineTo(ox + 4, py - 9.5);
+    // Bottom row
+    ctx.moveTo(ox - 2, py - 5.5); ctx.lineTo(ox, py - 8); ctx.lineTo(ox + 2, py - 5.5);
     ctx.stroke();
 
-    // 5. Owl Head with Feather Ear Tufts
+    // 5. Chubby Owl Head with Fluffy Cheeks & Feather Ear Tufts
     ctx.save();
-    ctx.translate(ox, py - 20);
+    ctx.translate(ox, py - 25);
     ctx.rotate(headTilt);
 
     // Cute pointed feather "ear" tufts
     ctx.fillStyle = '#44403c';
     ctx.beginPath();
-    // Left tuft
-    ctx.moveTo(-8, -4);
-    ctx.lineTo(-7, -13);
-    ctx.lineTo(-2, -7);
-    // Right tuft
-    ctx.moveTo(2, -7);
-    ctx.lineTo(7, -13);
-    ctx.lineTo(8, -4);
+    // Left ear tuft
+    ctx.moveTo(-11, -4);
+    ctx.lineTo(-11, -16);
+    ctx.lineTo(-4, -9);
+    // Right ear tuft
+    ctx.moveTo(4, -9);
+    ctx.lineTo(11, -16);
+    ctx.lineTo(11, -4);
     ctx.fill();
 
-    // Rounded head
+    // Chubby round head with puffed cheeks
     ctx.beginPath();
-    ctx.ellipse(0, 0, 9.5, 8.5, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, 0, 14.5, 11.5, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Facial Disc (Cream white heart-shaped anime mask)
+    // Facial Disc (Cream white heart-shaped mask)
     ctx.fillStyle = '#fafaf9';
     ctx.beginPath();
-    ctx.ellipse(-3.8, 0, 4.2, 5.2, 0.1, 0, Math.PI * 2);
-    ctx.ellipse(3.8, 0, 4.2, 5.2, -0.1, 0, Math.PI * 2);
+    ctx.ellipse(-5.0, 0, 5.8, 6.8, 0.08, 0, Math.PI * 2);
+    ctx.ellipse(5.0, 0, 5.8, 6.8, -0.08, 0, Math.PI * 2);
     ctx.fill();
 
-    // 6. Big Luminous Anime Owl Eyes
+    // 6. Big Expressive Anime Owl Eyes
     // Periodic natural blinking (Blinks naturally every ~5 seconds)
     const blinkCycle = (time * 0.001) % 6;
     const isBlinking = blinkCycle > 5.75;
@@ -1507,44 +1519,47 @@ export class GhibliSeasonsCanvas {
     if (isBlinking) {
       // Closed happy anime eyes (^ ^)
       ctx.strokeStyle = '#451a03';
-      ctx.lineWidth = 1.6;
+      ctx.lineWidth = 1.8;
       ctx.lineCap = 'round';
       ctx.beginPath();
-      ctx.arc(-3.8, 0, 2.8, 0.2, Math.PI - 0.2);
-      ctx.arc(3.8, 0, 2.8, 0.2, Math.PI - 0.2);
+      ctx.arc(-5.0, 0, 3.6, 0.2, Math.PI - 0.2);
+      ctx.arc(5.0, 0, 3.6, 0.2, Math.PI - 0.2);
       ctx.stroke();
     } else {
       // Glowing Amber Eye Sockets with gentle night glow
       ctx.shadowColor = '#f59e0b';
-      ctx.shadowBlur = 6;
+      ctx.shadowBlur = 8;
       ctx.fillStyle = '#fbbf24';
       ctx.beginPath();
-      ctx.arc(-3.8, 0, 3.4, 0, Math.PI * 2);
-      ctx.arc(3.8, 0, 3.4, 0, Math.PI * 2);
+      ctx.arc(-5.0, 0, 4.4, 0, Math.PI * 2);
+      ctx.arc(5.0, 0, 4.4, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0; // reset
 
       // Deep Black Pupils
       ctx.fillStyle = '#0f172a';
       ctx.beginPath();
-      ctx.arc(-3.8, 0, 2.0, 0, Math.PI * 2);
-      ctx.arc(3.8, 0, 2.0, 0, Math.PI * 2);
+      ctx.arc(-5.0, 0, 2.7, 0, Math.PI * 2);
+      ctx.arc(5.0, 0, 2.7, 0, Math.PI * 2);
       ctx.fill();
 
       // Shiny White Anime Catchlight Sparks
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
-      ctx.arc(-4.6, -0.8, 0.9, 0, Math.PI * 2);
-      ctx.arc(3.0, -0.8, 0.9, 0, Math.PI * 2);
+      ctx.arc(-6.2, -1.2, 1.2, 0, Math.PI * 2);
+      ctx.arc(3.8, -1.2, 1.2, 0, Math.PI * 2);
+      // Secondary tiny twinkle
+      ctx.arc(-4.2, 1.3, 0.6, 0, Math.PI * 2);
+      ctx.arc(5.8, 1.3, 0.6, 0, Math.PI * 2);
       ctx.fill();
     }
 
-    // Cute Little Golden Beak between eyes
+    // Cute Little Golden Beak between chubby cheeks
     ctx.fillStyle = '#d97706';
     ctx.beginPath();
-    ctx.moveTo(-1.2, 0.8);
-    ctx.lineTo(1.2, 0.8);
-    ctx.lineTo(0, 4.2);
+    ctx.moveTo(-1.8, 1.0);
+    ctx.lineTo(1.8, 1.0);
+    ctx.lineTo(0, 5.2);
     ctx.closePath();
     ctx.fill();
 

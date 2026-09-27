@@ -352,8 +352,8 @@ const adaptiveTextDay = [
     navText: '#0f172a',
     shadow: 'none',
     subtleShadow: 'none',
-    cardBg: 'rgba(255, 255, 255, 0.30)',
-    cardBorder: 'rgba(255, 255, 255, 0.45)'
+    cardBg: 'rgba(255, 255, 255, 0.10)',
+    cardBorder: 'rgba(255, 255, 255, 0.25)'
   },
   // 1: Summer (Crisp deep slate with forest emerald accent)
   {
@@ -366,8 +366,8 @@ const adaptiveTextDay = [
     navText: '#0f172a',
     shadow: 'none',
     subtleShadow: 'none',
-    cardBg: 'rgba(255, 255, 255, 0.30)',
-    cardBorder: 'rgba(255, 255, 255, 0.45)'
+    cardBg: 'rgba(255, 255, 255, 0.10)',
+    cardBorder: 'rgba(255, 255, 255, 0.25)'
   },
   // 2: Autumn (Crisp deep slate with warm terracotta accent)
   {
@@ -380,8 +380,8 @@ const adaptiveTextDay = [
     navText: '#0f172a',
     shadow: 'none',
     subtleShadow: 'none',
-    cardBg: 'rgba(255, 255, 255, 0.30)',
-    cardBorder: 'rgba(255, 255, 255, 0.45)'
+    cardBg: 'rgba(255, 255, 255, 0.10)',
+    cardBorder: 'rgba(255, 255, 255, 0.25)'
   },
   // 3: Winter (Crisp deep slate with deep alpine azure accent)
   {
@@ -394,8 +394,8 @@ const adaptiveTextDay = [
     navText: '#0f172a',
     shadow: 'none',
     subtleShadow: 'none',
-    cardBg: 'rgba(255, 255, 255, 0.30)',
-    cardBorder: 'rgba(255, 255, 255, 0.45)'
+    cardBg: 'rgba(255, 255, 255, 0.10)',
+    cardBorder: 'rgba(255, 255, 255, 0.25)'
   }
 ];
 
@@ -411,8 +411,8 @@ const adaptiveTextNight = [
     navText: '#f8fafc',
     shadow: '0 2px 12px rgba(0, 0, 0, 0.85)',
     subtleShadow: '0 1px 6px rgba(0, 0, 0, 0.65)',
-    cardBg: 'rgba(18, 17, 16, 0.35)',
-    cardBorder: 'rgba(255, 255, 255, 0.12)'
+    cardBg: 'rgba(18, 17, 16, 0.15)',
+    cardBorder: 'rgba(255, 255, 255, 0.08)'
   },
   // 1: Summer Night (Pure light slate on obsidian with cyan glow)
   {
@@ -425,8 +425,8 @@ const adaptiveTextNight = [
     navText: '#f8fafc',
     shadow: '0 2px 12px rgba(0, 0, 0, 0.85)',
     subtleShadow: '0 1px 6px rgba(0, 0, 0, 0.65)',
-    cardBg: 'rgba(18, 17, 16, 0.35)',
-    cardBorder: 'rgba(255, 255, 255, 0.12)'
+    cardBg: 'rgba(18, 17, 16, 0.15)',
+    cardBorder: 'rgba(255, 255, 255, 0.08)'
   },
   // 2: Autumn Night (Pure light slate on obsidian with amber glow)
   {
@@ -439,8 +439,8 @@ const adaptiveTextNight = [
     navText: '#f8fafc',
     shadow: '0 2px 12px rgba(0, 0, 0, 0.85)',
     subtleShadow: '0 1px 6px rgba(0, 0, 0, 0.65)',
-    cardBg: 'rgba(18, 17, 16, 0.35)',
-    cardBorder: 'rgba(255, 255, 255, 0.12)'
+    cardBg: 'rgba(18, 17, 16, 0.15)',
+    cardBorder: 'rgba(255, 255, 255, 0.08)'
   },
   // 3: Winter Night (Pure light slate on obsidian with ice cyan glow)
   {
@@ -453,8 +453,8 @@ const adaptiveTextNight = [
     navText: '#f8fafc',
     shadow: '0 2px 12px rgba(0, 0, 0, 0.85)',
     subtleShadow: '0 1px 6px rgba(0, 0, 0, 0.65)',
-    cardBg: 'rgba(18, 17, 16, 0.35)',
-    cardBorder: 'rgba(255, 255, 255, 0.12)'
+    cardBg: 'rgba(18, 17, 16, 0.15)',
+    cardBorder: 'rgba(255, 255, 255, 0.08)'
   }
 ];
 

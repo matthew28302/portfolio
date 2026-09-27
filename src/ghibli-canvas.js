@@ -1031,42 +1031,55 @@ export class GhibliSeasonsCanvas {
   }
 
   // 2. FRAMING ANCIENT FOREST BOUGHS (Overarching organic canopy - ZERO floating balls!)
+  // 2. FRAMING ANCIENT FOREST BOUGH (Slender, delicate branch reaching gracefully from top-left corner)
   drawFramingForest(ctx, W, H, time) {
     const trunkColor = this.sampleColor('trunkColor');
     const foliagePrimary = this.sampleColor('foliagePrimary');
     const foliageSecondary = this.sampleColor('foliageSecondary');
     const foliageHighlight = this.sampleColor('foliageHighlight');
 
-    const windSway = Math.sin(time * 0.0012) * 3;
+    const windSway = Math.sin(time * 0.0012) * 2;
 
     ctx.save();
-    // 1. Organic Ancient Bough growing naturally from top-left corner
-    ctx.fillStyle = trunkColor;
-    ctx.beginPath();
-    ctx.moveTo(-20, -20);
-    // Upper contour of the main branch
-    ctx.bezierCurveTo(W * 0.08, -10, W * 0.15, H * 0.04, W * 0.22, H * 0.10);
-    // Branch tip
-    ctx.lineTo(W * 0.21, H * 0.12);
-    // Lower contour returning to border
-    ctx.bezierCurveTo(W * 0.13, H * 0.12, W * 0.06, H * 0.15, -20, H * 0.36);
-    ctx.closePath();
-    ctx.fill();
+    ctx.strokeStyle = trunkColor;
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
 
-    // Secondary smaller hanging bough fork
+    // 1. Main slender branch reaching out gracefully from corner
+    ctx.lineWidth = 5.5;
     ctx.beginPath();
-    ctx.moveTo(W * 0.11, H * 0.06);
-    ctx.bezierCurveTo(W * 0.12, H * 0.14, W * 0.10, H * 0.19, W * 0.08, H * 0.23);
-    ctx.lineTo(W * 0.07, H * 0.22);
-    ctx.bezierCurveTo(W * 0.09, H * 0.17, W * 0.10, H * 0.11, W * 0.09, H * 0.07);
-    ctx.closePath();
-    ctx.fill();
+    ctx.moveTo(-10, -8);
+    ctx.bezierCurveTo(W * 0.035, H * 0.015, W * 0.08, H * 0.035, W * 0.13, H * 0.065 + windSway * 0.5);
+    ctx.stroke();
 
-    // 2. Naturally Draped Cascading Anime Foliage Sprays along the branch (Scalloped lobes, NO balls!)
-    this.drawAnimeLeafSpray(ctx, W * 0.04, H * 0.03 + windSway * 0.5, 68, foliagePrimary, foliageSecondary, foliageHighlight);
-    this.drawAnimeLeafSpray(ctx, W * 0.12, H * 0.08 + windSway * 0.7, 52, foliagePrimary, foliageSecondary, foliageHighlight);
-    this.drawAnimeLeafSpray(ctx, W * 0.08, H * 0.22 + windSway, 42, foliagePrimary, foliageSecondary, foliageHighlight);
-    this.drawAnimeLeafSpray(ctx, W * 0.19, H * 0.11 + windSway * 0.8, 38, foliagePrimary, foliageSecondary, foliageHighlight);
+    // Delicate tapering tip
+    ctx.lineWidth = 2.8;
+    ctx.beginPath();
+    ctx.moveTo(W * 0.13, H * 0.065 + windSway * 0.5);
+    ctx.bezierCurveTo(W * 0.155, H * 0.075, W * 0.175, H * 0.085, W * 0.19, H * 0.09 + windSway * 0.7);
+    ctx.stroke();
+
+    // Small sub-twig 1 (drooping gently down)
+    ctx.lineWidth = 2.4;
+    ctx.beginPath();
+    ctx.moveTo(W * 0.065, H * 0.028);
+    ctx.bezierCurveTo(W * 0.072, H * 0.055, W * 0.068, H * 0.085, W * 0.062, H * 0.11 + windSway * 0.4);
+    ctx.stroke();
+
+    // Small sub-twig 2 (reaching forward)
+    ctx.lineWidth = 2.0;
+    ctx.beginPath();
+    ctx.moveTo(W * 0.105, H * 0.05);
+    ctx.bezierCurveTo(W * 0.12, H * 0.07, W * 0.13, H * 0.095, W * 0.14, H * 0.11 + windSway * 0.6);
+    ctx.stroke();
+
+    // 2. Delicate, small anime blossom clusters along the slender branch (petite & poetic)
+    this.drawAnimeLeafSpray(ctx, W * 0.03, H * 0.015 + windSway * 0.3, 24, foliagePrimary, foliageSecondary, foliageHighlight);
+    this.drawAnimeLeafSpray(ctx, W * 0.07, H * 0.035 + windSway * 0.5, 22, foliagePrimary, foliageSecondary, foliageHighlight);
+    this.drawAnimeLeafSpray(ctx, W * 0.062, H * 0.11 + windSway * 0.4, 18, foliagePrimary, foliageSecondary, foliageHighlight);
+    this.drawAnimeLeafSpray(ctx, W * 0.125, H * 0.062 + windSway * 0.6, 20, foliagePrimary, foliageSecondary, foliageHighlight);
+    this.drawAnimeLeafSpray(ctx, W * 0.14, H * 0.11 + windSway * 0.6, 17, foliagePrimary, foliageSecondary, foliageHighlight);
+    this.drawAnimeLeafSpray(ctx, W * 0.185, H * 0.09 + windSway * 0.7, 16, foliagePrimary, foliageSecondary, foliageHighlight);
 
     ctx.restore();
   }
@@ -1136,12 +1149,12 @@ export class GhibliSeasonsCanvas {
     // Giant Trunk reflection
     ctx.fillStyle = trunkReflect;
     ctx.beginPath();
-    ctx.ellipse(lakeCenterX + waveShimmer * 0.5, lakeCenterY + 32, 28, 38, 0, 0, Math.PI * 2);
+    ctx.ellipse(lakeCenterX + waveShimmer * 0.5, lakeCenterY + 28, 24, 28, 0, 0, Math.PI * 2);
     ctx.fill();
-    // Giant Canopy reflection
+    // Spreading Canopy reflection
     ctx.fillStyle = foliageReflect;
     ctx.beginPath();
-    ctx.ellipse(lakeCenterX + waveShimmer, lakeCenterY + 46, 95, 30, 0, 0, Math.PI * 2);
+    ctx.ellipse(lakeCenterX + waveShimmer, lakeCenterY + 42, 110, 24, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // Water Surface Concentric Ripples
@@ -1231,45 +1244,45 @@ export class GhibliSeasonsCanvas {
       ctx.fill();
     });
 
-    // 2. Massive Ancient Gnarled Sacred Tree Trunk & Deep Root Flares (3x SCALE)
+    // 2. Ancient Sacred Tree Trunk with Wide Spreading Horizontal Boughs (Lower & Grander Spread)
     ctx.fillStyle = trunkColor;
     ctx.beginPath();
     // Massive root spreading into the left earth
-    ctx.moveTo(islandX - 68, islandY + 18);
-    ctx.bezierCurveTo(islandX - 52, islandY + 6, islandX - 44, islandY - 25, islandX - 36, islandY - 75);
-    // Left giant bough reaching out wide
-    ctx.bezierCurveTo(islandX - 55, islandY - 145, islandX - 80, islandY - 210, islandX - 110, islandY - 265);
-    ctx.lineTo(islandX - 86, islandY - 260);
-    ctx.bezierCurveTo(islandX - 58, islandY - 200, islandX - 28, islandY - 160, islandX - 16, islandY - 135);
-    // Towering central crown trunk climbing high into the sky
-    ctx.bezierCurveTo(islandX - 12, islandY - 200, islandX - 6, islandY - 270, islandX + 2, islandY - 335);
-    ctx.lineTo(islandX + 18, islandY - 330);
-    ctx.bezierCurveTo(islandX + 14, islandY - 250, islandX + 18, islandY - 175, islandX + 28, islandY - 135);
-    // Right giant bough reaching out wide
-    ctx.bezierCurveTo(islandX + 55, islandY - 165, islandX + 85, islandY - 215, islandX + 118, islandY - 275);
-    ctx.lineTo(islandX + 96, islandY - 265);
-    ctx.bezierCurveTo(islandX + 68, islandY - 205, islandX + 44, islandY - 140, islandX + 36, islandY - 70);
+    ctx.moveTo(islandX - 58, islandY + 18);
+    ctx.bezierCurveTo(islandX - 45, islandY + 6, islandX - 36, islandY - 20, islandX - 28, islandY - 60);
+    // Left giant bough reaching out wide and low
+    ctx.bezierCurveTo(islandX - 42, islandY - 95, islandX - 70, islandY - 122, islandX - 108, islandY - 145);
+    ctx.lineTo(islandX - 94, islandY - 150);
+    ctx.bezierCurveTo(islandX - 62, islandY - 122, islandX - 36, islandY - 100, islandX - 20, islandY - 85);
+    // Center crown trunk climbing to graceful lower height (under navbar)
+    ctx.bezierCurveTo(islandX - 16, islandY - 125, islandX - 8, islandY - 155, islandX - 2, islandY - 185);
+    ctx.lineTo(islandX + 14, islandY - 182);
+    ctx.bezierCurveTo(islandX + 12, islandY - 152, islandX + 14, islandY - 118, islandX + 20, islandY - 85);
+    // Right giant bough reaching out wide and low
+    ctx.bezierCurveTo(islandX + 38, islandY - 100, islandX + 68, islandY - 118, islandX + 112, islandY - 140);
+    ctx.lineTo(islandX + 100, islandY - 148);
+    ctx.bezierCurveTo(islandX + 68, islandY - 118, islandX + 42, islandY - 95, islandX + 30, islandY - 55);
     // Massive root spreading into the right earth
-    ctx.bezierCurveTo(islandX + 44, islandY - 25, islandX + 56, islandY + 8, islandX + 70, islandY + 18);
+    ctx.bezierCurveTo(islandX + 38, islandY - 20, islandX + 48, islandY + 6, islandX + 60, islandY + 18);
     ctx.closePath();
     ctx.fill();
 
-    // Trunk Bark Striations, Growth Rings & Ancient Knots
-    ctx.strokeStyle = 'rgba(0, 0, 0, 0.40)';
-    ctx.lineWidth = 2.4;
+    // Trunk Bark Striations & Ancient Knots
+    ctx.strokeStyle = 'rgba(0, 0, 0, 0.38)';
+    ctx.lineWidth = 2.0;
     ctx.beginPath();
-    // Left ridge lines
-    ctx.moveTo(islandX - 20, islandY + 12);
-    ctx.bezierCurveTo(islandX - 25, islandY - 45, islandX - 14, islandY - 110, islandX - 35, islandY - 190);
+    // Left ridge lines spreading into left branch
+    ctx.moveTo(islandX - 16, islandY + 12);
+    ctx.bezierCurveTo(islandX - 20, islandY - 35, islandX - 32, islandY - 75, islandX - 75, islandY - 118);
     // Center ridge lines
     ctx.moveTo(islandX + 2, islandY + 14);
-    ctx.bezierCurveTo(islandX + 4, islandY - 50, islandX + 8, islandY - 130, islandX + 6, islandY - 240);
-    // Right ridge lines
-    ctx.moveTo(islandX + 24, islandY + 12);
-    ctx.bezierCurveTo(islandX + 28, islandY - 40, islandX + 35, islandY - 105, islandX + 55, islandY - 180);
+    ctx.bezierCurveTo(islandX + 3, islandY - 40, islandX + 4, islandY - 95, islandX + 4, islandY - 150);
+    // Right ridge lines spreading into right branch
+    ctx.moveTo(islandX + 18, islandY + 12);
+    ctx.bezierCurveTo(islandX + 22, islandY - 35, islandX + 34, islandY - 75, islandX + 75, islandY - 115);
     ctx.stroke();
 
-    // 3. Multi-Layered Painterly Anime Foliage Canopy (3x GRAND VOLUMES)
+    // 3. Multi-Layered Painterly Anime Foliage Canopy (Lower Height & Wide Spreading Bonsai/Sakura Crown)
     const isWinter = this.seasonProgress > 2.4;
     const winterFactor = Math.max(0, Math.min(1, (this.seasonProgress - 2.4) / 0.6));
 
@@ -1280,18 +1293,28 @@ export class GhibliSeasonsCanvas {
 
       const treeWind = Math.sin(time * 0.0015) * 3.5;
 
-      // Grand Billowing Canopy Sprays (3x Massive Scale)
-      this.drawAnimeLeafSpray(ctx, islandX - 95, islandY - 255 + treeWind * 0.8, 125, foliagePrimary, foliageSecondary, foliageHighlight);
-      this.drawAnimeLeafSpray(ctx, islandX + 105, islandY - 250 - treeWind * 0.8, 120, foliagePrimary, foliageSecondary, foliageHighlight);
-      this.drawAnimeLeafSpray(ctx, islandX, islandY - 335 + treeWind, 145, foliageHighlight, foliagePrimary, foliageSecondary);
-      this.drawAnimeLeafSpray(ctx, islandX - 45, islandY - 190 + treeWind * 0.5, 105, foliagePrimary, foliageSecondary, foliageHighlight);
-      this.drawAnimeLeafSpray(ctx, islandX + 55, islandY - 180 - treeWind * 0.5, 100, foliageHighlight, foliageSecondary, foliagePrimary);
-      this.drawAnimeLeafSpray(ctx, islandX, islandY - 240, 115, foliageSecondary, foliagePrimary, foliageHighlight);
+      // Wide Spreading Canopy Sprays (Horizontally expansive, lowered beneath navbar)
+      // Far Left Flank
+      this.drawAnimeLeafSpray(ctx, islandX - 140, islandY - 138 + treeWind * 0.6, 78, foliagePrimary, foliageSecondary, foliageHighlight);
+      // Mid Left Bough
+      this.drawAnimeLeafSpray(ctx, islandX - 95, islandY - 165 + treeWind * 0.8, 88, foliageSecondary, foliagePrimary, foliageHighlight);
+      // Left Center
+      this.drawAnimeLeafSpray(ctx, islandX - 45, islandY - 185 + treeWind * 0.9, 94, foliagePrimary, foliageSecondary, foliageHighlight);
+      // Top Center Crown (Comfortably lowered below navbar)
+      this.drawAnimeLeafSpray(ctx, islandX + 5, islandY - 200 + treeWind, 96, foliageHighlight, foliagePrimary, foliageSecondary);
+      // Right Center
+      this.drawAnimeLeafSpray(ctx, islandX + 55, islandY - 185 - treeWind * 0.8, 92, foliagePrimary, foliageSecondary, foliageHighlight);
+      // Mid Right Bough
+      this.drawAnimeLeafSpray(ctx, islandX + 105, islandY - 160 - treeWind * 0.7, 86, foliageSecondary, foliagePrimary, foliageHighlight);
+      // Far Right Flank
+      this.drawAnimeLeafSpray(ctx, islandX + 145, islandY - 135 - treeWind * 0.5, 76, foliagePrimary, foliageSecondary, foliageHighlight);
+      // Under-Canopy Depth Core
+      this.drawAnimeLeafSpray(ctx, islandX, islandY - 148, 85, foliageSecondary, foliagePrimary, foliageHighlight);
 
       ctx.restore();
     }
 
-    // Winter Soft Frost & Snow Dusting along Branch Ridges (Natural painterly strokes for 3x limbs)
+    // Winter Soft Frost & Snow Dusting along Branch Ridges (Matched to wide spreading limbs)
     if (this.seasonProgress > 2.1) {
       const snowAlpha = Math.min(1, (this.seasonProgress - 2.1) / 0.9);
       ctx.save();
@@ -1300,25 +1323,25 @@ export class GhibliSeasonsCanvas {
       ctx.lineCap = 'round';
       ctx.lineJoin = 'round';
 
-      // Left giant bough snow crest
-      ctx.lineWidth = 4.2;
+      // Left spreading bough snow crest
+      ctx.lineWidth = 3.8;
       ctx.beginPath();
-      ctx.moveTo(islandX - 38, islandY - 80);
-      ctx.bezierCurveTo(islandX - 55, islandY - 145, islandX - 78, islandY - 210, islandX - 106, islandY - 262);
+      ctx.moveTo(islandX - 25, islandY - 60);
+      ctx.bezierCurveTo(islandX - 40, islandY - 95, islandX - 68, islandY - 120, islandX - 105, islandY - 142);
       ctx.stroke();
 
-      // Right giant bough snow crest
-      ctx.lineWidth = 4.0;
-      ctx.beginPath();
-      ctx.moveTo(islandX + 35, islandY - 75);
-      ctx.bezierCurveTo(islandX + 55, islandY - 160, islandX + 82, islandY - 210, islandX + 114, islandY - 270);
-      ctx.stroke();
-
-      // Center towering crown snow crest
+      // Right spreading bough snow crest
       ctx.lineWidth = 3.6;
       ctx.beginPath();
-      ctx.moveTo(islandX - 10, islandY - 145);
-      ctx.bezierCurveTo(islandX - 8, islandY - 205, islandX - 4, islandY - 270, islandX + 8, islandY - 330);
+      ctx.moveTo(islandX + 25, islandY - 55);
+      ctx.bezierCurveTo(islandX + 42, islandY - 95, islandX + 68, islandY - 116, islandX + 108, islandY - 138);
+      ctx.stroke();
+
+      // Center crown snow crest
+      ctx.lineWidth = 3.2;
+      ctx.beginPath();
+      ctx.moveTo(islandX - 6, islandY - 105);
+      ctx.bezierCurveTo(islandX - 4, islandY - 135, islandX + 2, islandY - 160, islandX + 6, islandY - 182);
       ctx.stroke();
 
       // Fresh snow blanket resting naturally across the island moss & roots

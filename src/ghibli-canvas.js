@@ -816,31 +816,36 @@ export class GhibliSeasonsCanvas {
     fujiGrad.addColorStop(0.65, mountainNear);
     fujiGrad.addColorStop(1, skyBottom);
 
+    // Exact reusable geometric silhouette of Mount Fuji
+    const buildFujiPath = () => {
+      ctx.beginPath();
+      ctx.moveTo(fujiBaseL, fujiBaseY);
+      // Sweeping concave flared volcanic left slope (classic Fuji stratovolcano geometry)
+      ctx.bezierCurveTo(
+        fx - W * 0.16, fujiBaseY - H * 0.04,
+        fx - W * 0.08, fy + H * 0.12,
+        fx - craterHalfW, fy
+      );
+      // Summit caldera rim (gently scalloped volcanic crater)
+      ctx.bezierCurveTo(
+        fx - craterHalfW * 0.3, fy + 3,
+        fx + craterHalfW * 0.3, fy + 3,
+        fx + craterHalfW, fy
+      );
+      // Sweeping concave flared volcanic right slope
+      ctx.bezierCurveTo(
+        fx + W * 0.08, fy + H * 0.12,
+        fx + W * 0.16, fujiBaseY - H * 0.04,
+        fujiBaseR, fujiBaseY
+      );
+      ctx.lineTo(fujiBaseR, H);
+      ctx.lineTo(fujiBaseL, H);
+      ctx.closePath();
+    };
+
     ctx.save();
+    buildFujiPath();
     ctx.fillStyle = fujiGrad;
-    ctx.beginPath();
-    ctx.moveTo(fujiBaseL, fujiBaseY);
-    // Sweeping concave flared volcanic left slope (classic Fuji stratovolcano geometry)
-    ctx.bezierCurveTo(
-      fx - W * 0.16, fujiBaseY - H * 0.04,
-      fx - W * 0.08, fy + H * 0.12,
-      fx - craterHalfW, fy
-    );
-    // Summit caldera rim (gently scalloped volcanic crater)
-    ctx.bezierCurveTo(
-      fx - craterHalfW * 0.3, fy + 3,
-      fx + craterHalfW * 0.3, fy + 3,
-      fx + craterHalfW, fy
-    );
-    // Sweeping concave flared volcanic right slope
-    ctx.bezierCurveTo(
-      fx + W * 0.08, fy + H * 0.12,
-      fx + W * 0.16, fujiBaseY - H * 0.04,
-      fujiBaseR, fujiBaseY
-    );
-    ctx.lineTo(fujiBaseR, H);
-    ctx.lineTo(fujiBaseL, H);
-    ctx.closePath();
     ctx.fill();
 
     // Subtle right-face shade on Mount Fuji (giving 3D atmospheric volume)
@@ -862,40 +867,35 @@ export class GhibliSeasonsCanvas {
     ctx.closePath();
     ctx.fill();
 
+    // Clip ALL overlays (snow cap, tongues, and shadows) strictly to Fuji's exact mountain slopes
+    buildFujiPath();
+    ctx.clip();
+
     // -------------------------------------------------------------
     // Mount Fuji Iconic Snow Cap (Tuyết phủ đỉnh núi Phú Sĩ)
     // Especially prominent in Winter with natural snow tongues down the ravines
+    // Clamped 100% flush with the mountain edges via clipping!
     // -------------------------------------------------------------
     if (fujiSnowFactor > 0.03) {
       const snowHeightFactor = 0.18 + fujiSnowFactor * 0.22; // Covers upper 20% to 40% of Fuji
       const snowBottomY = fy + (fujiBaseY - fy) * snowHeightFactor;
-      
-      // Calculate boundary widths at snowBottomY along the concave slopes
-      const snowHalfW = craterHalfW + (W * 0.09) * (snowHeightFactor / 0.40);
+      const snowSpanW = W * 0.16; // Wide enough to guarantee full coverage across flanks before clip
 
       // Create snow cap path with authentic scalloped snow tongues (Hokusai & Ghibli aesthetic)
       ctx.beginPath();
-      // Start at left summit crater rim
-      ctx.moveTo(fx - craterHalfW, fy);
-      // Summit crater
-      ctx.bezierCurveTo(
-        fx - craterHalfW * 0.3, fy + 3,
-        fx + craterHalfW * 0.3, fy + 3,
-        fx + craterHalfW, fy
-      );
-      // Down right flank to snow line
-      ctx.bezierCurveTo(
-        fx + craterHalfW + (snowHalfW - craterHalfW) * 0.45, fy + (snowBottomY - fy) * 0.50,
-        fx + craterHalfW + (snowHalfW - craterHalfW) * 0.85, fy + (snowBottomY - fy) * 0.85,
-        fx + snowHalfW, snowBottomY
-      );
+      // Start beyond left flank above summit
+      ctx.moveTo(fx - snowSpanW, fy - 15);
+      // Top boundary
+      ctx.lineTo(fx + snowSpanW, fy - 15);
+      // Down right side past mountain flank
+      ctx.lineTo(fx + snowSpanW, snowBottomY);
 
       // Scalloped / serrated bottom snow line with descending tongues along volcanic chutes
-      const numTongues = 8;
-      const tongueWidth = (snowHalfW * 2) / numTongues;
+      const numTongues = 9;
+      const tongueWidth = (snowSpanW * 2) / numTongues;
       for (let i = numTongues; i >= 1; i--) {
-        const segRightX = fx - snowHalfW + i * tongueWidth;
-        const segLeftX = fx - snowHalfW + (i - 1) * tongueWidth;
+        const segRightX = fx - snowSpanW + i * tongueWidth;
+        const segLeftX = fx - snowSpanW + (i - 1) * tongueWidth;
         const midX = (segRightX + segLeftX) / 2;
         // Natural tongue protrusion
         const tongueDrop = ((i * 37) % 11) * 2.2 * fujiSnowFactor;
@@ -903,12 +903,7 @@ export class GhibliSeasonsCanvas {
         ctx.quadraticCurveTo(midX, controlY, segLeftX, snowBottomY - (i % 2 === 0 ? 3 : 0));
       }
 
-      // Up left flank back to summit
-      ctx.bezierCurveTo(
-        fx - craterHalfW - (snowHalfW - craterHalfW) * 0.85, fy + (snowBottomY - fy) * 0.85,
-        fx - craterHalfW - (snowHalfW - craterHalfW) * 0.45, fy + (snowBottomY - fy) * 0.50,
-        fx - craterHalfW, fy
-      );
+      ctx.lineTo(fx - snowSpanW, fy - 15);
       ctx.closePath();
 
       // Sunlit Snow Cap Base
@@ -925,18 +920,15 @@ export class GhibliSeasonsCanvas {
       ctx.fillStyle = snowGrad;
       ctx.fill();
 
-      // Right shadow facet on the snow cap
-      ctx.save();
-      ctx.clip(); // clip to the snow cap
+      // Right shadow facet on the snow cap (also naturally constrained by the Fuji clip)
       ctx.beginPath();
-      ctx.moveTo(fx, fy);
-      ctx.lineTo(fx + W * 0.04, snowBottomY + 15);
-      ctx.lineTo(fx + snowHalfW + 10, snowBottomY + 15);
-      ctx.lineTo(fx + snowHalfW + 10, fy);
+      ctx.moveTo(fx, fy - 15);
+      ctx.lineTo(fx + W * 0.04, snowBottomY + 30);
+      ctx.lineTo(fx + snowSpanW + 20, snowBottomY + 30);
+      ctx.lineTo(fx + snowSpanW + 20, fy - 15);
       ctx.closePath();
       ctx.fillStyle = isNight ? 'rgba(30, 41, 59, 0.45)' : 'rgba(186, 210, 238, 0.55)';
       ctx.fill();
-      ctx.restore();
     }
     ctx.restore();
 

@@ -655,6 +655,8 @@ function initGhibliControls(ghibliInstance) {
 
     if (animal === 'deer') {
       toast.innerHTML = `<span class="text-amber-400 text-sm">🦌</span><span>The sacred deer perks its ears and greets you!</span>`;
+    } else if (animal === 'owl') {
+      toast.innerHTML = `<span class="text-amber-300 text-sm">🦉</span><span>The guardian owl hoots gently and blinks its luminous eyes!</span>`;
     } else {
       toast.innerHTML = `<span class="text-pink-400 text-sm">🐇</span><span>The woodland bunny happily hops in the clover!</span>`;
     }

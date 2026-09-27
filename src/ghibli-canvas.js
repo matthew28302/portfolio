@@ -525,11 +525,18 @@ export class GhibliSeasonsCanvas {
         
         const distDeer = Math.hypot(x - deerX, y - deerY);
         const distRab = Math.hypot(x - rabX, y - rabY);
+        const islandX = W * 0.18;
+        const islandY = H * 0.64;
+        const owlX = islandX - 68;
+        const owlY = islandY - 156;
+        const distOwl = Math.hypot(x - owlX, y - owlY);
         
         if (distDeer < 65) {
           window.dispatchEvent(new CustomEvent('ghibliAnimalClick', { detail: { animal: 'deer' } }));
         } else if (distRab < 55) {
           window.dispatchEvent(new CustomEvent('ghibliAnimalClick', { detail: { animal: 'rabbit' } }));
+        } else if (this.darkFactor > 0.4 && distOwl < 45) {
+          window.dispatchEvent(new CustomEvent('ghibliAnimalClick', { detail: { animal: 'owl' } }));
         }
       });
     }
@@ -648,32 +655,50 @@ export class GhibliSeasonsCanvas {
       ctx.fill();
     });
 
-    // Glowing Moon (over the mountains on the left/mid-left)
+    // Natural Serene Glowing Moon (Studio Ghibli style)
     const moonX = W * 0.24;
     const moonY = H * 0.18;
     const moonRadius = 24;
 
-    // Outer moon glow
-    const moonGlow = ctx.createRadialGradient(moonX, moonY, moonRadius * 0.5, moonX, moonY, moonRadius * 3.5);
-    moonGlow.addColorStop(0, 'rgba(254, 243, 199, 0.45)');
-    moonGlow.addColorStop(0.5, 'rgba(254, 243, 199, 0.12)');
+    // Outer moon glow (Soft, radiant atmospheric moonlight without harsh cutouts)
+    const moonGlow = ctx.createRadialGradient(moonX, moonY, moonRadius * 0.6, moonX, moonY, moonRadius * 3.2);
+    moonGlow.addColorStop(0, 'rgba(254, 243, 199, 0.35)');
+    moonGlow.addColorStop(0.35, 'rgba(254, 243, 199, 0.12)');
+    moonGlow.addColorStop(0.70, 'rgba(254, 243, 199, 0.03)');
     moonGlow.addColorStop(1, 'rgba(254, 243, 199, 0)');
     ctx.fillStyle = moonGlow;
     ctx.beginPath();
-    ctx.arc(moonX, moonY, moonRadius * 3.5, 0, Math.PI * 2);
+    ctx.arc(moonX, moonY, moonRadius * 3.2, 0, Math.PI * 2);
     ctx.fill();
 
-    // Crescent Moon body
-    ctx.fillStyle = '#fef3c7';
+    // Natural Luminous Moon Disc (Soft warm ivory gradient)
+    const moonGrad = ctx.createRadialGradient(
+      moonX - moonRadius * 0.25, moonY - moonRadius * 0.25, moonRadius * 0.1,
+      moonX, moonY, moonRadius
+    );
+    moonGrad.addColorStop(0, '#fffef5');
+    moonGrad.addColorStop(0.7, '#fef3c7');
+    moonGrad.addColorStop(1, '#fde68a');
+    ctx.fillStyle = moonGrad;
     ctx.beginPath();
     ctx.arc(moonX, moonY, moonRadius, 0, Math.PI * 2);
     ctx.fill();
 
-    // Shadow cutout for crescent
-    ctx.fillStyle = this.sampleColor('skyTop');
+    // Delicate artistic lunar maria / crater markings (Gentle Ghibli anime style)
+    ctx.fillStyle = 'rgba(180, 160, 130, 0.14)';
     ctx.beginPath();
-    ctx.arc(moonX + 9, moonY - 5, moonRadius * 0.95, 0, Math.PI * 2);
+    ctx.ellipse(moonX - 6, moonY - 5, 6.5, 4.5, 0.2, 0, Math.PI * 2);
+    ctx.ellipse(moonX + 7, moonY - 2, 5.5, 7.0, -0.3, 0, Math.PI * 2);
+    ctx.ellipse(moonX - 3, moonY + 7, 7.0, 4.0, 0.1, 0, Math.PI * 2);
+    ctx.ellipse(moonX + 6, moonY + 8, 4.5, 3.5, 0.4, 0, Math.PI * 2);
     ctx.fill();
+
+    // Crisp subtle silver-gold rim highlight
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.55)';
+    ctx.lineWidth = 1.0;
+    ctx.beginPath();
+    ctx.arc(moonX, moonY, moonRadius - 0.5, 0, Math.PI * 2);
+    ctx.stroke();
 
     ctx.restore();
   }
@@ -1361,6 +1386,170 @@ export class GhibliSeasonsCanvas {
 
       ctx.restore();
     }
+
+    // 4. Mystical Guardian Owl perched on the ancient tree bough in Dark Mode
+    this.drawGhibliOwl(ctx, islandX - 68, islandY - 156, time);
+  }
+
+  // 3.2 MYSTICAL GUARDIAN OWL (Studio Ghibli style cute anime owl on tree branch at night)
+  drawGhibliOwl(ctx, ox, oy, time) {
+    if (this.darkFactor < 0.05) return; // Only appears in dark mode
+
+    ctx.save();
+    ctx.globalAlpha = Math.min(1.0, this.darkFactor);
+
+    // Subtle gentle breathing / night branch sway
+    const breathe = Math.sin(time * 0.0028) * 0.8;
+    const py = oy + breathe;
+
+    // Inquisitive anime head tilt (curious subtle owl head movement)
+    const headTilt = Math.sin(time * 0.0009) * 0.08;
+
+    // Contact shadow beneath feet on tree branch
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+    ctx.beginPath();
+    ctx.ellipse(ox, py + 2, 11, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 1. Little Golden-Orange Talons gripping the branch
+    ctx.fillStyle = '#f59e0b';
+    ctx.beginPath();
+    // Left claws
+    ctx.arc(ox - 5, py + 2, 2.0, 0, Math.PI * 2);
+    ctx.arc(ox - 3, py + 3, 2.0, 0, Math.PI * 2);
+    ctx.arc(ox - 1, py + 2, 2.0, 0, Math.PI * 2);
+    // Right claws
+    ctx.arc(ox + 2, py + 2, 2.0, 0, Math.PI * 2);
+    ctx.arc(ox + 4, py + 3, 2.0, 0, Math.PI * 2);
+    ctx.arc(ox + 6, py + 2, 2.0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 2. Main Plump Feathered Body (Soft warm charcoal-taupe)
+    const bodyGrad = ctx.createLinearGradient(ox - 10, py - 24, ox + 10, py);
+    bodyGrad.addColorStop(0, '#44403c');
+    bodyGrad.addColorStop(0.55, '#292524');
+    bodyGrad.addColorStop(1, '#1c1917');
+    ctx.fillStyle = bodyGrad;
+    ctx.beginPath();
+    ctx.ellipse(ox, py - 11, 10, 13, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 3. Folded Wing Silhouettes on sides
+    ctx.fillStyle = '#1c1917';
+    // Left wing
+    ctx.beginPath();
+    ctx.ellipse(ox - 8, py - 9, 3.5, 9, 0.22, 0, Math.PI * 2);
+    ctx.fill();
+    // Right wing
+    ctx.beginPath();
+    ctx.ellipse(ox + 8, py - 9, 3.5, 9, -0.22, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Wing feather markings (fine delicate highlights)
+    ctx.strokeStyle = 'rgba(214, 211, 209, 0.25)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.arc(ox - 8, py - 8, 3.5, 0.2, Math.PI * 0.8);
+    ctx.arc(ox + 8, py - 8, 3.5, 0.2, Math.PI * 0.8);
+    ctx.stroke();
+
+    // 4. Soft Cream/Beige Breast Feathers (Speckled Ghibli fluff)
+    ctx.fillStyle = '#f5f5f4';
+    ctx.beginPath();
+    ctx.ellipse(ox, py - 8, 6.5, 8.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cute feather chevrons on chest (Totoro/Ghibli style ^ ^ ^)
+    ctx.strokeStyle = '#78716c';
+    ctx.lineWidth = 1.2;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.moveTo(ox - 4, py - 11); ctx.lineTo(ox - 2, py - 13); ctx.lineTo(ox, py - 11);
+    ctx.moveTo(ox + 1, py - 11); ctx.lineTo(ox + 3, py - 13); ctx.lineTo(ox + 5, py - 11);
+    ctx.moveTo(ox - 2, py - 7); ctx.lineTo(ox, py - 9); ctx.lineTo(ox + 2, py - 7);
+    ctx.stroke();
+
+    // 5. Owl Head with Feather Ear Tufts
+    ctx.save();
+    ctx.translate(ox, py - 20);
+    ctx.rotate(headTilt);
+
+    // Cute pointed feather "ear" tufts
+    ctx.fillStyle = '#44403c';
+    ctx.beginPath();
+    // Left tuft
+    ctx.moveTo(-8, -4);
+    ctx.lineTo(-7, -13);
+    ctx.lineTo(-2, -7);
+    // Right tuft
+    ctx.moveTo(2, -7);
+    ctx.lineTo(7, -13);
+    ctx.lineTo(8, -4);
+    ctx.fill();
+
+    // Rounded head
+    ctx.beginPath();
+    ctx.ellipse(0, 0, 9.5, 8.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Facial Disc (Cream white heart-shaped anime mask)
+    ctx.fillStyle = '#fafaf9';
+    ctx.beginPath();
+    ctx.ellipse(-3.8, 0, 4.2, 5.2, 0.1, 0, Math.PI * 2);
+    ctx.ellipse(3.8, 0, 4.2, 5.2, -0.1, 0, Math.PI * 2);
+    ctx.fill();
+
+    // 6. Big Luminous Anime Owl Eyes
+    // Periodic natural blinking (Blinks naturally every ~5 seconds)
+    const blinkCycle = (time * 0.001) % 6;
+    const isBlinking = blinkCycle > 5.75;
+
+    if (isBlinking) {
+      // Closed happy anime eyes (^ ^)
+      ctx.strokeStyle = '#451a03';
+      ctx.lineWidth = 1.6;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.arc(-3.8, 0, 2.8, 0.2, Math.PI - 0.2);
+      ctx.arc(3.8, 0, 2.8, 0.2, Math.PI - 0.2);
+      ctx.stroke();
+    } else {
+      // Glowing Amber Eye Sockets with gentle night glow
+      ctx.shadowColor = '#f59e0b';
+      ctx.shadowBlur = 6;
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(-3.8, 0, 3.4, 0, Math.PI * 2);
+      ctx.arc(3.8, 0, 3.4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0; // reset
+
+      // Deep Black Pupils
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(-3.8, 0, 2.0, 0, Math.PI * 2);
+      ctx.arc(3.8, 0, 2.0, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Shiny White Anime Catchlight Sparks
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(-4.6, -0.8, 0.9, 0, Math.PI * 2);
+      ctx.arc(3.0, -0.8, 0.9, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Cute Little Golden Beak between eyes
+    ctx.fillStyle = '#d97706';
+    ctx.beginPath();
+    ctx.moveTo(-1.2, 0.8);
+    ctx.lineTo(1.2, 0.8);
+    ctx.lineTo(0, 4.2);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.restore(); // restore head tilt
+    ctx.restore(); // restore main save
   }
 
   // 4. FOREGROUND SHORELINE MEADOW WITH WILDFLOWERS

@@ -1,81 +1,316 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-season="spring">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Project Details | Nguyen Vu Xuan Mai</title>
+    <title>Case Study Details — Nguyen Vu Xuan Mai</title>
+    <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="/src/index.css">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+    <script>
+      // Immediate Anti-Inspection & Asset Protection Guard
+      (function() {
+        window.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; }, { capture: true });
+        window.addEventListener('keydown', function(e) {
+          var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+          var ctrl = isMac ? e.metaKey : e.ctrlKey;
+          var k = (e.key || '').toLowerCase();
+          if (e.key === 'F12' || e.keyCode === 123 ||
+              (ctrl && (e.shiftKey || e.altKey) && (k === 'i' || k === 'j' || k === 'c')) ||
+              (ctrl && (k === 'u' || k === 's' || k === 'p'))) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        }, { capture: true });
+        document.addEventListener('dragstart', function(e) {
+          if (e.target && (e.target.nodeName === 'IMG' || e.target.nodeName === 'CANVAS')) {
+            e.preventDefault();
+            return false;
+          }
+        }, { capture: true });
+      })();
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
   </head>
-  <body class="bg-[#fdfdfb] text-zinc-900 antialiased">
-    <nav class="fixed top-0 left-0 right-0 z-50 px-6 py-6">
-      <div class="max-w-7xl mx-auto flex items-center justify-between px-6 py-3 rounded-full bg-white/95 backdrop-blur-lg border border-zinc-200 shadow-sm">
-        <a href="/" class="flex items-center gap-2 group">
-          <div class="w-10 h-10 bg-brand-500 rounded-2xl flex items-center justify-center text-white font-bold shadow-lg shadow-brand-500/20 group-hover:rotate-12 transition-transform">
-            <i data-lucide="arrow-left" class="w-6 h-6"></i>
+  <body class="overflow-x-hidden relative min-h-screen" data-season="spring">
+    
+    <!-- Ghibli 4-Seasons Living Anime Background Canvas (Spring to Winter Timelapse on Scroll) -->
+    <canvas id="ghibli-canvas" class="fixed inset-0 w-full h-full z-0 block"></canvas>
+
+    <!-- Floating Navbar -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-5 transition-all">
+      <div id="nav-container" class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3 rounded-full studio-nav transition-all duration-300">
+        
+        <!-- Back to Home -->
+        <a href="/" class="flex items-center gap-3 group">
+          <div class="w-8 h-8 rounded-full glass-box theme-heading flex items-center justify-center group-hover:-translate-x-1 transition-transform">
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
           </div>
-          <span class="font-display font-bold text-xl tracking-tight">Back to Portfolio</span>
+          <div class="flex items-center gap-2">
+            <span class="font-display font-bold text-sm theme-heading">Back to Home</span>
+            <span class="text-xs theme-muted font-mono hidden sm:inline">• Nguyen Vu Xuan Mai</span>
+          </div>
         </a>
+
+        <div class="flex items-center gap-3">
+          <!-- Dark / Light Mode Toggle -->
+          <button type="button" aria-label="Toggle Theme" class="theme-toggle p-2 rounded-full hover:bg-white/10 theme-nav-link transition-colors">
+            <i data-lucide="sun" class="w-4 h-4 sun-icon hidden text-amber-500"></i>
+            <i data-lucide="moon" class="w-4 h-4 moon-icon"></i>
+          </button>
+
+          <a href="/CV.pdf" download="CV_Nguyen_Vu_Xuan_Mai_UIUX_Designer.pdf" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 text-xs font-semibold glass-box theme-nav-link hover:theme-heading transition-all">
+            <i data-lucide="download" class="w-3.5 h-3.5 season-highlight"></i>
+            Download CV (PDF)
+          </a>
+
+          <a href="/#contact" class="btn-primary text-xs py-2 px-5">
+            Get in Touch
+          </a>
+        </div>
       </div>
     </nav>
 
-    <main class="pt-32 pb-20 px-6">
-      <div id="project-content" class="max-w-5xl mx-auto">
-        <!-- Content will be injected by JavaScript -->
-        <div class="flex items-center justify-center min-h-[50vh]">
-          <div class="animate-pulse text-zinc-400 font-bold">Loading project details...</div>
+    <!-- Main Content Layout (Left ~30% showcases anime clearing, Right ~70% hosts case study) -->
+    <div id="portfolio-layout" class="w-full min-h-screen relative z-10 pt-24 sm:pt-28 lg:pt-28">
+      
+      <!-- Case Study Pane (Scrollable Right Column ~70%) -->
+      <main id="portfolio-pane" class="w-full lg:w-[68%] xl:w-[70%] lg:ml-auto relative z-10 px-4 sm:px-6 lg:px-8 xl:px-10 pb-16 flex flex-col gap-10">
+        <div id="project-content" class="w-full max-w-5xl">
+          <div class="flex items-center justify-center min-h-[50vh]">
+            <div class="animate-pulse flex items-center gap-3 theme-muted font-medium text-sm font-mono">
+              <i data-lucide="loader-2" class="w-4 h-4 animate-spin season-highlight"></i>
+              Loading case study details...
+            </div>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
 
-    <footer class="py-10 px-6 border-t border-zinc-200">
-      <div class="max-w-7xl mx-auto text-center">
-        <p class="text-sm font-medium text-zinc-500">
-          © <span id="year"></span> Nguyen Vu Xuan Mai. Designed with ❤️
-        </p>
-      </div>
-    </footer>
+      <!-- Footer aligned to Right Pane matching index.html -->
+      <footer class="w-full lg:w-[68%] xl:w-[70%] lg:ml-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-12 border-t border-white/20 dark:border-white/10 glass-box theme-heading relative z-10">
+        <div class="w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs theme-muted">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="font-bold theme-card-heading">Nguyen Vu Xuan Mai</span>
+            <span>• UI/UX Designer</span>
+          </div>
+          <div class="flex items-center gap-6">
+            <a href="/" class="hover:season-highlight transition-colors">Home</a>
+            <a href="/#work" class="hover:season-highlight transition-colors">Selected Works</a>
+            <a href="/#process" class="hover:season-highlight transition-colors">UX Process</a>
+            <a href="/#contact" class="hover:season-highlight transition-colors">Contact</a>
+          </div>
+          <p>© <span class="current-year"></span> Xuan Mai. All rights reserved.</p>
+        </div>
+      </footer>
+    </div>
 
+    <script type="module" src="/src/script.js"></script>
     <script>
       const projects = {
-        1: {
-          title: "Watermelon Shop",
-          description: "A delightful e-commerce experience for watermelon lovers. This project focuses on a vibrant and refreshing UI that matches the product's identity.",
-          images: ["/images/project-1-1.jpg", "/images/project-1-2.jpg", "/images/project-1-3.jpg"],
-          seeds: ["watermelon", "fruit", "shop"],
-          role: "Web Developer",
-          tools: ["HTML", "CSS", "JavaScript", "Bootstrap"]
-        },
-        2: {
-          title: "Watermelon Music Festival",
-          description: "Branding and interface design for the ultimate summer festival. The design captures the energy and excitement of a large-scale community event.",
-          images: ["/images/project-2-1.jpg", "/images/project-2-2.jpg", "/images/project-2-3.jpg", "/images/project-2-4.jpg", "/images/project-2-5.jpg", "/images/project-2-6.jpg"],
-          seeds: ["festival", "concert", "summer", "party", "event", "music"],
-          role: "Web Developer",
-          tools: ["HTML", "CSS", "JavaScript", "Bootstrap"]
-        },
         3: {
-          title: "Meowlish",
-          description: "A playful platform for cat enthusiasts to connect and share. The interface is designed to be friendly, accessible, and full of personality.",
-          demoLink: "https://imfishball.framer.website/chitiet/trang-chu",
-          flowImage: "/images/project-3-flow.jpg",
-          images: ["/images/project-3-1.jpg", "/images/project-3-2.jpg", "/images/project-3-3.jpg", "/images/project-3-4.jpg", "/images/project-3-5.jpg", "/images/project-3-6.jpg", "/images/project-3-7.jpg"],
-          seeds: ["cat", "pet", "kitten", "animal", "social", "community", "playful"],
+          title: "Meowlish — Interactive English Learning",
+          subtitle: "A playful, cat-themed interactive English learning app designed to boost vocabulary retention through smart flashcards, contextual quizzes, and habit tracking.",
+          category: "EdTech • UI/UX Design & Prototype",
           role: "UI/UX Designer",
-          tools: ["Framer", "Procreate"]
+          team: "Team of 5",
+          tools: ["Framer", "Procreate", "Figma", "User Research"],
+          demoLink: "https://imfishball.framer.website/chitiet/trang-chu",
+          flowImage: "/images/meowlish/project-3-flow.jpg",
+          highlights: [
+            "Researched learner behaviors to optimize core user loops: interactive flashcards, multi-format quizzes, and personalized streak tracking.",
+            "Built a systematic Figma Design System with reusable components and interactive variants to ensure dev consistency.",
+            "Engineered responsive layouts ensuring cohesive usability across Desktop, Tablet, and Mobile.",
+            "Constructed a high-fidelity interactive Framer prototype to test micro-interactions and usability."
+          ],
+          images: [
+            "/images/meowlish/project-3-1.jpg", 
+            "/images/meowlish/project-3-2.jpg", 
+            "/images/meowlish/project-3-3.jpg", 
+            "/images/meowlish/project-3-4.jpg", 
+            "/images/meowlish/project-3-5.jpg", 
+            "/images/meowlish/project-3-6.jpg", 
+            "/images/meowlish/project-3-7.jpg"
+          ],
+          seeds: ["cat", "pet", "learning", "study", "app", "mobile", "playful"]
         },
         4: {
-          title: "Soundly",
-          description: "A new way to experience and discover music. This project explores dark mode aesthetics and fluid motion for a premium audio experience.",
-          demoLink: "https://www.figma.com/proto/AaMitEGHtijZykVF5xurET/Web-nh%E1%BA%A1c?node-id=34-3&t=RsLmEIl3UbhO9yVZ-1",
-          images: [
-            "/images/project-4-1.jpg", "/images/project-4-2.jpg", "/images/project-4-3.jpg",
-            "/images/project-4-4.jpg", "/images/project-4-5.jpg", "/images/project-4-6.jpg",
-            "/images/project-4-7.jpg", "/images/project-4-8.jpg", "/images/project-4-9.jpg"
-          ],
-          seeds: ["music", "audio", "headphones", "concert", "vinyl", "sound", "studio", "artist", "instrument"],
+          title: "Soundly — Next-Gen Music Streaming Experience",
+          subtitle: "A modern dark-mode music discovery platform combining glassmorphism aesthetics, refined contrast, and fluid micro-interactions.",
+          category: "Music & Entertainment • UI Design System",
           role: "UI Designer",
-          tools: ["Figma", "Illustrator"]
+          team: "Independent Project",
+          tools: ["Figma", "Adobe Illustrator", "Smart Animate", "Design System"],
+          demoLink: "https://www.figma.com/proto/AaMitEGHtijZykVF5xurET/Web-nh%E1%BA%A1c?node-id=34-3&t=RsLmEIl3UbhO9yVZ-1",
+          highlights: [
+            "Designed a refined dark-mode interface and design system with glassmorphic accents, high contrast, and auto-layout variants.",
+            "Optimized information architecture for seamless music browsing, trending charts, artist hubs, and curated playlists.",
+            "Prototyped smooth screen transitions and audio playback animations using Figma Smart Animate."
+          ],
+          images: [
+            {
+              title: "Welcome Back & Login",
+              src: "/images/soundly/project-4-1.jpg",
+              desc: "Secure login flow supporting SSO via Google and Facebook in dark glassmorphism."
+            },
+            {
+              title: "Choose Your Plan",
+              src: "/images/soundly/project-4-2.jpg",
+              desc: "Clear pricing comparison between Free and Premium plans with highlight perks."
+            },
+            {
+              title: "Home Dashboard & Now Playing",
+              src: "/images/soundly/project-4-3.jpg",
+              desc: "Main audio dashboard with featured album, recently played queue, and floating player."
+            },
+            {
+              title: "Liked Songs Collection",
+              src: "/images/soundly/project-4-4.jpg",
+              desc: "Curated collection of 1,200+ saved tracks with quick alphabetical filter and instant search."
+            },
+            {
+              title: "Trending Now & Weekly Discover",
+              src: "/images/soundly/project-4-5.jpg",
+              desc: "Viral charts, trending global hits, and personalized algorithmic discover mixes."
+            },
+            {
+              title: "Artist Profile (Billie Eilish)",
+              src: "/images/soundly/project-4-6.jpg",
+              desc: "Verified artist page showing 58.4M monthly listeners, follow actions, and discography."
+            },
+            {
+              title: "Curated Playlists & Collection",
+              src: "/images/soundly/project-4-7.jpg",
+              desc: "Custom user playlists alongside editorial picks with rich album artwork."
+            },
+            {
+              title: "Podcasts & Topic Discovery",
+              src: "/images/soundly/project-4-8.jpg",
+              desc: "Specialized podcast channels spanning Tech, Business, True Crime, and Wellness."
+            },
+            {
+              title: "Featured Artist (Taylor Swift)",
+              src: "/images/soundly/project-4-9.jpg",
+              desc: "Hero artist takeover banner (The Eras Tour) with top-level audio category filters."
+            }
+          ],
+          seeds: ["music", "audio", "player", "concert", "dark", "sound", "artist", "dashboard", "track"]
+        },
+        5: {
+          title: "Trạm Điện Xanh (Smart Station) — EV Smart Charging",
+          subtitle: "Internship project at Wisdom Engineering & Business Solutions: Redesigned the Customer & Admin mobile experience for EV charging station discovery, booking, live charging, and e-wallet payments.",
+          category: "Enterprise Internship • Mobile UI/UX Design",
+          role: "UI/UX Design Intern",
+          team: "Wisdom Engineering & Business Solutions (03/2026 - 06/2026)",
+          tools: ["Figma", "Framer", "Canva", "Mobile UI Design", "User Flow", "Design System"],
+          isVerticalLayout: true,
+          overviewImage: "/images/tram-dien-xanh/mockup-overview-new.png",
+          designSystemImage: "/images/tram-dien-xanh/color-palette.png",
+          flowImage: "/images/tram-dien-xanh/user-flow.png",
+          architectureImage: "/images/tram-dien-xanh/sodo.png",
+          highlights: [
+            "Real-world project at Wisdom Solutions: redesigned mobile app flows for both EV Drivers and Station Admins.",
+            "Streamlined user flows, information architecture, and core charging patterns based on user interviews and business constraints.",
+            "Constructed a reusable Figma Design System and high-fidelity prototypes for reservation, charging status, and e-wallet flows.",
+            "Collaborated with BAs and developers to validate technical feasibility and deliver comprehensive UI/UX handoff specifications."
+          ],
+          comparisons: [
+            {
+              title: "Wallet & Support Redesign",
+              desc: "Reorganized wallet cards, balance breakdown, and direct support channels to cut navigation steps.",
+              oldImg: "/images/tram-dien-xanh/vi-va-ho-tro-old.png",
+              newImg: "/images/tram-dien-xanh/vi-va-ho-tro-new.png"
+            },
+            {
+              title: "Profile & Charging Reports",
+              desc: "Visualized charging stats, durations, and transparent expense charts tailored for mobile.",
+              oldImg: "/images/tram-dien-xanh/profile-n-report-old.png",
+              newImg: "/images/tram-dien-xanh/profile-n-report-new.png"
+            },
+            {
+              title: "Station Update & Admin Management",
+              desc: "Simplified input forms for station administrators with distinct status-colored indicators.",
+              oldImg: "/images/tram-dien-xanh/update-station-old.png",
+              newImg: "/images/tram-dien-xanh/update-station-new.png"
+            },
+            {
+              title: "Admin Panel Charger Monitoring",
+              desc: "Real-time administrator dashboard monitoring active charging stalls and system health.",
+              oldImg: "/images/tram-dien-xanh/quan-ly-psac-admin-old.png",
+              newImg: "/images/tram-dien-xanh/quan-ly-psac-admin-new.png"
+            }
+          ],
+          images: [
+            {
+              title: "Home Dashboard",
+              src: "/images/tram-dien-xanh/home.png",
+              badge: "Home",
+              desc: "Vehicle battery status, quick station search, nearest locations, and one-tap charging actions."
+            },
+            {
+              title: "Map & Station List",
+              src: "/images/tram-dien-xanh/map-station-list.png",
+              badge: "GPS Map",
+              desc: "Interactive map with GPS geolocation, showing distance, open stalls, and live directions."
+            },
+
+            {
+              title: "Station Detail",
+              src: "/images/tram-dien-xanh/station-detail.png",
+              badge: "Station",
+              desc: "Station address, nearby amenities (cafes, dining), connector availability, and EV community reviews."
+            },
+            {
+              title: "Charger Detail",
+              src: "/images/tram-dien-xanh/charger-detail.png",
+              badge: "Connectors & kW",
+              desc: "Connector selection (CCS2, Type 2, GB/T), DC fast charging vs AC standard, and transparent electricity rates."
+            },
+            {
+              title: "Live Charging",
+              src: "/images/tram-dien-xanh/charging.png",
+              badge: "Live Status",
+              desc: "Real-time charging monitor: battery %, charging speed in kW, energy delivered (kWh), and dynamic cost tally."
+            },
+            {
+              title: "E-Wallet & Payments",
+              src: "/images/tram-dien-xanh/wallet.png",
+              badge: "Payment",
+              desc: "Digital wallet balance, linked bank accounts / credit cards, fast top-up, and clear transaction history."
+            },
+            {
+              title: "Revenue & Expense Report",
+              src: "/images/tram-dien-xanh/revenue-report.png",
+              badge: "Analytics",
+              desc: "Detailed charging logs grouped by week/month, total kWh consumed, and transparent expense breakdowns."
+            },
+            {
+              title: "User Profile & EV Garage",
+              src: "/images/tram-dien-xanh/user-detail.png",
+              badge: "Profile",
+              desc: "Driver profile, registered EV vehicles, connector specifications, and maintenance schedule."
+            },
+            {
+              title: "Help & Support Center",
+              src: "/images/tram-dien-xanh/help-support.png",
+              badge: "Support 24/7",
+              desc: "Emergency roadside charging assistance, 24/7 technical hotline, user guides, and station feedback."
+            },
+            {
+              title: "Secure OTP Verification",
+              src: "/images/tram-dien-xanh/verify-otp.png",
+              badge: "Security",
+              desc: "Two-factor SMS OTP authentication ensuring total security for accounts and wallet payments."
+            }
+          ]
         }
       };
 
@@ -87,78 +322,393 @@
 
         if (!project) {
           content.innerHTML = `
-            <div class="text-center py-20">
-              <h1 class="text-4xl font-bold mb-4">Project Not Found</h1>
-              <a href="/" class="text-brand-600 font-bold hover:underline">Return to Home</a>
+            <div class="text-center py-24 studio-card rounded-[2.5rem] p-10">
+              <div class="w-16 h-16 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center mx-auto mb-4 font-bold">
+                <i data-lucide="help-circle" class="w-8 h-8"></i>
+              </div>
+              <h1 class="text-2xl font-display font-black text-zinc-900 dark:text-white mb-2">Case Study Not Found</h1>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mb-6">The project you requested does not exist or has been moved.</p>
+              <a href="/" class="inline-flex items-center gap-2 px-6 py-3 btn-primary text-white rounded-full text-xs font-black uppercase tracking-wider">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
+              </a>
             </div>
           `;
+          if (window.lucide) lucide.createIcons();
           return;
         }
 
-        document.title = `${project.title} | Nguyen Vu Xuan Mai`;
+        document.title = `${project.title} — Case Study Details`;
 
-        let imagesHtml = '';
-        
-        if (project.flowImage) {
-          imagesHtml += `
-            <div class="reveal rounded-2xl overflow-hidden shadow-md border-2 border-zinc-200 mb-16 max-w-4xl mx-auto bg-white">
-              <img src="${project.flowImage}" onerror="this.src='https://picsum.photos/seed/flowchart/1200/800'" alt="${project.title} Flow Diagram" class="w-full h-auto object-contain bg-zinc-50" />
+        let overviewHtml = '';
+        // System Mockup Overview removed (duplicates User Flow & Architecture)
+
+        let designSystemHtml = '';
+        if (project.designSystemImage) {
+          designSystemHtml = `
+            <div class="reveal-left studio-card p-6 sm:p-8 rounded-[2.5rem] mb-10">
+              <div class="flex items-center gap-3 mb-5">
+                <div class="w-9 h-9 rounded-2xl glass-box text-emerald-500 flex items-center justify-center font-bold">
+                  <i data-lucide="palette" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-display font-bold theme-card-heading">Design System & Color Tokens</h3>
+                  <p class="text-xs theme-card-body">Eco-green color tokens, typography hierarchy, and UI guidelines on Figma</p>
+                </div>
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-white/20 dark:border-white/10 bg-black/10 dark:bg-black/40 backdrop-blur-xs p-2 sm:p-4 cursor-pointer shadow-xl group" onclick="openLightbox('${project.designSystemImage}', 'Design System & Color Palette')">
+                <img src="${project.designSystemImage}" alt="Color Palette & Design System" class="w-full h-auto object-contain rounded-xl group-hover:scale-[1.01] transition-transform" />
+              </div>
             </div>
-            <hr class="border-zinc-200 mb-16 max-w-4xl mx-auto w-full" />
           `;
         }
 
-        project.images.forEach((img, index) => {
-          const seed = project.seeds[index] || 'design';
-          imagesHtml += `
-            <div class="reveal rounded-2xl overflow-hidden shadow-md border-2 border-zinc-200 mb-8 max-w-4xl mx-auto bg-white">
-              <img src="${img}" onerror="this.src='https://picsum.photos/seed/${seed}/1200/800'" alt="${project.title}" class="w-full h-auto object-contain bg-zinc-50" />
+        let flowHtml = '';
+        if (project.flowImage) {
+          flowHtml = `
+            <div class="reveal-left studio-card p-6 sm:p-8 rounded-[2.5rem] mb-10">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-9 h-9 rounded-2xl glass-box text-blue-500 flex items-center justify-center font-bold">
+                  <i data-lucide="git-branch" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-display font-bold theme-card-heading">User Flow & Architecture</h3>
+                  <p class="text-xs theme-card-body">End-to-end navigational flow and decision branching</p>
+                </div>
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-white/20 dark:border-white/10 bg-black/10 dark:bg-black/40 backdrop-blur-xs p-2 sm:p-4 cursor-pointer group shadow-xl" onclick="openLightbox('${project.flowImage}', 'User Flow & Architecture Diagram')">
+                <img src="${project.flowImage}" onerror="this.src='https://picsum.photos/seed/flowchart/1200/800'" alt="${project.title} User Flow" class="w-full h-auto object-contain rounded-xl group-hover:scale-[1.01] transition-transform" />
+              </div>
             </div>
           `;
-        });
+        }
+
+        let architectureHtml = '';
+        if (project.architectureImage) {
+          architectureHtml = `
+            <div class="reveal-left studio-card p-6 sm:p-8 rounded-[2.5rem] mb-10">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-9 h-9 rounded-2xl glass-box text-indigo-500 flex items-center justify-center font-bold">
+                  <i data-lucide="network" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-display font-bold theme-card-heading">Architecture & System Logic</h3>
+                  <p class="text-xs theme-card-body">System model mapping Mobile App, Station Admins, and EV Charger network</p>
+                </div>
+              </div>
+              <div class="rounded-2xl overflow-hidden border border-white/20 dark:border-white/10 bg-black/10 dark:bg-black/40 backdrop-blur-xs p-2 sm:p-4 cursor-pointer group shadow-xl" onclick="openLightbox('${project.architectureImage}', 'Architecture & System Logic Diagram')">
+                <img src="${project.architectureImage}" alt="${project.title} Architecture Diagram" class="w-full h-auto object-contain rounded-xl group-hover:scale-[1.01] transition-transform" />
+              </div>
+            </div>
+          `;
+        }
+
+        let comparisonsHtml = '';
+        if (project.comparisons && project.comparisons.length > 0) {
+          comparisonsHtml = `
+            <div class="reveal-left studio-card p-6 sm:p-8 rounded-[2.5rem] mb-10">
+              <div class="flex items-center gap-3 mb-5">
+                <div class="w-9 h-9 rounded-2xl glass-box text-purple-500 flex items-center justify-center font-bold">
+                  <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-display font-bold theme-card-heading">UX Improvements (Before & After)</h3>
+                  <p class="text-xs theme-card-body">Direct comparison of interface screens before and after redesign</p>
+                </div>
+              </div>
+
+              <div class="space-y-6">
+                ${project.comparisons.map((comp) => `
+                  <div class="p-5 sm:p-6 rounded-2xl glass-box">
+                    <h4 class="font-bold theme-card-heading text-base mb-1">${comp.title}</h4>
+                    <p class="text-xs theme-card-body mb-4 leading-relaxed">${comp.desc}</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div class="flex flex-col gap-2">
+                        <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-rose-500 flex items-center gap-1.5">
+                          <i data-lucide="history" class="w-3.5 h-3.5"></i> Before (Legacy)
+                        </span>
+                        <div class="rounded-xl overflow-hidden border border-white/20 dark:border-white/10 bg-black/20 backdrop-blur-xs cursor-pointer shadow-md group" onclick="openLightbox('${comp.oldImg}', '${comp.title} - Before')">
+                          <img src="${comp.oldImg}" alt="${comp.title} Old" class="w-full h-auto object-contain group-hover:scale-102 transition-transform" />
+                        </div>
+                      </div>
+                      <div class="flex flex-col gap-2">
+                        <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-emerald-500 flex items-center gap-1.5">
+                          <i data-lucide="check-circle" class="w-3.5 h-3.5"></i> After (Redesigned)
+                        </span>
+                        <div class="rounded-xl overflow-hidden border border-emerald-500/30 bg-black/20 backdrop-blur-xs cursor-pointer shadow-md group" onclick="openLightbox('${comp.newImg}', '${comp.title} - After')">
+                          <img src="${comp.newImg}" alt="${comp.title} New" class="w-full h-auto object-contain group-hover:scale-102 transition-transform" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        let imagesHtml = '';
+        if (project.isVerticalLayout) {
+          // Responsive 2-Column Grid Layout for vertical mobile screens
+          imagesHtml = `
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-14">
+              ${project.images.map((item, index) => {
+                const screenNum = String(index + 1).padStart(2, '0');
+                const totalScreens = String(project.images.length).padStart(2, '0');
+                const imgSrc = typeof item === 'string' ? item : item.src;
+                const title = typeof item === 'string' ? `Screen ${index + 1}` : item.title;
+                const badge = typeof item === 'string' ? 'Mobile UI' : (item.badge || 'Screen');
+                const desc = typeof item === 'string' ? '' : item.desc;
+                return `
+                  <div class="reveal-scale studio-card spotlight-card rounded-[2rem] overflow-hidden border border-white/25 dark:border-white/10 shadow-lg flex flex-col group cursor-pointer" onclick="openLightbox('${imgSrc}', '${title}')">
+                    
+                    <!-- Screen Header -->
+                    <div class="px-5 py-3.5 border-b border-white/20 dark:border-white/10 bg-white/15 dark:bg-white/[0.03] flex items-center justify-between text-xs theme-muted font-mono">
+                      <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                        <span class="font-bold theme-card-heading">${badge}</span>
+                      </div>
+                      <div class="flex items-center gap-1.5 font-bold season-highlight">
+                        <span>SCREEN ${screenNum} / ${totalScreens}</span>
+                      </div>
+                    </div>
+
+                    <!-- Vertical Screen in Device Frame -->
+                    <div class="p-6 sm:p-8 bg-black/10 dark:bg-black/30 backdrop-blur-xs flex items-center justify-center relative overflow-hidden flex-1">
+                      <div class="w-full max-w-[320px] rounded-[2rem] overflow-hidden border-[5px] border-zinc-800/80 dark:border-zinc-700/80 shadow-2xl bg-zinc-900/90 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-emerald-500/20">
+                        <img src="${imgSrc}" alt="${title}" class="w-full h-auto object-cover" loading="lazy" />
+                      </div>
+
+                      <!-- Hover Zoom Hint -->
+                      <div class="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                        <span class="px-4 py-2 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold flex items-center gap-2 shadow-xl border border-white/20">
+                          <i data-lucide="zoom-in" class="w-4 h-4 text-emerald-400"></i> Click to zoom
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Description Footer -->
+                    <div class="p-5 border-t border-white/20 dark:border-white/10 bg-white/10 dark:bg-white/[0.02]">
+                      <h4 class="font-bold theme-card-heading text-base mb-1.5">${title}</h4>
+                      ${desc ? `<p class="text-xs theme-card-body leading-relaxed">${desc}</p>` : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        } else {
+          // Standard horizontal screen listing
+          imagesHtml = `
+            <div class="flex flex-col gap-2 mb-14">
+              ${project.images.map((img, index) => {
+                const seed = (project.seeds && project.seeds[index]) || 'design';
+                const screenNum = String(index + 1).padStart(2, '0');
+                const totalScreens = String(project.images.length).padStart(2, '0');
+                const imgSrc = typeof img === 'string' ? img : img.src;
+                const title = typeof img === 'string' ? `${project.title.split('—')[0].trim()} • Screen ${screenNum}` : img.title;
+                const desc = typeof img === 'string' ? '' : (img.desc || '');
+                return `
+                  <div class="reveal studio-card spotlight-card rounded-[2rem] overflow-hidden mb-8 border border-white/25 dark:border-white/10 shadow-lg">
+                    <div class="px-5 py-3.5 border-b border-white/20 dark:border-white/10 bg-white/15 dark:bg-white/[0.03] flex items-center justify-between text-xs theme-muted font-mono">
+                      <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-red-400/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-400/80 inline-block"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-400/80 inline-block"></span>
+                        <span class="ml-2 font-bold theme-card-heading">${title}</span>
+                      </div>
+                      <div class="flex items-center gap-2 font-bold season-highlight">
+                        <span>SCREEN ${screenNum} / ${totalScreens}</span>
+                      </div>
+                    </div>
+                    <div class="bg-black/10 dark:bg-black/40 backdrop-blur-xs p-2 sm:p-4 cursor-pointer" onclick="openLightbox('${imgSrc}', '${title}')">
+                      <img src="${imgSrc}" onerror="this.src='https://picsum.photos/seed/${seed}/1200/800'" alt="${title}" class="w-full h-auto object-contain rounded-xl" loading="lazy" />
+                    </div>
+                    ${desc ? `
+                      <div class="p-4 px-6 border-t border-white/20 dark:border-white/10 bg-white/10 dark:bg-white/[0.02]">
+                        <p class="text-xs theme-card-body leading-relaxed">${desc}</p>
+                      </div>
+                    ` : ''}
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          `;
+        }
 
         content.innerHTML = `
-          <div class="flex flex-col gap-12">
-            <div class="reveal">
-              <h1 class="text-5xl md:text-7xl font-display font-black text-zinc-900 mb-6 leading-tight">${project.title}</h1>
-              <div class="flex flex-wrap gap-4 mb-8">
-                <span class="px-6 py-2 rounded-full bg-brand-50 text-brand-600 text-sm font-black uppercase tracking-wider border border-brand-200 shadow-sm">${project.role}</span>
-                ${project.tools.map(tool => `<span class="px-6 py-2 rounded-full bg-zinc-100 text-zinc-600 text-sm font-bold uppercase tracking-wider border border-zinc-200 shadow-sm">${tool}</span>`).join('')}
+          <div class="flex flex-col">
+            
+            <!-- Hero Info -->
+            <div class="reveal studio-card p-6 sm:p-10 rounded-[2.5rem] mb-10 shadow-lg border border-white/60 dark:border-white/15">
+              
+              <!-- Breadcrumbs & Category -->
+              <div class="flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase season-highlight mb-4">
+                <a href="/" class="hover:underline">Home</a>
+                <span>/</span>
+                <span>${project.category}</span>
               </div>
-              <p class="text-zinc-600 text-xl leading-relaxed font-medium max-w-4xl">${project.description}</p>
+
+              <h1 class="text-3xl sm:text-5xl lg:text-6xl font-display font-bold theme-card-heading mb-5 tracking-tight leading-[1.1]">
+                ${project.title}
+              </h1>
+
+              <p class="text-base sm:text-lg theme-card-body leading-relaxed max-w-3xl mb-8 font-normal">
+                ${project.subtitle}
+              </p>
+
+              <!-- Bento Meta Info Strip -->
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 p-5 rounded-2xl glass-box text-xs mb-8">
+                <div>
+                  <span class="theme-muted font-mono block text-[10px] uppercase font-bold">ROLE</span>
+                  <span class="font-bold theme-card-heading text-sm mt-0.5 block">${project.role}</span>
+                </div>
+                <div>
+                  <span class="theme-muted font-mono block text-[10px] uppercase font-bold">SCOPE / TEAM</span>
+                  <span class="font-bold theme-card-heading text-sm mt-0.5 block">${project.team || 'Independent Project'}</span>
+                </div>
+                <div>
+                  <span class="theme-muted font-mono block text-[10px] uppercase font-bold">TOOLS & METHODS</span>
+                  <span class="font-semibold theme-card-body text-xs mt-0.5 block">${project.tools.join(' • ')}</span>
+                </div>
+              </div>
+
+              <!-- Live Demo CTA if available -->
               ${project.demoLink ? `
-              <div class="mt-8">
-                <a href="${project.demoLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-zinc-900 text-white rounded-full font-bold hover:bg-brand-600 hover:scale-105 transition-all shadow-xl shadow-zinc-900/20">
-                  <i data-lucide="external-link" class="w-5 h-5"></i>
-                  View Live Prototype
-                </a>
-              </div>
+                <div class="flex items-center gap-3">
+                  <a href="${project.demoLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full btn-primary text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-103 active:scale-97">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    Launch Interactive Prototype
+                  </a>
+                </div>
               ` : ''}
             </div>
-            
-            <div class="grid grid-cols-1 gap-6">
-              ${imagesHtml}
+
+            <!-- Overview Mockup if available -->
+            ${overviewHtml}
+
+            <!-- Design System / Color Palette if available -->
+            ${designSystemHtml}
+
+            <!-- User Flow Diagram -->
+            ${flowHtml}
+
+            <!-- Architecture Diagram if available -->
+            ${architectureHtml}
+
+            <!-- Comparisons Before & After if available -->
+            ${comparisonsHtml}
+
+            <!-- Screens Header -->
+            <div class="reveal studio-card px-6 py-4.5 rounded-2xl mb-8 flex items-center justify-between border border-white/60 dark:border-white/15 shadow-sm">
+              <div>
+                <h3 class="text-xl sm:text-2xl font-display font-bold theme-card-heading">UI Design Gallery</h3>
+                <p class="text-xs theme-card-body mt-0.5">${project.isVerticalLayout ? 'Clean, high-fidelity mobile application screens' : 'Detailed UI screens and modular design system components'}</p>
+              </div>
+              <span class="text-xs font-mono font-bold px-3.5 py-1.5 rounded-full glass-box season-highlight border border-white/20">
+                ${project.images.length} Screens
+              </span>
             </div>
 
-            <div class="reveal text-center pt-12">
-              <a href="/" class="inline-flex items-center gap-3 px-8 py-4 bg-brand-600 text-white rounded-full font-bold hover:bg-brand-700 hover:scale-105 transition-all shadow-xl shadow-brand-600/20">
-                <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                Back to All Projects
-              </a>
+            <!-- Screens List (Grid Layout) -->
+            ${imagesHtml}
+
+            <!-- Back to Portfolio Bottom Banner -->
+            <div class="reveal studio-card spotlight-card p-8 sm:p-12 rounded-[2.5rem] text-center flex flex-col items-center gap-4">
+              <h4 class="text-2xl font-display font-bold theme-card-heading">Explore More Works</h4>
+              <p class="text-sm theme-card-body max-w-md">Browse more UI/UX case studies or reach out directly to discuss collaborations and opportunities.</p>
+              <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
+                <a href="/" class="inline-flex items-center gap-2 px-6 py-3 rounded-full btn-primary text-xs font-bold uppercase tracking-wider transition-all shadow-md">
+                  <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Home
+                </a>
+                <a href="/#contact" class="btn-secondary text-xs">
+                  Get in Touch <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+              </div>
             </div>
+
           </div>
         `;
 
-        // Trigger reveal animation
-        setTimeout(() => {
-          document.querySelectorAll('.reveal').forEach(el => el.classList.add('animate-in'));
-        }, 100);
+        // ── Scroll-Triggered Reveal with IntersectionObserver ──────────────────
+        function initRevealObserver() {
+          const ALL_REVEAL = '[class*="reveal"]';
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('animate-in');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, {
+            root: null,
+            rootMargin: '0px 0px -60px 0px', // trigger 60px before bottom of viewport
+            threshold: 0.08
+          });
 
-        lucide.createIcons();
+          document.querySelectorAll(ALL_REVEAL).forEach((el, i) => {
+            // Add incremental delay based on DOM order for natural cascade
+            el.style.transitionDelay = `${Math.min(i * 0.04, 0.32)}s`;
+            observer.observe(el);
+          });
+        }
+
+        // First batch (hero) immediately, rest on scroll
+        requestAnimationFrame(() => {
+          const firstCard = document.querySelector('.reveal, .reveal-left, .reveal-scale');
+          if (firstCard) {
+            firstCard.classList.add('animate-in');
+          }
+          setTimeout(initRevealObserver, 80);
+        });
+
+
+        if (window.lucide) {
+          lucide.createIcons();
+        }
       }
 
-      document.getElementById('year').textContent = new Date().getFullYear();
+      // Lightbox Functions
+      window.openLightbox = function(src, caption) {
+        const modal = document.getElementById('lightbox-modal');
+        const img = document.getElementById('lightbox-img');
+        const cap = document.getElementById('lightbox-caption');
+        if (modal && img) {
+          img.src = src;
+          if (cap) cap.textContent = caption || '';
+          modal.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            modal.classList.remove('opacity-0');
+          });
+          if (window.lucide) lucide.createIcons();
+        }
+      };
+
+      window.closeLightbox = function() {
+        const modal = document.getElementById('lightbox-modal');
+        if (modal) {
+          modal.classList.add('opacity-0');
+          setTimeout(() => {
+            modal.classList.add('hidden');
+          }, 200);
+        }
+      };
+
+      document.querySelectorAll('.current-year').forEach(el => {
+        el.textContent = new Date().getFullYear();
+      });
+
       loadProject();
     </script>
+
+    <!-- Fullscreen Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4 transition-all duration-300 opacity-0" onclick="if(event.target === this) closeLightbox()">
+      <button id="lightbox-close" type="button" onclick="closeLightbox()" class="absolute top-6 right-6 w-11 h-11 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-all">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+      <div class="max-w-4xl max-h-[92vh] flex flex-col items-center">
+        <img id="lightbox-img" src="" alt="Zoomed screen preview" class="max-h-[82vh] w-auto object-contain rounded-2xl shadow-2xl" />
+        <p id="lightbox-caption" class="mt-3 text-sm font-medium text-white/90 text-center font-display"></p>
+      </div>
+    </div>
   </body>
 </html>

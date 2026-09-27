@@ -6,3 +6,11 @@ coverage/
 *.log
 .env*
 !.env.example
+.agents/
+src/ghibli-canvas-*.js
+shot.png
+threeui_bundle.js
+*-old.pdf
+AnhThe_46.jpg
+CV_UIUX_Intern_*.pdf
+

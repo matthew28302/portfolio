@@ -309,7 +309,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 12. Interactive Micro-Interactions & Physics Suite ---
   initSpotlightCards();
-  initCardTiltEffects();
   initMagneticButtons();
 
   // --- 13. Dedicated In-Page Three.js Spatial Effects Suite ---
@@ -874,87 +873,34 @@ function initAmbientCanvas() {
 }
 
 // ============================================================================
-// 2. Linear / Aceternity Style Spotlight Card Border Tracking
+// 2. Linear / Aceternity Style Spotlight Card Tracking (Ultra-Smooth 120Hz)
 // ============================================================================
 function initSpotlightCards() {
   const cards = document.querySelectorAll('.spotlight-card');
   cards.forEach(card => {
+    let ticking = false;
+
     card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
-    });
-  });
-}
-
-
-// ============================================================================
-// 2. 3D Perspective Card Tilt Physics & Dynamic Specular Glare
-// ============================================================================
-function initCardTiltEffects() {
-  const cards = document.querySelectorAll('.studio-card, .tilt-card');
-
-  cards.forEach(card => {
-    card.classList.add('tilt-card');
-
-    if (!card.querySelector('.tilt-glare')) {
-      const glare = document.createElement('div');
-      glare.className = 'tilt-glare';
-      card.appendChild(glare);
-    }
-
-    let isHovered = false;
-    let targetRotateX = 0;
-    let targetRotateY = 0;
-    let currentRotateX = 0;
-    let currentRotateY = 0;
-    let animFrame = null;
-
-    function updateTilt() {
-      if (!isHovered && Math.abs(currentRotateX) < 0.05 && Math.abs(currentRotateY) < 0.05) {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-        return;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--mouse-x', `${x}px`);
+          card.style.setProperty('--mouse-y', `${y}px`);
+          ticking = false;
+        });
+        ticking = true;
       }
-
-      currentRotateX += (targetRotateX - currentRotateX) * 0.15;
-      currentRotateY += (targetRotateY - currentRotateY) * 0.15;
-
-      const scale = isHovered ? 1.015 : 1;
-      card.style.transform = `perspective(1000px) rotateX(${currentRotateX.toFixed(2)}deg) rotateY(${currentRotateY.toFixed(2)}deg) scale3d(${scale}, ${scale}, ${scale})`;
-
-      animFrame = requestAnimationFrame(updateTilt);
-    }
-
-    card.addEventListener('mouseenter', () => {
-      isHovered = true;
-      if (animFrame) cancelAnimationFrame(animFrame);
-      animFrame = requestAnimationFrame(updateTilt);
-    });
-
-    card.addEventListener('mousemove', (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const normX = (x / rect.width) * 2 - 1;
-      const normY = (y / rect.height) * 2 - 1;
-
-      targetRotateX = -normY * 5.5;
-      targetRotateY = normX * 5.5;
-
-      card.style.setProperty('--mouse-x', `${x}px`);
-      card.style.setProperty('--mouse-y', `${y}px`);
     });
 
     card.addEventListener('mouseleave', () => {
-      isHovered = false;
-      targetRotateX = 0;
-      targetRotateY = 0;
+      card.style.removeProperty('--mouse-x');
+      card.style.removeProperty('--mouse-y');
     });
   });
 }
+
 
 // ============================================================================
 // 3. Tactile Magnetic Physics on Interactive Action Buttons
@@ -1208,6 +1154,3 @@ function initThreeGalleryModal(threeBgInstance) {
     });
   });
 }
-
-
-

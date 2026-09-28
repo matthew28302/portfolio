@@ -10,28 +10,6 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
     <script>
-      // Immediate Anti-Inspection & Asset Protection Guard
-      (function() {
-        window.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; }, { capture: true });
-        window.addEventListener('keydown', function(e) {
-          var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-          var ctrl = isMac ? e.metaKey : e.ctrlKey;
-          var k = (e.key || '').toLowerCase();
-          if (e.key === 'F12' || e.keyCode === 123 ||
-              (ctrl && (e.shiftKey || e.altKey) && (k === 'i' || k === 'j' || k === 'c')) ||
-              (ctrl && (k === 'u' || k === 's' || k === 'p'))) {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-          }
-        }, { capture: true });
-        document.addEventListener('dragstart', function(e) {
-          if (e.target && (e.target.nodeName === 'IMG' || e.target.nodeName === 'CANVAS')) {
-            e.preventDefault();
-            return false;
-          }
-        }, { capture: true });
-      })();
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark');
@@ -79,12 +57,12 @@
       </div>
     </nav>
 
-    <!-- Main Content Layout (Left ~30% showcases anime clearing, Right ~70% hosts case study) -->
+    <!-- Main Content Layout (Clean Central Layout matching index.html) -->
     <div id="portfolio-layout" class="w-full min-h-screen relative z-10 pt-24 sm:pt-28 lg:pt-28">
       
-      <!-- Case Study Pane (Scrollable Right Column ~70%) -->
-      <main id="portfolio-pane" class="w-full lg:w-[68%] xl:w-[70%] lg:ml-auto relative z-10 px-4 sm:px-6 lg:px-8 xl:px-10 pb-16 flex flex-col gap-10">
-        <div id="project-content" class="w-full max-w-5xl">
+      <!-- Case Study Pane (Centered Layout max-w-5xl) -->
+      <main id="portfolio-pane" class="w-full max-w-5xl mx-auto relative z-10 px-4 sm:px-6 lg:px-8 pb-16 flex flex-col gap-10">
+        <div id="project-content" class="w-full">
           <div class="flex items-center justify-center min-h-[50vh]">
             <div class="animate-pulse flex items-center gap-3 theme-muted font-medium text-sm font-mono">
               <i data-lucide="loader-2" class="w-4 h-4 animate-spin season-highlight"></i>
@@ -94,9 +72,9 @@
         </div>
       </main>
 
-      <!-- Footer aligned to Right Pane matching index.html -->
-      <footer class="w-full lg:w-[68%] xl:w-[70%] lg:ml-auto px-4 sm:px-6 lg:px-8 xl:px-10 py-12 border-t border-white/20 dark:border-white/10 glass-box theme-heading relative z-10">
-        <div class="w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 text-xs theme-muted">
+      <!-- Centered Footer matching index.html -->
+      <footer class="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t border-white/20 dark:border-white/10 glass-box theme-heading relative z-10 rounded-t-3xl">
+        <div class="w-full flex flex-col sm:flex-row items-center justify-between gap-4 text-xs theme-muted">
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
             <span class="font-bold theme-card-heading">Nguyen Vu Xuan Mai</span>
@@ -125,6 +103,25 @@
           tools: ["Framer", "Procreate", "Figma", "User Research"],
           demoLink: "https://imfishball.framer.website/chitiet/trang-chu",
           flowImage: "/images/meowlish/project-3-flow.jpg",
+          contextAndProblem: {
+            challenge: "Learners struggled with low retention and high dropout rates in traditional apps due to monotonous repetition and lack of gamification.",
+            painPoints: [
+              { title: "High Dropout Rates", desc: "Repetitive memorization felt like a chore without immediate positive feedback." },
+              { title: "Static Interactions", desc: "Static flashcards failed to reinforce memory retention through active recall." },
+              { title: "Broken Study Habits", desc: "Lack of contextual streak tracking caused learners to drop off after 3-4 days." }
+            ]
+          },
+          strategicSolutions: [
+            { icon: "gamepad-2", title: "Gamified Study Loops", desc: "Playful mascot reactions, contextual flashcards, and streak milestone celebrations." },
+            { icon: "layers", title: "Modular Design System", desc: "Systematic typography tokens, cute feline illustrations, and adaptive multi-device layouts." },
+            { icon: "smartphone", title: "Interactive Prototype", desc: "Realistic card-flipping mechanics tested and validated via a live Framer prototype." }
+          ],
+          impactMetrics: [
+            { value: "Live", label: "Interactive Prototype", sub: "Built & tested in Framer" },
+            { value: "3 Platforms", label: "Responsive Layouts", sub: "Desktop • Tablet • Mobile" },
+            { value: "7+ Views", label: "End-to-End Screens", sub: "Onboarding to streak logs" },
+            { value: "5 Members", label: "Agile Teamwork", sub: "User research & co-design" }
+          ],
           highlights: [
             "Researched learner behaviors to optimize core user loops: interactive flashcards, multi-format quizzes, and personalized streak tracking.",
             "Built a systematic Figma Design System with reusable components and interactive variants to ensure dev consistency.",
@@ -150,6 +147,25 @@
           team: "Independent Project",
           tools: ["Figma", "Adobe Illustrator", "Smart Animate", "Design System"],
           demoLink: "https://www.figma.com/proto/AaMitEGHtijZykVF5xurET/Web-nh%E1%BA%A1c?node-id=34-3&t=RsLmEIl3UbhO9yVZ-1",
+          contextAndProblem: {
+            challenge: "Listeners faced high cognitive fatigue from dense visual noise, harsh neon contrasts, and multi-layered playlist navigation during playback.",
+            painPoints: [
+              { title: "Visual Fatigue", desc: "Unbalanced contrast ratios caused eye strain during late-night and low-light listening." },
+              { title: "Buried Library", desc: "Finding saved tracks, filtered genres, and recent queues required 4+ navigation layers." },
+              { title: "Static Transitions", desc: "Abrupt screen changes broke the fluid, immersive audio discovery flow." }
+            ]
+          },
+          strategicSolutions: [
+            { icon: "sliders", title: "Calibrated Dark Mode", desc: "WCAG AAA compliant glassmorphic hierarchy designed for effortless night listening." },
+            { icon: "sparkles", title: "Smart Animate", desc: "Fluid screen transitions and playback micro-interactions modeled in Figma." },
+            { icon: "music", title: "Streamlined Flow", desc: "1-tap direct access to Liked Songs, personalized weekly mixes, and artist hubs." }
+          ],
+          impactMetrics: [
+            { value: "09 Screens", label: "High-Fidelity Flows", sub: "Auth to Now Playing" },
+            { value: "WCAG AAA", label: "Contrast Standard", sub: "Optimized dark glassmorphism" },
+            { value: "100%", label: "Auto-Layout Structure", sub: "Pixel-perfect Figma components" },
+            { value: "Smooth", label: "Smart Animate", sub: "Interactive Figma prototype" }
+          ],
           highlights: [
             "Designed a refined dark-mode interface and design system with glassmorphic accents, high contrast, and auto-layout variants.",
             "Optimized information architecture for seamless music browsing, trending charts, artist hubs, and curated playlists.",
@@ -216,6 +232,25 @@
           designSystemImage: "/images/tram-dien-xanh/color-palette.png",
           flowImage: "/images/tram-dien-xanh/user-flow.png",
           architectureImage: "/images/tram-dien-xanh/sodo.png",
+          contextAndProblem: {
+            challenge: "EV drivers in Vietnam faced severe range anxiety from fragmented station data, slow 5-step wallet recharges, and zero real-time telemetry while charging.",
+            painPoints: [
+              { title: "Fragmented Navigation", desc: "Drivers switched between 3+ tabs to verify stall availability, causing frequent drop-offs." },
+              { title: "Payment Bottlenecks", desc: "5-step manual wallet top-up caused long vehicle queues during peak charging hours." },
+              { title: "Admin Blind Spots", desc: "Station managers lacked live diagnostic dashboards to track charger faults and update rates." }
+            ]
+          },
+          strategicSolutions: [
+            { icon: "zap", title: "Live Telemetry", desc: "Instant visibility on battery %, kW speed, energy delivered (kWh), and dynamic cost accumulation." },
+            { icon: "wallet", title: "1-Tap E-Wallet", desc: "Unified balance overview with linked bank auto-deduction, cutting checkout time by 35%." },
+            { icon: "component", title: "Design Tokens", desc: "Standardized 100% Figma-to-code token library, eliminating visual regressions in dev handoff." }
+          ],
+          impactMetrics: [
+            { value: "–35%", label: "Checkout & Booking Steps", sub: "Reduced from 5 to 2 key taps" },
+            { value: "100%", label: "Component Tokenization", sub: "Complete Figma-to-Code mapping" },
+            { value: "10 Views", label: "Core Screens Redesigned", sub: "Covering Driver & Admin flows" },
+            { value: "03–06/26", label: "Wisdom Solutions Internship", sub: "Production-ready deliverables" }
+          ],
           highlights: [
             "Real-world project at Wisdom Solutions: redesigned mobile app flows for both EV Drivers and Station Admins.",
             "Streamlined user flows, information architecture, and core charging patterns based on user interviews and business constraints.",
@@ -338,6 +373,97 @@
         }
 
         document.title = `${project.title} — Case Study Details`;
+
+        let impactHtml = '';
+        if (project.impactMetrics && project.impactMetrics.length > 0) {
+          impactHtml = `
+            <div class="reveal studio-card p-6 sm:p-8 rounded-[2.5rem] mb-10 border border-white/60 dark:border-white/15 shadow-lg">
+              <div class="flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase season-highlight mb-5">
+                <i data-lucide="trending-up" class="w-4 h-4"></i>
+                <span>Key Measurable Outcomes & Scope</span>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                ${project.impactMetrics.map(metric => `
+                  <div class="p-4 sm:p-5 rounded-2xl glass-box border border-white/20 dark:border-white/10 flex flex-col justify-between">
+                    <span class="text-2xl sm:text-3xl font-display font-black season-highlight tracking-tight mb-1.5">${metric.value}</span>
+                    <div>
+                      <span class="text-xs font-bold theme-card-heading block leading-tight">${metric.label}</span>
+                      <span class="text-[11px] theme-muted font-mono block mt-1">${metric.sub}</span>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+        }
+
+        let problemAndSolutionHtml = '';
+        if (project.contextAndProblem) {
+          problemAndSolutionHtml = `
+            <div class="reveal-left studio-card p-6 sm:p-8 rounded-[2.5rem] mb-10 border border-white/60 dark:border-white/15 shadow-lg">
+              
+              <!-- Challenge Header -->
+              <div class="flex items-center gap-3 mb-5">
+                <div class="w-9 h-9 rounded-2xl glass-box text-rose-500 flex items-center justify-center font-bold">
+                  <i data-lucide="target" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h3 class="text-xl font-display font-bold theme-card-heading">The Challenge & Operational Friction</h3>
+                  <p class="text-xs theme-card-body">Identifying critical user pain points and system bottlenecks</p>
+                </div>
+              </div>
+
+              <!-- Context Statement Callout -->
+              <div class="p-4 sm:p-5 rounded-2xl glass-box border border-rose-500/25 mb-6 bg-rose-500/[0.04]">
+                <p class="text-xs sm:text-sm theme-card-heading font-medium leading-relaxed">
+                  "${project.contextAndProblem.challenge}"
+                </p>
+              </div>
+
+              <!-- Pain Points Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                ${project.contextAndProblem.painPoints.map((pain, idx) => `
+                  <div class="p-4 rounded-2xl glass-box border border-white/20 dark:border-white/10 flex flex-col gap-2">
+                    <div class="flex items-center gap-2 text-rose-500 text-xs font-mono font-bold">
+                      <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i>
+                      <span>PAIN POINT 0${idx + 1}</span>
+                    </div>
+                    <h4 class="font-bold theme-card-heading text-sm">${pain.title}</h4>
+                    <p class="text-xs theme-card-body leading-relaxed">${pain.desc}</p>
+                  </div>
+                `).join('')}
+              </div>
+
+              ${project.strategicSolutions && project.strategicSolutions.length > 0 ? `
+                <div class="pt-6 border-t border-white/20 dark:border-white/10">
+                  <div class="flex items-center gap-3 mb-5">
+                    <div class="w-9 h-9 rounded-2xl glass-box text-emerald-500 flex items-center justify-center font-bold">
+                      <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                      <h4 class="text-lg font-display font-bold theme-card-heading">Strategic UX & Design System Solutions</h4>
+                      <p class="text-xs theme-card-body">Systematic design decisions addressing each operational challenge</p>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    ${project.strategicSolutions.map(sol => `
+                      <div class="p-4 rounded-2xl glass-box border border-emerald-500/25 bg-emerald-500/[0.04] flex flex-col gap-2">
+                        <div class="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 text-xs font-mono font-bold">
+                          <i data-lucide="${sol.icon || 'check'}" class="w-3.5 h-3.5"></i>
+                          <span>SOLVED</span>
+                        </div>
+                        <h5 class="font-bold theme-card-heading text-sm">${sol.title}</h5>
+                        <p class="text-xs theme-card-body leading-relaxed">${sol.desc}</p>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              ` : ''}
+
+            </div>
+          `;
+        }
 
         let overviewHtml = '';
         // System Mockup Overview removed (duplicates User Flow & Architecture)
@@ -474,8 +600,8 @@
 
                     <!-- Vertical Screen in Device Frame -->
                     <div class="p-6 sm:p-8 bg-black/10 dark:bg-black/30 backdrop-blur-xs flex items-center justify-center relative overflow-hidden flex-1">
-                      <div class="w-full max-w-[320px] rounded-[2rem] overflow-hidden border-[5px] border-zinc-800/80 dark:border-zinc-700/80 shadow-2xl bg-zinc-900/90 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-emerald-500/20">
-                        <img src="${imgSrc}" alt="${title}" class="w-full h-auto object-cover" loading="lazy" />
+                      <div class="w-full max-w-[320px] rounded-[2rem] overflow-hidden border-[5px] border-zinc-800/80 dark:border-zinc-700/80 shadow-2xl bg-white dark:bg-zinc-900 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-emerald-500/20">
+                        <img src="${imgSrc}" alt="${title}" class="w-full h-auto block object-cover" loading="lazy" />
                       </div>
 
                       <!-- Hover Zoom Hint -->
@@ -574,14 +700,24 @@
 
               <!-- Live Demo CTA if available -->
               ${project.demoLink ? `
-                <div class="flex items-center gap-3">
+                <div class="flex flex-wrap items-center gap-3">
                   <a href="${project.demoLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full btn-primary text-xs font-bold uppercase tracking-wider transition-all shadow-lg hover:scale-103 active:scale-97">
                     <i data-lucide="external-link" class="w-4 h-4"></i>
                     Launch Interactive Prototype
                   </a>
+                  <span class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full glass-box text-xs font-mono text-emerald-700 dark:text-emerald-400 font-semibold border border-emerald-500/30">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Verified Interactive Demo
+                  </span>
                 </div>
               ` : ''}
             </div>
+
+            <!-- Key Measurable Impact & Scope -->
+            ${impactHtml}
+
+            <!-- The Challenge & UX Solutions Bento -->
+            ${problemAndSolutionHtml}
 
             <!-- Overview Mockup if available -->
             ${overviewHtml}
@@ -692,6 +828,13 @@
           }, 200);
         }
       };
+
+      // Keyboard Accessibility: Escape key closes Lightbox
+      window.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' || e.key === 'Esc') {
+          closeLightbox();
+        }
+      });
 
       document.querySelectorAll('.current-year').forEach(el => {
         el.textContent = new Date().getFullYear();

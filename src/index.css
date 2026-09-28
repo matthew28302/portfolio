@@ -27,36 +27,36 @@
   }
 }
 
-/* True Frosted Glassmorphism (Kính mờ trong suốt cao cấp ~10% opacity, thấy rõ cảnh nền phía sau) */
+/* Balanced Aesthetic Frosted Glassmorphism (Vừa thấy cảnh nền, vừa đảm bảo tương phản chữ) */
 .studio-card, .glass-card {
-  background-color: var(--season-card-bg, rgba(255, 255, 255, 0.10)) !important;
-  backdrop-filter: blur(10px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(130%) !important;
-  border: 1px solid var(--season-card-border, rgba(255, 255, 255, 0.22)) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04) !important;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  background-color: rgba(255, 255, 255, 0.48) !important;
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.65) !important;
+  box-shadow: 0 8px 30px 0 rgba(0, 0, 0, 0.04) !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 html.dark .studio-card, html.dark .glass-card {
-  background-color: var(--season-card-bg, rgba(18, 17, 16, 0.15)) !important;
-  backdrop-filter: blur(10px) saturate(130%) !important;
-  -webkit-backdrop-filter: blur(10px) saturate(130%) !important;
-  border: 1px solid var(--season-card-border, rgba(255, 255, 255, 0.08)) !important;
+  background-color: rgba(18, 17, 20, 0.55) !important;
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35) !important;
 }
 
 .studio-card-hover:hover {
-  background-color: rgba(255, 255, 255, 0.18) !important;
-  border-color: rgba(255, 255, 255, 0.35) !important;
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08) !important;
+  background-color: rgba(255, 255, 255, 0.65) !important;
+  border-color: rgba(255, 255, 255, 0.85) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.06) !important;
 }
 
 html.dark .studio-card-hover:hover {
-  background-color: rgba(26, 24, 22, 0.25) !important;
-  border-color: rgba(255, 255, 255, 0.14) !important;
-  transform: translateY(-3px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45) !important;
+  background-color: rgba(26, 25, 29, 0.68) !important;
+  border-color: rgba(255, 255, 255, 0.20) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45) !important;
 }
 
 /* Floating Glass Studio Navbar */
@@ -64,48 +64,105 @@ html.dark .studio-card-hover:hover {
   background-color: rgba(255, 255, 255, 0.65) !important;
   backdrop-filter: blur(20px) saturate(160%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.55) !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.60) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04) !important;
 }
 
 html.dark .studio-nav {
   background-color: rgba(15, 14, 13, 0.70) !important;
-  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
   box-shadow: 0 4px 28px rgba(0, 0, 0, 0.60) !important;
 }
 
-/* Solid Tactile Buttons (Đậm chất Product Designer thực thụ, không dùng gradient màu mè) */
+/* Solid Tactile Buttons */
 .btn-primary {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#1A1917] hover:bg-[#2C2A26] text-[#FBF9F5] dark:bg-[#F5F3EF] dark:hover:bg-white dark:text-[#1A1917] font-semibold text-xs sm:text-sm shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-[0.98] transition-all;
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-[#1A1917] hover:bg-[#2C2A26] text-[#FBF9F5] dark:bg-[#F5F3EF] dark:hover:bg-white dark:text-[#1A1917] font-semibold text-xs sm:text-sm shadow-sm hover:shadow-md hover:-translate-y-0.5 active:scale-[0.98] transition-all;
 }
 
 .btn-secondary {
-  @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-xs sm:text-sm shadow-xs hover:-translate-y-0.5 active:scale-[0.98] transition-all;
-  background-color: rgba(255, 255, 255, 0.90) !important;
+  @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm shadow-xs hover:-translate-y-0.5 active:scale-[0.98] transition-all;
+  background-color: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(16px) !important;
   -webkit-backdrop-filter: blur(16px) !important;
-  border: 1px solid rgba(203, 213, 225, 0.90) !important;
+  border: 1px solid rgba(0, 0, 0, 0.10) !important;
   color: #0f172a !important;
 }
 
 html.dark .btn-secondary {
-  background-color: rgba(30, 41, 59, 0.88) !important;
-  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background-color: rgba(30, 41, 59, 0.80) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
   color: #f8fafc !important;
 }
 
 .glass-box {
-  background-color: rgba(255, 255, 255, 0.10) !important;
-  backdrop-filter: blur(8px) !important;
-  -webkit-backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.20) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+  background-color: rgba(255, 255, 255, 0.70) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04) !important;
 }
 
 html.dark .glass-box {
-  background-color: rgba(255, 255, 255, 0.04) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.20) !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Seasonal Tinted Capsule (Phương án 2: Chuyển sắc sống động theo 4 mùa + Kính mờ siêu nét) */
+.frosted-capsule {
+  background-color: var(--season-capsule-bg, rgba(255, 247, 237, 0.94)) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid var(--season-capsule-border, rgba(217, 119, 6, 0.35)) !important;
+  box-shadow: 0 4px 16px -2px var(--season-capsule-glow, rgba(217, 119, 6, 0.18)), 0 1px 3px rgba(0, 0, 0, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  color: var(--season-capsule-text, #9a3412) !important;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+html.dark .frosted-capsule {
+  background-color: var(--season-capsule-bg, rgba(45, 23, 15, 0.88)) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid var(--season-capsule-border, rgba(251, 146, 60, 0.40)) !important;
+  box-shadow: 0 4px 20px -2px var(--season-capsule-glow, rgba(251, 146, 60, 0.30)), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  color: var(--season-capsule-text, #fed7aa) !important;
+}
+
+.frosted-capsule:hover {
+  transform: translateY(-1.5px) scale(1.02);
+  box-shadow: 0 6px 22px -2px var(--season-capsule-glow, rgba(217, 119, 6, 0.28)), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+}
+
+html.dark .frosted-capsule:hover {
+  transform: translateY(-1.5px) scale(1.02);
+  box-shadow: 0 6px 26px -2px var(--season-capsule-glow, rgba(251, 146, 60, 0.45)), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+/* Organic Optical Readability Scrim (Feather-soft halo, hoàn toàn không viền, mờ dần mượt mà cả 2 bên) */
+.hero-ambient-scrim {
+  background: radial-gradient(ellipse 65% 65% at 54% 50%, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.22) 40%, rgba(255, 255, 255, 0) 80%);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  mask-image: radial-gradient(ellipse 60% 60% at 54% 50%, black 15%, rgba(0, 0, 0, 0.7) 35%, rgba(0, 0, 0, 0.2) 65%, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 60% at 54% 50%, black 15%, rgba(0, 0, 0, 0.7) 35%, rgba(0, 0, 0, 0.2) 65%, transparent 82%);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.5s ease;
+}
+
+html.dark .hero-ambient-scrim {
+  background: radial-gradient(ellipse 65% 65% at 54% 50%, rgba(15, 14, 18, 0.50) 0%, rgba(15, 14, 18, 0.22) 40%, rgba(15, 14, 18, 0) 80%);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+
+
+/* Editorial Serif Accent Typography (Newsreader Italic) */
+.editorial-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  display: inline-block;
 }
 
 /* Editorial Badge Pills */
@@ -232,27 +289,32 @@ img {
 }
 
 /* ============================================================================
-   ADVANCED 3D HOVER PHYSICS & LUMINOUS BORDER BEAM (Apple / Linear / Stripe standard)
+/* ============================================================================
+   ADVANCED SPOTLIGHT & LUMINOUS BORDER BEAM (Apple / Linear / Stripe standard)
    ============================================================================ */
 .spotlight-card {
   position: relative;
   overflow: hidden;
-  transform-style: preserve-3d;
-  transition: box-shadow 0.4s ease, border-color 0.3s ease;
-  will-change: transform;
+  isolation: isolate;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-/* Dynamic Luminous Border Beam */
+.spotlight-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* 1. Luminous Border Beam (Đường viền phát sáng rực rỡ bám theo con trỏ chuột) */
 .spotlight-card::before {
   content: '';
   position: absolute;
   inset: -1px;
   border-radius: inherit;
-  padding: 1.5px;
+  padding: 2px;
   background: radial-gradient(
-    380px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
-    rgba(194, 65, 12, 0.4),
-    rgba(251, 146, 60, 0.15) 30%,
+    360px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(217, 119, 6, 0.95) 0%,
+    rgba(251, 146, 60, 0.50) 30%,
     transparent 65%
   );
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -260,16 +322,16 @@ img {
   mask-composite: exclude;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.25s ease;
   z-index: 10;
 }
 
-.dark .spotlight-card::before {
+html.dark .spotlight-card::before {
   background: radial-gradient(
-    420px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
-    rgba(56, 189, 248, 0.45),
-    rgba(52, 211, 153, 0.25) 35%,
-    transparent 70%
+    360px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(56, 189, 248, 1) 0%,
+    rgba(52, 211, 153, 0.65) 35%,
+    transparent 65%
   );
 }
 
@@ -277,24 +339,90 @@ img {
   opacity: 1;
 }
 
-/* Subtle Specular Sheen (Tilt Glare) */
-.tilt-glare {
+/* 2. Surface Radial Spotlight Sheen (Vùng sáng rõ rệt trên bề mặt kính bám theo chuột) */
+.spotlight-card::after {
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  pointer-events: none;
   background: radial-gradient(
-    450px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    rgba(255, 255, 255, 0.12),
-    transparent 60%
+    300px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(255, 255, 255, 0.70) 0%,
+    rgba(255, 255, 255, 0.30) 45%,
+    transparent 75%
   );
+  pointer-events: none;
   opacity: 0;
-  transition: opacity 0.35s ease;
-  z-index: 5;
+  transition: opacity 0.25s ease;
+  z-index: 1;
 }
 
-.spotlight-card:hover .tilt-glare {
+html.dark .spotlight-card::after {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(56, 189, 248, 0.25) 0%,
+    rgba(56, 189, 248, 0.08) 45%,
+    transparent 75%
+  );
+}
+
+.spotlight-card:hover::after {
   opacity: 1;
+}
+
+/* 3. Thematic Project Spotlight Colors */
+/* Trạm Điện Xanh: Emerald Glow */
+.spotlight-emerald::before {
+  background: radial-gradient(
+    360px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(16, 185, 129, 1) 0%,
+    rgba(52, 211, 153, 0.65) 35%,
+    transparent 65%
+  ) !important;
+}
+html.dark .spotlight-emerald::after {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(16, 185, 129, 0.28) 0%,
+    rgba(52, 211, 153, 0.08) 45%,
+    transparent 75%
+  ) !important;
+}
+
+/* Soundly: Indigo Audio Glow */
+.spotlight-indigo::before {
+  background: radial-gradient(
+    360px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(99, 102, 241, 1) 0%,
+    rgba(129, 140, 248, 0.65) 35%,
+    transparent 65%
+  ) !important;
+}
+html.dark .spotlight-indigo::after {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(99, 102, 241, 0.28) 0%,
+    rgba(129, 140, 248, 0.08) 45%,
+    transparent 75%
+  ) !important;
+}
+
+/* Meowlish: Creative Purple Glow */
+.spotlight-purple::before {
+  background: radial-gradient(
+    360px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(168, 85, 247, 1) 0%,
+    rgba(192, 132, 252, 0.65) 35%,
+    transparent 65%
+  ) !important;
+}
+html.dark .spotlight-purple::after {
+  background: radial-gradient(
+    300px circle at var(--mouse-x, -100%) var(--mouse-y, -100%),
+    rgba(168, 85, 247, 0.28) 0%,
+    rgba(192, 132, 252, 0.08) 45%,
+    transparent 75%
+  ) !important;
 }
 
 /* ThreeUI 3D Canvas Box */
@@ -332,9 +460,13 @@ img {
   --season-heading: #0f172a;
   --season-body: #334155;
   --season-muted: #475569;
-  --season-accent: #be185d;
-  --season-badge-bg: rgba(190, 24, 93, 0.12);
-  --season-badge-border: rgba(190, 24, 93, 0.28);
+  --season-accent: #c2410c;
+  --season-badge-bg: rgba(194, 65, 12, 0.12);
+  --season-badge-border: rgba(194, 65, 12, 0.28);
+  --season-capsule-bg: rgba(255, 247, 237, 0.94);
+  --season-capsule-border: rgba(217, 119, 6, 0.35);
+  --season-capsule-glow: rgba(217, 119, 6, 0.18);
+  --season-capsule-text: #9a3412;
   --season-nav-text: #0f172a;
   --season-text-shadow: none;
   --season-subtle-shadow: none;
@@ -352,6 +484,10 @@ img {
   --season-accent: #be185d;
   --season-badge-bg: rgba(190, 24, 93, 0.12);
   --season-badge-border: rgba(190, 24, 93, 0.28);
+  --season-capsule-bg: rgba(255, 241, 246, 0.94);
+  --season-capsule-border: rgba(219, 39, 119, 0.35);
+  --season-capsule-glow: rgba(219, 39, 119, 0.18);
+  --season-capsule-text: #9d174d;
   --season-nav-text: #0f172a;
   --season-card-bg: rgba(255, 255, 255, 0.65);
   --season-card-border: rgba(255, 255, 255, 0.75);
@@ -366,6 +502,10 @@ img {
   --season-accent: #047857; /* Deep forest emerald */
   --season-badge-bg: rgba(4, 120, 87, 0.12);
   --season-badge-border: rgba(4, 120, 87, 0.28);
+  --season-capsule-bg: rgba(236, 253, 245, 0.94);
+  --season-capsule-border: rgba(5, 150, 105, 0.35);
+  --season-capsule-glow: rgba(5, 150, 105, 0.18);
+  --season-capsule-text: #065f46;
   --season-nav-text: #0f172a;
   --season-card-bg: rgba(255, 255, 255, 0.65);
   --season-card-border: rgba(255, 255, 255, 0.75);
@@ -380,6 +520,10 @@ img {
   --season-accent: #c2410c; /* Warm terracotta amber */
   --season-badge-bg: rgba(194, 65, 12, 0.12);
   --season-badge-border: rgba(194, 65, 12, 0.28);
+  --season-capsule-bg: rgba(255, 247, 237, 0.94);
+  --season-capsule-border: rgba(217, 119, 6, 0.35);
+  --season-capsule-glow: rgba(217, 119, 6, 0.18);
+  --season-capsule-text: #9a3412;
   --season-nav-text: #0f172a;
   --season-card-bg: rgba(255, 255, 255, 0.65);
   --season-card-border: rgba(255, 255, 255, 0.75);
@@ -394,6 +538,10 @@ img {
   --season-accent: #0369a1; /* Deep alpine azure */
   --season-badge-bg: rgba(3, 105, 161, 0.12);
   --season-badge-border: rgba(3, 105, 161, 0.28);
+  --season-capsule-bg: rgba(240, 249, 255, 0.94);
+  --season-capsule-border: rgba(2, 132, 199, 0.35);
+  --season-capsule-glow: rgba(2, 132, 199, 0.18);
+  --season-capsule-text: #075985;
   --season-nav-text: #0f172a;
   --season-card-bg: rgba(255, 255, 255, 0.65);
   --season-card-border: rgba(255, 255, 255, 0.75);
@@ -409,6 +557,10 @@ html.dark, html.dark [data-season="spring"], html.dark [data-season="summer"], h
   --season-accent: #fbbf24;
   --season-badge-bg: rgba(251, 191, 36, 0.18);
   --season-badge-border: rgba(251, 191, 36, 0.35);
+  --season-capsule-bg: rgba(45, 23, 15, 0.88);
+  --season-capsule-border: rgba(251, 146, 60, 0.40);
+  --season-capsule-glow: rgba(251, 146, 60, 0.30);
+  --season-capsule-text: #fed7aa;
   --season-nav-text: #f8fafc;
   --season-text-shadow: 0 2px 12px rgba(0, 0, 0, 0.85);
   --season-subtle-shadow: 0 1px 6px rgba(0, 0, 0, 0.65);
@@ -422,45 +574,63 @@ html.dark [data-season="spring"] {
   --season-accent: #f472b6;
   --season-badge-bg: rgba(244, 114, 182, 0.18);
   --season-badge-border: rgba(244, 114, 182, 0.35);
+  --season-capsule-bg: rgba(45, 16, 28, 0.88);
+  --season-capsule-border: rgba(244, 114, 182, 0.40);
+  --season-capsule-glow: rgba(244, 114, 182, 0.30);
+  --season-capsule-text: #fbcfe8;
 }
 
 html.dark [data-season="summer"] {
   --season-accent: #38bdf8;
   --season-badge-bg: rgba(56, 189, 248, 0.18);
   --season-badge-border: rgba(56, 189, 248, 0.35);
+  --season-capsule-bg: rgba(10, 36, 46, 0.88);
+  --season-capsule-border: rgba(56, 189, 248, 0.40);
+  --season-capsule-glow: rgba(56, 189, 248, 0.30);
+  --season-capsule-text: #bae6fd;
 }
 
 html.dark [data-season="autumn"] {
   --season-accent: #fb923c;
   --season-badge-bg: rgba(251, 146, 60, 0.18);
   --season-badge-border: rgba(251, 146, 60, 0.35);
+  --season-capsule-bg: rgba(45, 23, 15, 0.88);
+  --season-capsule-border: rgba(251, 146, 60, 0.40);
+  --season-capsule-glow: rgba(251, 146, 60, 0.30);
+  --season-capsule-text: #fed7aa;
 }
 
 html.dark [data-season="winter"] {
   --season-accent: #67e8f9;
   --season-badge-bg: rgba(103, 232, 249, 0.18);
   --season-badge-border: rgba(103, 232, 249, 0.35);
+  --season-capsule-bg: rgba(12, 32, 48, 0.88);
+  --season-capsule-border: rgba(103, 232, 249, 0.40);
+  --season-capsule-glow: rgba(103, 232, 249, 0.30);
+  --season-capsule-text: #cffafe;
 }
 
-/* Core Typography Utility Classes */
+/* Core Typography Utility Classes with Optical Readability Halo */
 .theme-heading {
   color: var(--season-heading, #0f172a) !important;
-  text-shadow: var(--season-text-shadow, none) !important;
+  text-shadow: 0 1px 18px rgba(255, 255, 255, 0.95), 0 0 4px rgba(255, 255, 255, 0.9) !important;
   transition: color 0.25s ease, text-shadow 0.25s ease !important;
 }
 
 html.dark .theme-heading {
   color: var(--season-heading, #f8fafc) !important;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.95), 0 0 4px rgba(0, 0, 0, 0.9) !important;
 }
 
 .theme-body {
-  color: var(--season-body, #334155) !important;
-  text-shadow: var(--season-subtle-shadow, none) !important;
+  color: var(--season-body, #1e293b) !important;
+  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.9), 0 0 2px rgba(255, 255, 255, 0.95) !important;
   transition: color 0.25s ease, text-shadow 0.25s ease !important;
 }
 
 html.dark .theme-body {
-  color: var(--season-body, #cbd5e1) !important;
+  color: var(--season-body, #e2e8f0) !important;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.95), 0 0 2px rgba(0, 0, 0, 0.9) !important;
 }
 
 .theme-muted {

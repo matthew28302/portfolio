@@ -10,28 +10,6 @@
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
     <script>
-      // Immediate Anti-Inspection & Asset Protection Guard
-      (function() {
-        window.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; }, { capture: true });
-        window.addEventListener('keydown', function(e) {
-          var isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-          var ctrl = isMac ? e.metaKey : e.ctrlKey;
-          var k = (e.key || '').toLowerCase();
-          if (e.key === 'F12' || e.keyCode === 123 ||
-              (ctrl && (e.shiftKey || e.altKey) && (k === 'i' || k === 'j' || k === 'c')) ||
-              (ctrl && (k === 'u' || k === 's' || k === 'p'))) {
-            e.preventDefault();
-            e.stopPropagation();
-            return false;
-          }
-        }, { capture: true });
-        document.addEventListener('dragstart', function(e) {
-          if (e.target && (e.target.nodeName === 'IMG' || e.target.nodeName === 'CANVAS')) {
-            e.preventDefault();
-            return false;
-          }
-        }, { capture: true });
-      })();
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'dark') {
         document.documentElement.classList.add('dark');
@@ -114,151 +92,130 @@
     <!-- Main Content Layout (Left ~30% showcases anime clearing, Right ~70% hosts portfolio) -->
     <div id="portfolio-layout" class="w-full min-h-screen relative z-10 pt-20 sm:pt-24 lg:pt-0">
       
-      <!-- Portfolio Sections (Scrollable Right Column ~70%) -->
-      <main id="portfolio-pane" class="w-full lg:w-[68%] xl:w-[70%] lg:ml-auto relative z-10 px-4 sm:px-6 lg:px-8 xl:px-10 py-8 lg:py-16 flex flex-col gap-20 sm:gap-24">
+      <!-- Portfolio Sections (Clean Central Layout ~1280px / 1440px) -->
+      <main id="portfolio-pane" class="w-full max-w-7xl 2xl:max-w-[1440px] mx-auto relative z-10 px-4 sm:px-6 lg:px-8 py-8 lg:py-14 flex flex-col gap-24 sm:gap-32">
 
-        <!-- SECTION 01: HERO & BIO -->
-        <section id="hero-section" class="pt-4 sm:pt-8 pb-8 relative z-10">
-          <div class="w-full mx-auto flex flex-col gap-10">
-        
-        <div class="grid grid-cols-1 xl:grid-cols-12 gap-10 items-start">
-          
-          <!-- Narrative Left Column (7 cols on xl) -->
-          <div class="xl:col-span-7 flex flex-col items-start text-left">
+        <!-- SECTION 00: HERO & INTRO (30:70 Asymmetric Ratio) -->
+        <section id="hero-section" class="pt-4 sm:pt-8 lg:pt-10 pb-6 relative z-10 w-full">
+          <div class="w-full flex flex-col lg:flex-row items-center gap-8 lg:gap-10 xl:gap-12">
             
-            <!-- Designer Identity Pill -->
-            <div class="reveal inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full glass-box theme-muted text-xs font-mono mb-6">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span class="font-semibold tracking-wide theme-heading">Nguyễn Vũ Xuân Mai — UI/UX Designer</span>
-              <span>•</span>
-              <span>UIT 2026</span>
+            <!-- 30% Left Column: Scenic Clearing (Sacred Tree, Lake & Animated Nature Unobstructed) -->
+            <div class="hidden lg:block lg:w-[30%] shrink-0 pointer-events-none self-stretch min-h-[360px]" aria-hidden="true">
+              <!-- Left 30% is left completely empty so the Ghibli Ancient Tree and Lake shine through unobstructed -->
             </div>
 
-            <!-- Big Confident Editorial Headline with Human Typographic Contrast -->
-            <h1 class="reveal text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-display font-bold theme-heading tracking-tight leading-[1.1] mb-6" style="transition-delay: 0.05s;">
-              Crafting digital products with <span class="font-serif italic font-normal season-highlight">elegance</span>, modern trends & precision.
-            </h1>
-
-            <!-- Editorial Bio (Ultra-concise, high signal) -->
-            <p class="reveal text-sm sm:text-base theme-body font-normal leading-relaxed mb-6 max-w-lg" style="transition-delay: 0.1s;">
-              <strong class="theme-heading font-semibold">Xuân Mai</strong> — UI/UX Designer crafting mobile apps, design systems & intuitive digital experiences.
-            </p>
-
-            <!-- 4 Quick Metric Pills (High Contrast Frosted Glass) -->
-            <div class="reveal grid grid-cols-2 sm:grid-cols-4 gap-2.5 w-full mb-8" style="transition-delay: 0.12s;">
-              <div class="p-3.5 rounded-2xl glass-card text-center sm:text-left border border-white/60 dark:border-white/15 shadow-sm">
-                <span class="text-[10px] font-mono uppercase text-slate-600 dark:text-slate-400 font-bold block tracking-wider">CASE STUDIES</span>
-                <span class="font-display font-black text-base text-slate-900 dark:text-white">03 Projects</span>
-              </div>
-              <div class="p-3.5 rounded-2xl glass-card text-center sm:text-left border border-white/60 dark:border-white/15 shadow-sm">
-                <span class="text-[10px] font-mono uppercase text-slate-600 dark:text-slate-400 font-bold block tracking-wider">INTERNSHIP</span>
-                <span class="font-display font-black text-xs text-emerald-700 dark:text-emerald-400 block truncate mt-0.5">Wisdom Solutions</span>
-              </div>
-              <div class="p-3.5 rounded-2xl glass-card text-center sm:text-left border border-white/60 dark:border-white/15 shadow-sm">
-                <span class="text-[10px] font-mono uppercase text-slate-600 dark:text-slate-400 font-bold block tracking-wider">EDUCATION</span>
-                <span class="font-display font-black text-base text-slate-900 dark:text-white">GPA 7.8 / 10</span>
-              </div>
-              <div class="p-3.5 rounded-2xl glass-card text-center sm:text-left border border-white/60 dark:border-white/15 shadow-sm">
-                <span class="text-[10px] font-mono uppercase text-slate-600 dark:text-slate-400 font-bold block tracking-wider">ENGLISH</span>
-                <span class="font-display font-black text-xs text-blue-700 dark:text-sky-400 block mt-0.5">VSTEP B2/C1</span>
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="reveal flex flex-wrap items-center gap-3.5 mb-8" style="transition-delay: 0.15s;">
-              <a href="#work" class="btn-primary">
-                View 3 Case Studies
-                <i data-lucide="arrow-down" class="w-4 h-4"></i>
-              </a>
-
-              <a href="/CV.pdf" download="CV_Nguyen_Vu_Xuan_Mai_UIUX_Designer.pdf" class="btn-secondary">
-                <i data-lucide="file-text" class="w-4 h-4 text-amber-600 dark:text-amber-400"></i>
-                Resume (PDF)
-              </a>
-
-              <button type="button" class="copy-email-btn btn-secondary">
-                <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-600 dark:text-slate-300"></i> Copy Email
-              </button>
-            </div>
-
-            <!-- Quick Metadata Chips (High-Contrast Frosted Pill) -->
-            <div class="reveal inline-flex flex-wrap items-center gap-3 sm:gap-4 px-4 py-2.5 rounded-2xl glass-card text-xs font-mono text-slate-800 dark:text-slate-200 shadow-sm border border-white/60 dark:border-white/15" style="transition-delay: 0.2s;">
-              <span class="flex items-center gap-1.5 font-semibold"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i> Ho Chi Minh City, VN</span>
-              <span class="hidden sm:inline opacity-40 text-slate-400">•</span>
-              <span class="flex items-center gap-1.5 font-semibold"><i data-lucide="mail" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i> xuanmai032004@gmail.com</span>
-              <span class="hidden sm:inline opacity-40 text-slate-400">•</span>
-              <span class="flex items-center gap-1.5 font-semibold"><i data-lucide="phone" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i> 0976 418 155</span>
-            </div>
-
-          </div>
-
-          <!-- Studio ID Card (5 cols) -->
-          <div class="xl:col-span-5 flex flex-col items-center justify-center relative">
-            
-            <div id="hero-card-id" class="w-full flex justify-center relative">
-              <!-- Charming Floating Badge 1: imfishball handle -->
-              <div class="animate-float absolute -top-4 -right-2 sm:-right-4 z-20 px-3.5 py-1.5 rounded-full glass-card shadow-lg text-xs font-mono font-bold text-slate-900 dark:text-white flex items-center gap-2 border border-white/60 dark:border-white/15">
-                <span class="text-sm">🐟</span>
-                <span>@imfishball</span>
-              </div>
-
-              <!-- Charming Floating Badge 2: Open for Roles -->
-              <div class="animate-float-delayed absolute -bottom-5 -left-2 sm:-left-6 z-20 px-3.5 py-1.5 rounded-full glass-card shadow-lg text-xs font-mono font-bold text-slate-900 dark:text-white flex items-center gap-2 border border-white/60 dark:border-white/15">
-                <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-                <span>Available for UI/UX roles</span>
-              </div>
-
-              <!-- Main Studio ID Card (Clean Editorial Profile) -->
-              <div class="reveal studio-card spotlight-card studio-card-hover p-6 sm:p-7 rounded-3xl w-full max-w-sm flex flex-col gap-5 border border-white/40 dark:border-white/15 shadow-md">
+            <!-- 70% Right Column: Intro Content (Narrative + Studio ID Card) -->
+            <div class="w-full lg:w-[70%] flex-1">
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
                 
-                <!-- Media Container (Portrait Image with Official UIT Overlay) -->
-                <div class="aspect-[4/5] rounded-2xl overflow-hidden bg-[#EFECE6] dark:bg-zinc-800 border border-black/5 dark:border-white/10 relative shadow-inner">
-                  <!-- Portrait Image with overlay badges -->
-                  <div id="profile-photo-layer" class="w-full h-full relative">
-                    <img src="/images/profile.jpg?v=2" alt="Nguyễn Vũ Xuân Mai" class="profile-avatar-img w-full h-full object-cover object-[center_20%]" />
-                    <div class="absolute bottom-3 left-3 right-3 p-3 rounded-xl bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-between text-xs shadow-lg">
-                      <div>
-                        <span class="font-display font-bold text-sm block tracking-tight text-white">Xuân Mai</span>
-                        <span class="text-[11px] text-zinc-300 font-mono">@imfishball • UI/UX Designer</span>
+                <!-- Narrative Column (7 cols on lg/xl) with Organic Ambient Scrim -->
+                <div class="lg:col-span-7 flex flex-col items-start text-left relative z-10">
+                  <!-- Organic Ambient Readability Halo (Zero borders, zero boxes, seamlessly feathered) -->
+                  <div class="hero-ambient-scrim absolute -top-8 -bottom-8 -right-8 -left-14 sm:-left-20 lg:-left-28 -z-10 pointer-events-none"></div>
+                  
+                  <!-- Designer Identity Pill -->
+                  <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full frosted-capsule text-xs font-mono mb-5 sm:mb-6">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span class="font-semibold tracking-wide theme-heading">Nguyễn Vũ Xuân Mai</span>
+                    <span class="opacity-40">•</span>
+                    <span class="theme-muted">UI/UX Designer</span>
+                  </div>
+
+                  <!-- Big Confident Editorial Headline with Hybrid Typography -->
+                  <h1 class="reveal text-4xl sm:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-display font-bold theme-heading tracking-tight leading-[1.12] mb-5 sm:mb-6" style="transition-delay: 0.05s;">
+                    Crafting intuitive <span class="editorial-serif font-serif italic font-normal text-[#C2410C] dark:text-[#FB923C]">experiences</span>.<br class="hidden sm:inline" /> Built for real-world <span class="font-bold tracking-tight theme-heading underline decoration-emerald-500/40 dark:decoration-emerald-400/50 underline-offset-8 decoration-2">products</span>.
+                  </h1>
+
+                  <!-- Editorial Bio -->
+                  <p class="reveal text-sm sm:text-base lg:text-base xl:text-lg theme-body font-normal leading-relaxed mb-6 sm:mb-8 max-w-xl" style="transition-delay: 0.1s;">
+                    UI/UX Designer from <strong class="font-semibold text-slate-900 dark:text-white">UIT (VNU-HCM)</strong> with hands-on industry experience designing end-to-end EV charging applications and scalable design tokens at Wisdom Solutions. Ready to build production-ready mobile and web experiences.
+                  </p>
+
+                  <!-- Action Buttons -->
+                  <div class="reveal flex flex-wrap items-center gap-3 mb-6 sm:mb-8" style="transition-delay: 0.15s;">
+                    <a href="#work" class="btn-primary text-xs sm:text-sm py-2.5 px-5">
+                      Explore Selected Work
+                      <i data-lucide="arrow-down" class="w-4 h-4"></i>
+                    </a>
+
+                    <a href="/CV.pdf" download="CV_Nguyen_Vu_Xuan_Mai_UIUX_Designer.pdf" class="btn-secondary text-xs sm:text-sm py-2.5 px-5">
+                      <i data-lucide="file-text" class="w-4 h-4 text-amber-600 dark:text-amber-400"></i>
+                      Download CV (PDF)
+                    </a>
+
+                    <button type="button" class="copy-email-btn btn-secondary text-xs sm:text-sm py-2.5 px-4">
+                      <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-600 dark:text-slate-300"></i> Copy Email
+                    </button>
+                  </div>
+
+                  <!-- Clean Metadata Line -->
+                  <div class="reveal flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono theme-muted" style="transition-delay: 0.2s;">
+                    <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i> Ho Chi Minh City, VN</span>
+                    <span class="opacity-30">•</span>
+                    <span class="flex items-center gap-1.5"><i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i> UIT (2022 — 2026)</span>
+                    <span class="opacity-30">•</span>
+                    <span class="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Available for Roles</span>
+                  </div>
+
+                </div>
+
+                <!-- Studio ID Card (5 cols on lg/xl) -->
+                <div class="lg:col-span-5 flex flex-col items-center justify-center relative">
+                  
+                  <div id="hero-card-id" class="relative w-full max-w-xs sm:max-w-sm mx-auto">
+                    <!-- Charming Floating Badge 1: imfishball handle -->
+                    <div class="animate-float absolute -top-3 -right-2 sm:-right-3 z-20 px-3 py-1 rounded-full glass-card shadow-md text-xs font-mono font-bold text-slate-900 dark:text-white flex items-center gap-1.5 border border-white/60 dark:border-white/15">
+                      <span class="text-sm">🐟</span>
+                      <span>@imfishball</span>
+                    </div>
+
+                    <!-- Main Studio ID Card (Concentric Radius: rounded-2xl outer, rounded-xl inner) -->
+                    <div class="reveal studio-card spotlight-card studio-card-hover p-4 sm:p-5 rounded-2xl w-full flex flex-col gap-3.5 border border-white/40 dark:border-white/15 shadow-md">
+                      
+                      <!-- Media Container -->
+                      <div class="aspect-[4/5] rounded-xl overflow-hidden bg-[#EFECE6] dark:bg-zinc-800 border border-black/5 dark:border-white/10 relative shadow-inner">
+                        <div id="profile-photo-layer" class="w-full h-full relative">
+                          <img src="/images/profile.jpg?v=2" alt="Nguyễn Vũ Xuân Mai" class="profile-avatar-img w-full h-full object-cover object-[center_20%]" />
+                          <div class="absolute bottom-2.5 left-2.5 right-2.5 p-2.5 rounded-lg bg-black/75 backdrop-blur-md border border-white/20 text-white flex items-center justify-between text-xs shadow-lg">
+                            <div>
+                              <span class="font-display font-bold text-sm block tracking-tight text-white">Xuân Mai</span>
+                              <span class="text-[11px] text-zinc-300 font-mono">UI/UX Designer</span>
+                            </div>
+                            <span class="px-2 py-0.5 rounded-md bg-white text-zinc-900 font-bold text-[10px] font-mono shadow-sm">UIT</span>
+                          </div>
+                        </div>
                       </div>
-                      <span class="px-2.5 py-1 rounded-lg bg-white text-zinc-900 font-bold text-[11px] font-mono shadow-sm">UIT</span>
+
+                      <!-- Clean Editorial Metadata Specs -->
+                      <div class="flex flex-col gap-2 text-xs">
+                        <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
+                          <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">STATUS</span>
+                          <span class="font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Open for Work</span>
+                        </div>
+                        <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
+                          <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">EXPERIENCE</span>
+                          <span class="font-bold text-slate-900 dark:text-white">Wisdom Solutions (EV App UI/UX)</span>
+                        </div>
+                        <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
+                          <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">TOOLS</span>
+                          <span class="font-bold text-slate-900 dark:text-white">Figma • Framer</span>
+                        </div>
+                        <div class="flex items-center justify-between py-1.5">
+                          <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">FOCUS</span>
+                          <span class="font-bold text-amber-600 dark:text-amber-400">Mobile & Web Apps</span>
+                        </div>
+                      </div>
+
                     </div>
                   </div>
-                </div>
 
-                <!-- Metadata Specs Table (High-Contrast Clarity) -->
-                <div class="flex flex-col gap-2.5 text-xs">
-                  <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
-                    <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">EDUCATION</span>
-                    <span class="font-bold text-slate-900 dark:text-white">University of Info Tech (UIT)</span>
-                  </div>
-                  <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
-                    <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">GPA</span>
-                    <span class="font-bold text-slate-900 dark:text-white">7.8 / 10</span>
-                  </div>
-                  <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
-                    <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">INTERNSHIP</span>
-                    <span class="font-bold text-emerald-700 dark:text-emerald-400">Wisdom Solutions (EV App)</span>
-                  </div>
-                  <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
-                    <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">TOOLS</span>
-                    <span class="font-bold text-slate-900 dark:text-white">Figma • Framer</span>
-                  </div>
-                  <div class="flex items-center justify-between py-1.5">
-                    <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">SPECIALTY</span>
-                    <span class="font-bold text-amber-600 dark:text-amber-400">Mobile & Web Design</span>
-                  </div>
                 </div>
 
               </div>
             </div>
 
           </div>
-
-        </div>
-
-      </div>
-    </section>
+        </section>
 
     <!-- SECTION 01: SELECTED WORKS (Dynamic Asymmetrical Showcase) -->
     <section id="work" class="py-16 sm:py-20 relative z-10 border-t border-[#E8E5DF] dark:border-white/10">
@@ -267,9 +224,9 @@
         <!-- Section Header with Category Tabs (Editorial Free-Flowing Header) -->
         <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-box text-xs font-mono font-bold uppercase tracking-wider season-highlight mb-3">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              Portfolio Archive
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full frosted-capsule text-xs font-mono font-bold uppercase tracking-wider mb-3">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>Portfolio Archive</span>
             </div>
             <h2 class="text-3xl sm:text-5xl font-display font-bold theme-heading tracking-tight">
               Featured Work
@@ -292,12 +249,12 @@
         </div>
 
         <!-- 0. PRIORITY FLAGSHIP: TRẠM ĐIỆN XANH (Enterprise Internship - Vertical Form Mobile App) -->
-        <div data-category="mobile uiux" data-project-switcher class="reveal studio-card spotlight-card studio-card-hover rounded-3xl overflow-hidden p-8 sm:p-12 border-2 border-emerald-500/30 dark:border-emerald-500/20" 
+        <div data-category="mobile uiux" data-project-switcher class="reveal studio-card spotlight-card spotlight-emerald studio-card-hover rounded-2xl overflow-hidden p-6 sm:p-10 border border-emerald-500/30 dark:border-emerald-500/20" 
           data-images='["/images/tram-dien-xanh/home.png","/images/tram-dien-xanh/map-station-list.png","/images/tram-dien-xanh/charging.png","/images/tram-dien-xanh/wallet.png","/images/tram-dien-xanh/revenue-report.png"]'
           data-titles='["CONTROL DASHBOARD","MAP & STATIONS","LIVE CHARGING","E-WALLET & PAYMENT","EXPENSE REPORTS"]'
           data-subtitles='["01 / 05 • Home Dashboard","02 / 05 • GPS Map Locator","03 / 05 • Live Charging Monitor","04 / 05 • Personal E-Wallet","05 / 05 • Expense Analytics"]'
-          data-descriptions='["Real-time battery level, nearest charging stations, and quick actions.","Interactive GPS map locating available stations, distance, and routes.","Live charging telemetry: battery %, kW power output, and live cost calculation.","In-app wallet balance, quick top-up, linked bank cards, and transaction logs.","Detailed charging session history, total energy consumed, and expense charts."]'>
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          data-descriptions='["Live battery telemetry & nearest fast-chargers.","Interactive GPS map with live stall availability.","Real-time charging monitor with dynamic cost tally.","1-tap wallet top-up & linked bank cards.","Weekly & monthly kWh consumption analytics."]'>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             <!-- Left Info (5 cols) -->
             <div class="lg:col-span-5 flex flex-col justify-between">
@@ -310,39 +267,39 @@
                   <span class="pill-badge glass-box theme-muted font-medium">
                     UI/UX Design Intern
                   </span>
-                  <span class="text-xs theme-muted font-mono">Figma • Framer • Canva</span>
+                  <span class="text-xs theme-muted font-mono">Figma • Framer</span>
                 </div>
 
-                <h3 class="text-3xl sm:text-4xl font-display font-bold theme-card-heading mb-3 tracking-tight">
+                <h3 class="text-2xl sm:text-3xl font-display font-bold theme-card-heading mb-3 tracking-tight">
                   Trạm Điện Xanh — EV Charging App
                 </h3>
 
                 <p class="text-xs sm:text-sm theme-card-body leading-relaxed mb-6 font-normal">
-                  Internship at <strong class="theme-card-heading">Wisdom Solutions</strong>: Designed an EV charging mobile ecosystem, built a reusable Figma Design System, and prepared technical handoff documentation.
+                  Enterprise Internship at <strong class="theme-card-heading">Wisdom Solutions</strong>: Designed an end-to-end EV charging ecosystem, architected reusable Figma Design Tokens, and established comprehensive developer handoff specifications.
                 </p>
 
-                <!-- 3 Crisp Scannable Highlights -->
-                <div class="grid grid-cols-3 gap-2.5 mb-7">
-                  <div class="p-3 rounded-2xl glass-box text-center">
-                    <span class="font-display font-bold text-sm theme-card-heading block">10 Screens</span>
-                    <span class="text-[10px] font-mono theme-muted">Mobile UI</span>
+                <!-- Clean Hairline Metrics Row -->
+                <div class="grid grid-cols-3 gap-3 mb-6 py-3 border-y border-black/5 dark:border-white/10 text-left">
+                  <div>
+                    <span class="font-display font-bold text-sm theme-card-heading block">Core Flows</span>
+                    <span class="text-[10px] font-mono theme-muted">Mobile App</span>
                   </div>
-                  <div class="p-3 rounded-2xl glass-box text-center">
-                    <span class="font-display font-bold text-sm theme-card-heading block">Design System</span>
-                    <span class="text-[10px] font-mono theme-muted">Figma Tokens</span>
+                  <div>
+                    <span class="font-display font-bold text-sm theme-card-heading block">Tokens</span>
+                    <span class="text-[10px] font-mono theme-muted">Figma System</span>
                   </div>
-                  <div class="p-3 rounded-2xl glass-box text-center">
-                    <span class="font-display font-bold text-sm theme-card-heading block">Dev Handoff</span>
-                    <span class="text-[10px] font-mono theme-muted">UI/UX Spec</span>
+                  <div>
+                    <span class="font-display font-bold text-sm theme-card-heading block">Dev Spec</span>
+                    <span class="text-[10px] font-mono theme-muted">UI/UX Handoff</span>
                   </div>
                 </div>
               </div>
 
               <!-- Interactive Screen Tabs & CTA -->
-              <div class="flex flex-col gap-4 pt-6 border-t border-white/20 dark:border-white/10">
+              <div class="flex flex-col gap-3.5 pt-4">
                 <div class="text-[11px] font-mono theme-muted uppercase tracking-wider flex items-center justify-between">
                   <span>Switch Screen:</span>
-                  <span class="text-emerald-700 dark:text-emerald-400 font-semibold">10 Mobile Views</span>
+                  <span class="text-emerald-700 dark:text-emerald-400 font-semibold">5 Featured Views</span>
                 </div>
                 <div class="flex flex-wrap gap-2 text-xs font-mono font-medium">
                   <button type="button" class="switcher-tab-btn active-green">01 Home</button>
@@ -358,19 +315,19 @@
                     <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
                   </a>
                   <a href="/project.html?id=5" class="text-xs font-semibold theme-card-heading hover:text-emerald-700 dark:hover:text-emerald-400 flex items-center gap-1.5">
-                    <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> 10 Screens & Redesign
+                    <i data-lucide="layout-grid" class="w-3.5 h-3.5"></i> Key Screens & Redesigns
                   </a>
                 </div>
               </div>
             </div>
 
-            <!-- Right Interactive Device Frame (7 cols) - Single Phone Frame with Dynamic Description -->
+            <!-- Right Interactive Device Frame (7 cols) -->
             <div class="lg:col-span-7 flex flex-col items-center">
               
               <!-- 1 Single Phone Frame -->
-              <div class="w-full max-w-[340px]">
-                <a href="/project.html?id=5" class="project-img-wrapper rounded-[2.2rem] overflow-hidden border-[6px] border-zinc-800/90 dark:border-zinc-700/80 bg-zinc-950 shadow-2xl relative cursor-pointer group aspect-[9/18] block">
-                  <img src="/images/tram-dien-xanh/home.png" alt="Trạm Điện Xanh Screen Preview" class="project-main-image carousel-image w-full h-full object-cover object-top" />
+              <div class="w-full max-w-[320px]">
+                <a href="/project.html?id=5" class="project-img-wrapper rounded-[2rem] overflow-hidden border-[5px] border-zinc-800/90 dark:border-zinc-700/80 bg-white dark:bg-zinc-900 shadow-xl relative cursor-pointer group aspect-[430/932] block">
+                  <img src="/images/tram-dien-xanh/home.png" alt="Trạm Điện Xanh Screen Preview" class="project-main-image carousel-image w-full h-full object-cover object-top block" />
                   
                   <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-4 text-white">
                     <span class="text-xs font-bold bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-full shadow-lg inline-flex items-center gap-1.5 transition-transform group-hover:scale-105">
@@ -385,20 +342,13 @@
                 </a>
 
                 <!-- 1 Description Box for the Active Image -->
-                <div class="mt-4 p-4 rounded-2xl glass-box text-center shadow-sm">
+                <div class="mt-3 p-3.5 rounded-xl glass-box text-center shadow-xs">
                   <div class="project-switcher-subtitle text-[11px] font-mono font-bold uppercase tracking-wider season-highlight mb-1">
                     01 / 05 • Home Dashboard
                   </div>
                   <p class="project-switcher-desc text-xs theme-card-body font-normal leading-relaxed transition-opacity duration-200">
-                    Real-time battery level, nearest charging stations, and quick actions.
+                    Live battery telemetry & nearest fast-chargers.
                   </p>
-                </div>
-
-                <div class="flex items-center justify-between text-[11px] theme-muted mt-2 px-1 font-mono">
-                  <span class="flex items-center gap-1">
-                    <i data-lucide="smartphone" class="w-3.5 h-3.5 text-emerald-500"></i> Native Mobile Layout
-                  </span>
-                  <span>Figma & Canva</span>
                 </div>
               </div>
 
@@ -408,12 +358,12 @@
         </div>
 
         <!-- 1. FLAGSHIP CASE STUDY: SOUNDLY (Full-Width Asymmetric Showcase) -->
-        <div data-category="uiux" data-project-switcher class="reveal studio-card spotlight-card studio-card-hover rounded-3xl overflow-hidden p-8 sm:p-12" 
+        <div data-category="uiux" data-project-switcher class="reveal studio-card spotlight-card spotlight-indigo studio-card-hover rounded-2xl overflow-hidden p-6 sm:p-10 border border-white/40 dark:border-white/10" 
           data-images='["/images/soundly/project-4-3.jpg","/images/soundly/project-4-5.jpg","/images/soundly/project-4-6.jpg","/images/soundly/project-4-4.jpg"]'
           data-titles='["HOME & NOW PLAYING","TRENDING CHARTS","ARTIST PROFILE","FAVORITE TRACKS"]'
           data-subtitles='["01 / 04 • Home & Now Playing","02 / 04 • Trending Now","03 / 04 • Artist Channel","04 / 04 • Liked Songs Library"]'
-          data-descriptions='["Main discovery feed with featured albums and persistent floating player.","Trending Now charts and algorithmic Weekly Discover playlist.","Artist profile with monthly listeners and top discography.","Personal liked songs collection with instant search and filtering."]'>
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          data-descriptions='["Discovery hub with floating audio player.","Viral charts & algorithmic discover mixes.","Verified artist profile & discography.","Personal collection with instant search."]'>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             <!-- Left Info (5 cols) -->
             <div class="lg:col-span-5 flex flex-col justify-between">
@@ -425,21 +375,21 @@
                   <span class="text-xs theme-muted font-mono">UI Design System</span>
                 </div>
 
-                <h3 class="text-3xl sm:text-4xl font-display font-bold theme-card-heading mb-3">
+                <h3 class="text-2xl sm:text-3xl font-display font-bold theme-card-heading mb-3">
                   Soundly — Music Streaming App
                 </h3>
 
                 <p class="text-xs sm:text-sm theme-card-body leading-relaxed mb-6 font-normal">
-                  High-fidelity dark mode music streaming interface with glassmorphism, designed for effortless listening.
+                  High-fidelity dark mode music streaming interface with glassmorphism, designed for effortless listening and high visual appeal.
                 </p>
 
-                <!-- 2 Crisp Metric Highlights -->
-                <div class="grid grid-cols-2 gap-2.5 mb-7">
-                  <div class="p-3 rounded-2xl glass-box text-center">
+                <!-- Clean Hairline Metrics Row -->
+                <div class="grid grid-cols-2 gap-4 mb-6 py-3 border-y border-black/5 dark:border-white/10 text-left">
+                  <div>
                     <span class="font-display font-bold text-sm theme-card-heading block">Dark Mode</span>
                     <span class="text-[10px] font-mono theme-muted">Glassmorphism UI</span>
                   </div>
-                  <div class="p-3 rounded-2xl glass-box text-center">
+                  <div>
                     <span class="font-display font-bold text-sm theme-card-heading block">Design System</span>
                     <span class="text-[10px] font-mono theme-muted">Figma Variants</span>
                   </div>
@@ -447,7 +397,7 @@
               </div>
 
               <!-- Interactive Screen Tabs -->
-              <div class="flex flex-col gap-4 pt-6 border-t border-white/20 dark:border-white/10">
+              <div class="flex flex-col gap-3.5 pt-4">
                 <div class="text-[11px] font-mono theme-muted uppercase tracking-wider">Preview Screens:</div>
                 <div class="flex flex-wrap gap-2 text-xs font-mono font-medium">
                   <button type="button" class="switcher-tab-btn active-neutral">01 Player</button>
@@ -470,7 +420,7 @@
 
             <!-- Right Interactive Device Frame (7 cols) -->
             <div class="lg:col-span-7 flex flex-col">
-              <a href="/project.html?id=4" class="project-img-wrapper aspect-video rounded-2xl overflow-hidden border border-white/20 dark:border-white/10 bg-slate-950 shadow-lg relative cursor-pointer group block">
+              <a href="/project.html?id=4" class="project-img-wrapper aspect-video rounded-xl overflow-hidden border border-white/20 dark:border-white/10 bg-slate-950 shadow-lg relative cursor-pointer group block">
                 <img src="/images/soundly/project-4-3.jpg" onerror="this.src='https://picsum.photos/seed/music/900/600'" alt="Soundly Screen Preview" class="project-main-image carousel-image w-full h-full object-cover" />
                 
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-5 text-white">
@@ -482,12 +432,12 @@
               </a>
 
               <!-- Dynamic Caption Card for Active Screen -->
-              <div class="mt-4 p-4 rounded-2xl glass-box text-center shadow-sm">
+              <div class="mt-3 p-3.5 rounded-xl glass-box text-center shadow-xs">
                 <div class="project-switcher-subtitle text-[11px] font-mono font-bold uppercase tracking-wider season-highlight mb-1">
                   01 / 04 • Home & Now Playing
                 </div>
                 <p class="project-switcher-desc text-xs theme-card-body font-normal leading-relaxed transition-opacity duration-200">
-                  Main discovery feed with featured albums and persistent floating player.
+                  Discovery hub with floating audio player.
                 </p>
               </div>
             </div>
@@ -496,8 +446,8 @@
         </div>
 
         <!-- 2. CASE STUDY: MEOWLISH (UX Research & Interactive Prototyping) -->
-        <div data-category="uiux" data-project-switcher class="reveal studio-card spotlight-card studio-card-hover rounded-3xl overflow-hidden p-8 sm:p-12" data-images='["/images/meowlish/project-3-1.jpg","/images/meowlish/project-3-2.jpg","/images/meowlish/project-3-3.jpg","/images/meowlish/project-3-4.jpg"]'>
-          <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div data-category="uiux" data-project-switcher class="reveal studio-card spotlight-card spotlight-purple studio-card-hover rounded-2xl overflow-hidden p-6 sm:p-10 border border-white/40 dark:border-white/10" data-images='["/images/meowlish/project-3-1.jpg","/images/meowlish/project-3-2.jpg","/images/meowlish/project-3-3.jpg","/images/meowlish/project-3-4.jpg"]'>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             <!-- Left: User Flow & IA Highlight (6 cols) -->
             <div class="lg:col-span-6 flex flex-col justify-between">
@@ -509,7 +459,7 @@
                   <span class="text-xs theme-muted font-mono">Team of 5 • Framer</span>
                 </div>
 
-                <h3 class="text-3xl sm:text-4xl font-display font-bold theme-card-heading mb-3">
+                <h3 class="text-2xl sm:text-3xl font-display font-bold theme-card-heading mb-3">
                   Meowlish — Interactive English Learning
                 </h3>
 
@@ -518,23 +468,23 @@
                 </p>
 
                 <!-- Information Architecture Preview Box -->
-                <div class="p-3.5 rounded-2xl glass-box mb-5">
+                <div class="p-3 rounded-xl glass-box mb-5">
                   <div class="flex items-center justify-between text-[11px] font-mono theme-muted mb-1.5">
                     <span>User Wireflow & Learning Loop</span>
                     <i data-lucide="git-branch" class="w-3.5 h-3.5 text-purple-500"></i>
                   </div>
-                  <div class="rounded-xl overflow-hidden border border-white/20 dark:border-white/10">
+                  <div class="rounded-lg overflow-hidden border border-white/20 dark:border-white/10">
                     <img src="/images/meowlish/project-3-flow.jpg" onerror="this.src='https://picsum.photos/seed/flowchart/800/450'" alt="Meowlish User Flow" class="w-full h-24 object-cover object-top" />
                   </div>
                 </div>
 
-                <!-- 2 Crisp Highlights -->
-                <div class="grid grid-cols-2 gap-2.5 mb-7">
-                  <div class="p-3 rounded-2xl glass-box text-center">
+                <!-- Clean Hairline Metrics Row -->
+                <div class="grid grid-cols-2 gap-4 mb-6 py-3 border-y border-black/5 dark:border-white/10 text-left">
+                  <div>
                     <span class="font-display font-bold text-sm theme-card-heading block">UX Research</span>
                     <span class="text-[10px] font-mono theme-muted">Usability Testing</span>
                   </div>
-                  <div class="p-3 rounded-2xl glass-box text-center">
+                  <div>
                     <span class="font-display font-bold text-sm theme-card-heading block">Prototype</span>
                     <span class="text-[10px] font-mono theme-muted">Framer Motion</span>
                   </div>
@@ -554,7 +504,7 @@
 
             <!-- Right: UI Mockup Preview (6 cols) -->
             <div class="lg:col-span-6">
-              <a href="/project.html?id=3" class="project-img-wrapper aspect-[16/11] rounded-2xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 shadow-lg relative cursor-pointer group block">
+              <a href="/project.html?id=3" class="project-img-wrapper aspect-[16/11] rounded-xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-zinc-950 shadow-lg relative cursor-pointer group block">
                 <img src="/images/meowlish/project-3-1.jpg" onerror="this.src='https://picsum.photos/seed/cat/900/600'" alt="Meowlish Screen Preview" class="project-main-image carousel-image w-full h-full object-cover" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-5 text-white">
                   <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-xl transition-all group-hover:scale-105">
@@ -565,7 +515,7 @@
               </a>
 
               <!-- Pagination Dots -->
-              <div class="flex items-center justify-center gap-1.5 mt-4">
+              <div class="flex items-center justify-center gap-1.5 mt-3">
                 <button type="button" aria-label="Screen 1" class="img-switcher-dot h-1.5 rounded-full transition-all bg-blue-600 w-6"></button>
                 <button type="button" aria-label="Screen 2" class="img-switcher-dot h-1.5 rounded-full transition-all bg-zinc-300 dark:bg-zinc-700 w-2"></button>
                 <button type="button" aria-label="Screen 3" class="img-switcher-dot h-1.5 rounded-full transition-all bg-zinc-300 dark:bg-zinc-700 w-2"></button>
@@ -586,9 +536,9 @@
         <!-- Section Header (Editorial Free-Flowing Header) -->
         <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-box text-xs font-mono font-bold uppercase tracking-wider season-highlight mb-3">
-              <i data-lucide="git-branch" class="w-3.5 h-3.5 season-highlight"></i>
-              UX Process
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full frosted-capsule text-xs font-mono font-bold uppercase tracking-wider mb-3">
+              <i data-lucide="git-branch" class="w-3.5 h-3.5"></i>
+              <span>UX Process</span>
             </div>
             <h2 class="text-3xl sm:text-5xl font-display font-bold theme-heading tracking-tight">
               Design Methodology
@@ -602,10 +552,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
           <!-- STEP 1: DISCOVER -->
-          <div class="reveal studio-card spotlight-card studio-card-hover p-6 rounded-3xl flex flex-col justify-between group">
+          <div class="reveal studio-card spotlight-card studio-card-hover p-6 rounded-2xl flex flex-col justify-between group">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <div class="w-10 h-10 rounded-2xl glass-box text-[#C2410C] dark:text-[#FB923C] flex items-center justify-center font-bold">
+                <div class="w-10 h-10 rounded-xl glass-box text-[#C2410C] dark:text-[#FB923C] flex items-center justify-center font-bold">
                   <i data-lucide="compass" class="w-4 h-4"></i>
                 </div>
                 <span class="text-xs font-mono font-bold season-highlight">01 / 04</span>
@@ -619,16 +569,16 @@
               </p>
             </div>
             <div class="pt-3 border-t border-white/20 dark:border-white/10 flex flex-wrap gap-1.5 text-[10px] font-mono theme-muted">
-              <span class="px-2.5 py-1 rounded-xl glass-box">User Persona</span>
-              <span class="px-2.5 py-1 rounded-xl glass-box">Pain Points</span>
+              <span class="px-2 py-0.5 rounded-md glass-box">User Persona</span>
+              <span class="px-2 py-0.5 rounded-md glass-box">Pain Points</span>
             </div>
           </div>
 
           <!-- STEP 2: DEFINE -->
-          <div class="reveal studio-card spotlight-card studio-card-hover p-6 rounded-3xl flex flex-col justify-between group" style="transition-delay: 0.1s;">
+          <div class="reveal studio-card spotlight-card studio-card-hover p-6 rounded-2xl flex flex-col justify-between group" style="transition-delay: 0.1s;">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <div class="w-10 h-10 rounded-2xl glass-box text-blue-600 dark:text-sky-400 flex items-center justify-center font-bold">
+                <div class="w-10 h-10 rounded-xl glass-box text-blue-600 dark:text-sky-400 flex items-center justify-center font-bold">
                   <i data-lucide="git-branch" class="w-4 h-4"></i>
                 </div>
                 <span class="text-xs font-mono font-bold theme-card-heading">02 / 04</span>
@@ -642,16 +592,16 @@
               </p>
             </div>
             <div class="pt-3 border-t border-white/20 dark:border-white/10 flex flex-wrap gap-1.5 text-[10px] font-mono theme-muted">
-              <span class="px-2.5 py-1 rounded-xl glass-box">User Flow</span>
-              <span class="px-2.5 py-1 rounded-xl glass-box">Wireframes</span>
+              <span class="px-2 py-0.5 rounded-md glass-box">User Flow</span>
+              <span class="px-2 py-0.5 rounded-md glass-box">Wireframes</span>
             </div>
           </div>
 
           <!-- STEP 3: DESIGN -->
-          <div class="reveal studio-card spotlight-card studio-card-hover p-6 rounded-3xl flex flex-col justify-between group" style="transition-delay: 0.2s;">
+          <div class="reveal studio-card spotlight-card studio-card-hover p-6 rounded-2xl flex flex-col justify-between group" style="transition-delay: 0.2s;">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <div class="w-10 h-10 rounded-2xl glass-box text-[#C2410C] dark:text-[#FB923C] flex items-center justify-center font-bold">
+                <div class="w-10 h-10 rounded-xl glass-box text-[#C2410C] dark:text-[#FB923C] flex items-center justify-center font-bold">
                   <i data-lucide="palette" class="w-4 h-4"></i>
                 </div>
                 <span class="text-xs font-mono font-bold season-highlight">03 / 04</span>
@@ -665,16 +615,16 @@
               </p>
             </div>
             <div class="pt-3 border-t border-white/20 dark:border-white/10 flex flex-wrap gap-1.5 text-[10px] font-mono theme-muted">
-              <span class="px-2.5 py-1 rounded-xl glass-box">Figma Tokens</span>
-              <span class="px-2.5 py-1 rounded-xl glass-box">Prototypes</span>
+              <span class="px-2 py-0.5 rounded-md glass-box">Figma Tokens</span>
+              <span class="px-2 py-0.5 rounded-md glass-box">Prototypes</span>
             </div>
           </div>
 
           <!-- STEP 4: TEST & HANDOFF -->
-          <div class="reveal studio-card spotlight-card studio-card-hover p-6 rounded-3xl flex flex-col justify-between group" style="transition-delay: 0.3s;">
+          <div class="reveal studio-card spotlight-card studio-card-hover p-6 rounded-2xl flex flex-col justify-between group" style="transition-delay: 0.3s;">
             <div>
               <div class="flex items-center justify-between mb-4">
-                <div class="w-10 h-10 rounded-2xl glass-box text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold">
+                <div class="w-10 h-10 rounded-xl glass-box text-emerald-700 dark:text-emerald-400 flex items-center justify-center font-bold">
                   <i data-lucide="check-circle-2" class="w-4 h-4"></i>
                 </div>
                 <span class="text-xs font-mono font-bold text-emerald-700 dark:text-emerald-400">04 / 04</span>
@@ -688,8 +638,8 @@
               </p>
             </div>
             <div class="pt-3 border-t border-white/20 dark:border-white/10 flex flex-wrap gap-1.5 text-[10px] font-mono theme-muted">
-              <span class="px-2.5 py-1 rounded-xl glass-box">Usability Test</span>
-              <span class="px-2.5 py-1 rounded-xl glass-box">Dev Specs</span>
+              <span class="px-2 py-0.5 rounded-md glass-box">Usability Test</span>
+              <span class="px-2 py-0.5 rounded-md glass-box">Dev Specs</span>
             </div>
           </div>
 
@@ -704,9 +654,9 @@
         
         <!-- Section Header (Editorial Free-Flowing Header) -->
         <div class="reveal flex flex-col items-start gap-3">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-box text-xs font-mono font-bold uppercase tracking-wider season-highlight mb-1">
-            <i data-lucide="layers" class="w-3.5 h-3.5 season-highlight"></i>
-            Skills & Experience
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full frosted-capsule text-xs font-mono font-bold uppercase tracking-wider mb-1">
+            <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+            <span>Skills & Experience</span>
           </div>
           <h2 class="text-3xl sm:text-5xl font-display font-bold theme-heading tracking-tight">
             Empathy & Systematic Design
@@ -716,113 +666,109 @@
           </p>
         </div>
 
-        <!-- Philosophy & Credentials Dual Bento Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- MASTER ROW 1: Experience & Education (Option 2: Unified Master Card) -->
+        <div class="reveal studio-card spotlight-card p-6 sm:p-8 rounded-2xl flex flex-col gap-8">
           
-          <!-- Design Philosophy & Approach (7 cols) -->
-          <div class="lg:col-span-7 reveal studio-card spotlight-card p-8 sm:p-9 rounded-3xl flex flex-col justify-between">
+          <!-- Bento Header -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-black/5 dark:border-white/10">
             <div>
-              <div class="flex items-center gap-2 mb-4 text-[#C2410C] dark:text-[#FB923C] font-mono text-xs font-bold uppercase tracking-wider">
-                <i data-lucide="sparkles" class="w-4 h-4 season-highlight"></i>
-                <span class="season-highlight">Product Design Mindset</span>
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full frosted-capsule text-[11px] font-mono font-bold uppercase tracking-wider mb-2">
+                <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+                <span>Experience & Education</span>
               </div>
-
-              <blockquote class="text-base sm:text-lg font-display font-medium theme-card-heading leading-snug mb-5 font-serif italic">
-                “Good design prioritizes utility, reduces cognitive load, and scales systematically.”
-              </blockquote>
-
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-white/20 dark:border-white/10">
-                <div class="p-3 rounded-2xl glass-box">
-                  <h4 class="font-bold text-xs theme-card-heading mb-0.5">Product Mindset</h4>
-                  <p class="text-[11px] theme-card-body">Balancing user needs with product goals.</p>
-                </div>
-
-                <div class="p-3 rounded-2xl glass-box">
-                  <h4 class="font-bold text-xs theme-card-heading mb-0.5">Design Systems</h4>
-                  <p class="text-[11px] theme-card-body">Tokens, Components & Figma Auto-Layout.</p>
-                </div>
-
-                <div class="p-3.5 rounded-2xl glass-box flex flex-col justify-between relative overflow-hidden group hover:border-[#C2410C]/30 dark:hover:border-sky-400/30 transition-all">
-                  <div class="flex items-center justify-between mb-1">
-                    <h4 class="font-bold text-xs theme-card-heading">Interactive UI</h4>
-                    <span class="text-[9px] font-mono text-emerald-600 dark:text-emerald-400 font-bold flex items-center gap-1">
-                      <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                      3D Lab
-                    </span>
-                  </div>
-                  <div id="bento-three-canvas" class="w-full h-20 rounded-xl my-1 relative overflow-hidden flex items-center justify-center bg-radial from-orange-500/10 dark:from-sky-500/10 via-transparent to-transparent cursor-pointer"></div>
-                  <p class="text-[11px] theme-card-body">Fluid micro-interactions & subtle 3D spatial depth.</p>
-                </div>
-              </div>
+              <h3 class="text-xl sm:text-2xl font-display font-bold theme-card-heading tracking-tight">
+                Track Record & Journey
+              </h3>
             </div>
-
-            <div class="mt-6 pt-4 border-t border-white/20 dark:border-white/10 flex items-center justify-between text-xs font-mono theme-muted">
-              <span>Role: UI/UX Designer</span>
-              <span class="season-highlight font-semibold">@imfishball</span>
+            <div class="flex items-center gap-3">
+              <span class="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 text-xs font-mono font-semibold flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Open for Roles
+              </span>
             </div>
           </div>
 
-          <!-- Experience Snapshot & Academic (5 cols) -->
-          <div class="lg:col-span-5 flex flex-col gap-5">
+          <!-- 2-Column Split: Experience (Left) & Education (Right) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             
-            <!-- Real-World Experience Snapshot -->
-            <div class="reveal studio-card studio-card-hover p-6 rounded-3xl border-2 border-emerald-500/30 dark:border-emerald-500/20 bg-emerald-500/[0.02]">
-              <div class="flex items-center justify-between gap-3 mb-3">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/30 flex items-center justify-center font-bold">
-                    <i data-lucide="briefcase" class="w-4 h-4"></i>
+            <!-- Col 1: Work Experience -->
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center justify-between pb-2.5 border-b border-black/5 dark:border-white/10">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-lg glass-box flex items-center justify-center text-emerald-700 dark:text-emerald-400">
+                    <i data-lucide="building-2" class="w-3.5 h-3.5"></i>
                   </div>
-                  <div>
-                    <h3 class="font-display font-bold text-sm theme-card-heading">
-                      Wisdom Solutions
-                    </h3>
-                    <span class="text-[11px] font-mono theme-muted">UI/UX Design Intern</span>
-                  </div>
+                  <h4 class="font-display font-bold text-sm theme-card-heading">Work Experience</h4>
                 </div>
-                <span class="pill-badge bg-emerald-100/80 text-emerald-900 dark:bg-emerald-950/60 dark:text-emerald-300 text-[10px] font-mono font-semibold">
-                  03/2026 — 06/2026
-                </span>
+                <span class="text-[10px] font-mono theme-muted font-bold">01</span>
               </div>
 
-              <p class="text-xs theme-card-body leading-relaxed mb-3">
-                Redesigned Smart Station EV charging app; built Figma Design System and dev specifications.
-              </p>
-
-              <div class="flex flex-wrap gap-1.5 text-[10px] font-mono">
-                <span class="px-2 py-0.5 rounded-md glass-box theme-card-body">Mobile UI</span>
-                <span class="px-2 py-0.5 rounded-md glass-box theme-card-body">Figma System</span>
-                <span class="px-2 py-0.5 rounded-md glass-box theme-card-body">Dev Handoff</span>
+              <!-- Experience Item -->
+              <div class="relative pl-5 before:content-[''] before:absolute before:left-1 before:top-2 before:bottom-0 before:w-px before:bg-emerald-500/30 dark:before:bg-emerald-400/20">
+                <span class="absolute left-0 top-1.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-500/20"></span>
+                <div class="flex items-baseline justify-between gap-2 mb-1">
+                  <h5 class="font-display font-bold text-base theme-card-heading">
+                    Wisdom Solutions
+                  </h5>
+                  <span class="text-[10px] font-mono font-semibold text-emerald-700 dark:text-emerald-300">
+                    03/2026 — 06/2026
+                  </span>
+                </div>
+                <span class="text-xs font-mono season-highlight font-medium block mb-2">UI/UX Design Intern</span>
+                <p class="text-xs theme-card-body leading-relaxed mb-3">
+                  Redesigned the EV Smart Charging app (key flows & screens) and standardized scalable Figma design tokens for driver and admin flows.
+                </p>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 theme-muted">EV Ecosystem</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 theme-muted">Design Tokens</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 theme-muted">Design Handoff</span>
+                </div>
               </div>
             </div>
 
-            <!-- Education & Certifications Snapshot -->
-            <div class="reveal studio-card studio-card-hover p-6 rounded-3xl flex flex-col justify-between">
-              <div class="flex items-center justify-between mb-3">
-                <div class="flex items-center gap-2.5">
-                  <div class="w-9 h-9 rounded-xl glass-box text-[#C2410C] dark:text-[#FB923C] flex items-center justify-center font-bold">
-                    <i data-lucide="graduation-cap" class="w-4 h-4 season-highlight"></i>
+            <!-- Col 2: Education & Credentials -->
+            <div class="flex flex-col gap-4">
+              <div class="flex items-center justify-between pb-2.5 border-b border-black/5 dark:border-white/10">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-lg glass-box flex items-center justify-center text-amber-700 dark:text-amber-400">
+                    <i data-lucide="graduation-cap" class="w-3.5 h-3.5"></i>
                   </div>
-                  <div>
-                    <h3 class="font-display font-bold text-sm theme-card-heading">
-                      University of Information Technology (UIT)
-                    </h3>
-                    <span class="text-[11px] font-mono theme-muted">2022 — 2026 • GPA 7.8 / 10</span>
-                  </div>
+                  <h4 class="font-display font-bold text-sm theme-card-heading">Education & Credentials</h4>
                 </div>
-                <span class="px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-mono font-bold text-[10px] border border-emerald-200 dark:border-emerald-800/30">
-                  Undergraduate
-                </span>
+                <span class="text-[10px] font-mono theme-muted font-bold">02</span>
               </div>
 
-              <!-- Certs Compact Chips -->
-              <div class="grid grid-cols-2 gap-2 mt-2 pt-3 border-t border-white/20 dark:border-white/10 text-[11px]">
-                <div class="p-2 rounded-xl glass-box">
-                  <span class="text-[10px] font-mono theme-muted block">ENGLISH</span>
-                  <span class="font-bold theme-card-heading">VSTEP B2/C1 (7.0)</span>
+              <!-- Education Item -->
+              <div class="relative pl-5 before:content-[''] before:absolute before:left-1 before:top-2 before:bottom-0 before:w-px before:bg-amber-500/30 dark:before:bg-amber-400/20">
+                <span class="absolute left-0 top-1.5 w-2.5 h-2.5 rounded-full bg-amber-500 ring-4 ring-amber-500/20"></span>
+                <div class="flex items-baseline justify-between gap-2 mb-1">
+                  <h5 class="font-display font-bold text-base theme-card-heading">
+                    UIT (VNU-HCM)
+                  </h5>
+                  <span class="text-[10px] font-mono font-semibold theme-muted">
+                    2022 — 2026
+                  </span>
                 </div>
-                <div class="p-2 rounded-xl glass-box">
-                  <span class="text-[10px] font-mono theme-muted block">CERTIFICATE</span>
-                  <span class="font-bold theme-card-heading">Google UX Design</span>
+                <span class="text-xs font-mono text-amber-700 dark:text-amber-300 font-medium block mb-1">Computer Networks & Data Communications</span>
+                <p class="text-xs theme-card-body leading-relaxed mb-3">
+                  Bachelor of Science • GPA: <span class="font-semibold text-emerald-600 dark:text-emerald-400">3.0 / 4.0 (7.8 / 10)</span>
+                </p>
+                
+                <!-- Credentials Badges -->
+                <div class="flex flex-col gap-2">
+                  <div class="flex items-center gap-2.5 p-2 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] border border-black/5 dark:border-white/10">
+                    <i data-lucide="award" class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0"></i>
+                    <div class="flex flex-col">
+                      <span class="text-xs font-mono font-medium theme-card-heading">Google UX Design Professional</span>
+                      <span class="text-[10px] font-mono theme-muted">Foundations, Wireframes, Usability Research</span>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-2.5 p-2 rounded-lg bg-black/[0.03] dark:bg-white/[0.04] border border-black/5 dark:border-white/10">
+                    <i data-lucide="globe" class="w-4 h-4 text-sky-600 dark:text-sky-400 shrink-0"></i>
+                    <div class="flex flex-col">
+                      <span class="text-xs font-mono font-medium theme-card-heading">VSTEP B2 / C1 Proficiency</span>
+                      <span class="text-[10px] font-mono theme-muted">IELTS 7.0 Equivalent • Professional English</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -831,60 +777,87 @@
 
         </div>
 
-        <!-- 4-Grid Skills Matrix (Precisely aligned with CV) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- ROW 2: Core Capabilities & Technical Stack (Curated 3-Column Master Bento Card) -->
+        <div class="reveal studio-card spotlight-card p-6 sm:p-8 rounded-2xl flex flex-col gap-8">
           
-          <!-- Group 1: UI/UX Core -->
-          <div class="reveal studio-card studio-card-hover p-7 rounded-3xl">
-            <div class="flex items-center gap-2.5 mb-4 theme-card-heading font-bold text-sm">
-              <i data-lucide="layout" class="w-4 h-4 season-highlight"></i>
-              <span>UI/UX Design Core</span>
+          <!-- Bento Header -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-black/5 dark:border-white/10">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full frosted-capsule text-[11px] font-mono font-bold uppercase tracking-wider mb-2">
+                <i data-lucide="cpu" class="w-3.5 h-3.5"></i>
+                <span>Capabilities & Tooling</span>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-display font-bold theme-card-heading tracking-tight">
+                Core Capabilities & Technical Stack
+              </h3>
             </div>
-            <div class="flex flex-col gap-2 text-xs font-mono theme-card-body">
-              <span class="p-2 rounded-xl glass-box">User Flow & Wireframing</span>
-              <span class="p-2 rounded-xl glass-box">Information Architecture</span>
-              <span class="p-2 rounded-xl glass-box">Hi-Fi UI & Prototyping</span>
-              <span class="p-2 rounded-xl glass-box">Design System (WCAG)</span>
-            </div>
+            <p class="text-xs sm:text-sm theme-card-body max-w-md font-normal leading-relaxed">
+              Curated tools and competencies applied directly across end-to-end product lifecycles.
+            </p>
           </div>
 
-          <!-- Group 2: Design Tools -->
-          <div class="reveal studio-card studio-card-hover p-7 rounded-3xl" style="transition-delay: 0.1s;">
-            <div class="flex items-center gap-2.5 mb-4 theme-card-heading font-bold text-sm">
-              <i data-lucide="pen-tool" class="w-4 h-4 season-highlight"></i>
-              <span>Design Tools</span>
+          <!-- 3 Clean Compartments (High-Signal Modern Skill Chips Grid) -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            
+            <!-- Col 1: UI/UX Craft & Strategy -->
+            <div class="flex flex-col gap-3.5">
+              <div class="flex items-center justify-between pb-2.5 border-b border-black/5 dark:border-white/10">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-lg glass-box flex items-center justify-center text-[#C2410C] dark:text-[#FB923C]">
+                    <i data-lucide="layout" class="w-3.5 h-3.5"></i>
+                  </div>
+                  <h4 class="font-display font-bold text-sm theme-card-heading">UI/UX Craft</h4>
+                </div>
+                <span class="text-[10px] font-mono theme-muted font-bold">01</span>
+              </div>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-emerald-500/40 transition-colors">User Flows</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-emerald-500/40 transition-colors">Wireframing</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-emerald-500/40 transition-colors">Hi-Fi Prototyping</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-emerald-500/40 transition-colors">Design Systems</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-emerald-500/40 transition-colors">Usability Testing</span>
+              </div>
             </div>
-            <div class="flex flex-col gap-2 text-xs font-mono theme-card-body">
-              <span class="p-2 rounded-xl glass-box">Figma (Auto-Layout, Variants)</span>
-              <span class="p-2 rounded-xl glass-box">Framer (Interactive Prototypes)</span>
-              <span class="p-2 rounded-xl glass-box">Adobe Illustrator & Canva</span>
-            </div>
-          </div>
 
-          <!-- Group 3: Collaboration & Handoff -->
-          <div class="reveal studio-card studio-card-hover p-7 rounded-3xl" style="transition-delay: 0.2s;">
-            <div class="flex items-center gap-2.5 mb-4 theme-card-heading font-bold text-sm">
-              <i data-lucide="users" class="w-4 h-4 season-highlight"></i>
-              <span>Workflow & Handoff</span>
+            <!-- Col 2: Design Tools -->
+            <div class="flex flex-col gap-3.5">
+              <div class="flex items-center justify-between pb-2.5 border-b border-black/5 dark:border-white/10">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-lg glass-box flex items-center justify-center text-[#C2410C] dark:text-[#FB923C]">
+                    <i data-lucide="pen-tool" class="w-3.5 h-3.5"></i>
+                  </div>
+                  <h4 class="font-display font-bold text-sm theme-card-heading">Design Tools</h4>
+                </div>
+                <span class="text-[10px] font-mono theme-muted font-bold">02</span>
+              </div>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-amber-500/40 transition-colors">Figma</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-amber-500/40 transition-colors">Framer</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-amber-500/40 transition-colors">Adobe Illustrator</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-amber-500/40 transition-colors">Canva</span>
+              </div>
             </div>
-            <div class="flex flex-col gap-2 text-xs font-mono theme-card-body">
-              <span class="p-2 rounded-xl glass-box">UI/UX Specifications</span>
-              <span class="p-2 rounded-xl glass-box">Dev Handoff & Review</span>
-              <span class="p-2 rounded-xl glass-box">Agile, Trello & Design QA</span>
-            </div>
-          </div>
 
-          <!-- Group 4: Technical Background -->
-          <div class="reveal studio-card studio-card-hover p-7 rounded-3xl" style="transition-delay: 0.3s;">
-            <div class="flex items-center gap-2.5 mb-4 theme-card-heading font-bold text-sm">
-              <i data-lucide="code-2" class="w-4 h-4 season-highlight"></i>
-              <span>Technical Skills</span>
+            <!-- Col 3: Engineering Literacy -->
+            <div class="flex flex-col gap-3.5">
+              <div class="flex items-center justify-between pb-2.5 border-b border-black/5 dark:border-white/10">
+                <div class="flex items-center gap-2">
+                  <div class="w-7 h-7 rounded-lg glass-box flex items-center justify-center text-[#C2410C] dark:text-[#FB923C]">
+                    <i data-lucide="code-2" class="w-3.5 h-3.5"></i>
+                  </div>
+                  <h4 class="font-display font-bold text-sm theme-card-heading">Engineering Literacy</h4>
+                </div>
+                <span class="text-[10px] font-mono theme-muted font-bold">03</span>
+              </div>
+              <div class="flex flex-wrap gap-2 pt-1">
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-indigo-500/40 transition-colors">HTML5 & CSS3</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-indigo-500/40 transition-colors">Tailwind CSS</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-indigo-500/40 transition-colors">JavaScript (ES6+)</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-indigo-500/40 transition-colors">Git & GitHub</span>
+                <span class="px-3 py-1.5 rounded-lg bg-black/[0.04] dark:bg-white/[0.06] border border-black/5 dark:border-white/10 text-xs font-mono font-medium theme-card-heading hover:border-indigo-500/40 transition-colors">Dev Handoff Specs</span>
+              </div>
             </div>
-            <div class="flex flex-col gap-2 text-xs font-mono theme-card-body">
-              <span class="p-2 rounded-xl glass-box">HTML5, CSS3, Tailwind CSS</span>
-              <span class="p-2 rounded-xl glass-box">JavaScript (ES6+)</span>
-              <span class="p-2 rounded-xl glass-box">React.js & GitHub</span>
-            </div>
+
           </div>
 
         </div>
@@ -897,14 +870,14 @@
       <div class="w-full max-w-5xl mx-auto flex flex-col gap-14">
         
         <!-- Section Header (Editorial Frosted Glass CTA Card) -->
-        <div class="reveal p-6 sm:p-10 rounded-3xl studio-card spotlight-card border border-white/50 dark:border-white/15 flex flex-col md:flex-row items-start md:items-end justify-between gap-8 shadow-sm">
+        <div class="reveal p-6 sm:p-10 rounded-2xl studio-card spotlight-card border border-white/50 dark:border-white/15 flex flex-col md:flex-row items-start md:items-end justify-between gap-8 shadow-sm">
           <div class="max-w-xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-box text-xs font-mono font-bold uppercase tracking-wider season-highlight mb-3">
-              <i data-lucide="mail" class="w-3.5 h-3.5 season-highlight"></i>
-              Contact
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full frosted-capsule text-xs font-mono font-bold uppercase tracking-wider mb-3">
+              <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+              <span>Contact</span>
             </div>
             <h2 class="text-3xl sm:text-5xl font-display font-bold theme-heading tracking-tight leading-[1.1] mb-3">
-              Let’s build digital products with <span class="font-serif italic font-normal season-highlight">elegance, modern trends & impact</span>.
+              Let’s build digital products with elegance, precision & impact.
             </h2>
             <p class="text-sm theme-body font-normal leading-relaxed">
               Open for UI/UX Designer opportunities. Feel free to reach out to connect or collaborate!
@@ -923,7 +896,7 @@
         </div>
 
         <!-- Interactive 3D Studio Spatial Beacon Card -->
-        <div class="reveal studio-card p-6 sm:p-8 rounded-3xl flex flex-col md:flex-row items-center justify-between gap-6 border border-white/20 dark:border-white/10 relative overflow-hidden">
+        <div class="reveal studio-card p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-white/20 dark:border-white/10 relative overflow-hidden">
           <div class="flex flex-col gap-2.5 z-10 max-w-lg">
             <div class="flex items-center gap-2">
               <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>

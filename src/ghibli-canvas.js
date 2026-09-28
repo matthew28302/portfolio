@@ -1246,6 +1246,23 @@ export class GhibliSeasonsCanvas {
     const foliageSecondary = this.sampleColor('foliageSecondary');
     const foliageHighlight = this.sampleColor('foliageHighlight');
 
+    // 0. Soft Celestial / Sunlight Aura around Great Sacred Tree Crown (Option 3: Nature Portal)
+    ctx.save();
+    const treeCrownX = islandX;
+    const treeCrownY = islandY - 210;
+    const treeGlow = ctx.createRadialGradient(treeCrownX, treeCrownY, 25, treeCrownX, treeCrownY, 320);
+    const isNight = this.darkFactor > 0.5;
+    const glowAlpha = isNight ? 0.35 : 0.42;
+    const glowRgb = isNight ? '165, 214, 255' : '254, 240, 138'; // Cool ethereal moonlight (dark) vs warm golden sunbeams (light)
+    treeGlow.addColorStop(0, `rgba(${glowRgb}, ${glowAlpha})`);
+    treeGlow.addColorStop(0.45, `rgba(${glowRgb}, ${glowAlpha * 0.35})`);
+    treeGlow.addColorStop(1, `rgba(${glowRgb}, 0)`);
+    ctx.fillStyle = treeGlow;
+    ctx.beginPath();
+    ctx.arc(treeCrownX, treeCrownY, 320, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
     // 1. Natural Compact Tree Root Mound (Leaves plenty of open blue water all around!)
     const islandGrad = ctx.createRadialGradient(islandX, islandY + 6, 8, islandX, islandY + 6, 52);
     islandGrad.addColorStop(0, this.sampleColor('grassNear'));

@@ -108,53 +108,61 @@
             <div class="w-full lg:w-[70%] flex-1">
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center">
                 
-                <!-- Narrative Column (7 cols on lg/xl) with Organic Ambient Scrim -->
+                <!-- Narrative Column (7 cols on lg/xl) -->
                 <div class="lg:col-span-7 flex flex-col items-start text-left relative z-10">
-                  <!-- Organic Ambient Readability Halo (Zero borders, zero boxes, seamlessly feathered) -->
-                  <div class="hero-ambient-scrim absolute -top-8 -bottom-8 -right-8 -left-14 sm:-left-20 lg:-left-28 -z-10 pointer-events-none"></div>
                   
-                  <!-- Designer Identity Pill -->
-                  <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full frosted-capsule text-xs font-mono mb-5 sm:mb-6">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <!-- 1. Designer Identity Pill (Nhỏ & Thanh lịch, không dùng chấm xanh gây nhiễu) -->
+                  <div class="reveal inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full frosted-capsule text-xs font-mono mb-4 sm:mb-5">
                     <span class="font-semibold tracking-wide theme-heading">Nguyễn Vũ Xuân Mai</span>
                     <span class="opacity-40">•</span>
                     <span class="theme-muted">UI/UX Designer</span>
                   </div>
 
-                  <!-- Big Confident Editorial Headline with Hybrid Typography -->
-                  <h1 class="reveal text-4xl sm:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-display font-bold theme-heading tracking-tight leading-[1.12] mb-5 sm:mb-6" style="transition-delay: 0.05s;">
-                    Crafting intuitive <span class="editorial-serif font-serif italic font-normal text-[#C2410C] dark:text-[#FB923C]">experiences</span>.<br class="hidden sm:inline" /> Built for real-world <span class="font-bold tracking-tight theme-heading underline decoration-emerald-500/40 dark:decoration-emerald-400/50 underline-offset-8 decoration-2">products</span>.
+                  <!-- 2. H1 Headline ('Crafting intuitive' luôn trên cùng 1 dòng) -->
+                  <h1 class="reveal hero-text-luminous text-3xl sm:text-4xl lg:text-[2.65rem] xl:text-5xl 2xl:text-6xl font-display font-bold theme-heading tracking-tight leading-[1.12] mb-1.5 sm:mb-2" style="transition-delay: 0.05s;">
+                    <span class="block whitespace-nowrap">Crafting intuitive</span>
+                    <span class="editorial-serif font-serif italic font-normal text-[#C2410C] dark:text-[#FB923C]">experiences.</span>
                   </h1>
 
-                  <!-- Editorial Bio -->
-                  <p class="reveal text-sm sm:text-base lg:text-base xl:text-lg theme-body font-normal leading-relaxed mb-6 sm:mb-8 max-w-xl" style="transition-delay: 0.1s;">
-                    UI/UX Designer from <strong class="font-semibold text-slate-900 dark:text-white">UIT (VNU-HCM)</strong> with hands-on industry experience designing end-to-end EV charging applications and scalable design tokens at Wisdom Solutions. Ready to build production-ready mobile and web experiences.
+                  <!-- 3. Supporting Statement (Nhỏ hơn H1 - Value Proposition) -->
+                  <p class="reveal hero-text-luminous text-xl sm:text-2xl lg:text-xl xl:text-2xl 2xl:text-3xl font-display font-medium text-neutral-800 dark:text-neutral-200 tracking-tight leading-snug mb-5 sm:mb-6" style="transition-delay: 0.08s;">
+                    Built for real-world products.
                   </p>
 
-                  <!-- Action Buttons -->
+                  <!-- 4. Description (Dark Frosted Plaque - Maximum Contrast & Editorial Polish) -->
+                  <div class="reveal mb-6 sm:mb-8 max-w-lg" style="transition-delay: 0.12s;">
+                    <div class="dark-narrative-card">
+                      <p class="text-xs sm:text-sm md:text-[0.935rem] font-normal leading-relaxed text-zinc-100 dark:text-zinc-200">
+                        UI/UX Designer with a technical background, combining structured problem-solving with human-centered product design.
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Action Buttons (Hierarchical & Balanced) -->
                   <div class="reveal flex flex-wrap items-center gap-3 mb-6 sm:mb-8" style="transition-delay: 0.15s;">
-                    <a href="#work" class="btn-primary text-xs sm:text-sm py-2.5 px-5">
+                    <a href="#work" class="btn-primary text-xs sm:text-sm py-2.5 px-5 shadow-sm">
                       Explore Selected Work
                       <i data-lucide="arrow-down" class="w-4 h-4"></i>
                     </a>
 
-                    <a href="/CV.pdf" download="CV_Nguyen_Vu_Xuan_Mai_UIUX_Designer.pdf" class="btn-secondary text-xs sm:text-sm py-2.5 px-5">
+                    <a href="/CV.pdf" download="CV_Nguyen_Vu_Xuan_Mai_UIUX_Designer.pdf" class="btn-secondary text-xs sm:text-sm py-2.5 px-5 shadow-2xs">
                       <i data-lucide="file-text" class="w-4 h-4 text-amber-600 dark:text-amber-400"></i>
-                      Download CV (PDF)
+                      Download CV
                     </a>
 
-                    <button type="button" class="copy-email-btn btn-secondary text-xs sm:text-sm py-2.5 px-4">
-                      <i data-lucide="copy" class="w-3.5 h-3.5 text-slate-600 dark:text-slate-300"></i> Copy Email
+                    <button type="button" class="copy-email-btn text-xs font-mono font-medium theme-muted hover:theme-heading px-3 py-2.5 rounded-xl glass-box border border-black/5 dark:border-white/10 flex items-center gap-1.5 transition-all shadow-2xs hover:scale-102" title="Copy Email: xuanmai032004@gmail.com">
+                      <i data-lucide="copy" class="w-3.5 h-3.5 season-highlight"></i>
+                      <span>Copy Email</span>
                     </button>
                   </div>
 
-                  <!-- Clean Metadata Line -->
+                  <!-- Clean Metadata Line (Icon đồng bộ, không lặp chấm xanh) -->
                   <div class="reveal flex flex-wrap items-center gap-x-5 gap-y-2 text-xs font-mono theme-muted" style="transition-delay: 0.2s;">
                     <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i> Ho Chi Minh City, VN</span>
                     <span class="opacity-30">•</span>
                     <span class="flex items-center gap-1.5"><i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i> UIT (2022 — 2026)</span>
                     <span class="opacity-30">•</span>
-                    <span class="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Available for Roles</span>
+                    <span class="flex items-center gap-1.5 text-neutral-700 dark:text-neutral-300 font-medium"><i data-lucide="briefcase" class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400"></i> Open for Full-time Roles</span>
                   </div>
 
                 </div>
@@ -186,15 +194,15 @@
                         </div>
                       </div>
 
-                      <!-- Clean Editorial Metadata Specs -->
+                      <!-- Clean Editorial Metadata Specs (No Redundancy) -->
                       <div class="flex flex-col gap-2 text-xs">
                         <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
-                          <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">STATUS</span>
-                          <span class="font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Open for Work</span>
+                          <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">LOCATION</span>
+                          <span class="font-bold text-slate-900 dark:text-white">Ho Chi Minh City</span>
                         </div>
                         <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
                           <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">EXPERIENCE</span>
-                          <span class="font-bold text-slate-900 dark:text-white">Wisdom Solutions (EV App UI/UX)</span>
+                          <span class="font-bold text-slate-900 dark:text-white">Wisdom Solutions (EV App)</span>
                         </div>
                         <div class="flex items-center justify-between py-1.5 border-b border-black/5 dark:border-white/10">
                           <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">TOOLS</span>
@@ -202,7 +210,7 @@
                         </div>
                         <div class="flex items-center justify-between py-1.5">
                           <span class="text-slate-600 dark:text-slate-400 font-mono text-[11px] font-bold">FOCUS</span>
-                          <span class="font-bold text-amber-600 dark:text-amber-400">Mobile & Web Apps</span>
+                          <span class="font-bold text-amber-600 dark:text-amber-400">Mobile & Web Products</span>
                         </div>
                       </div>
 
@@ -231,7 +239,11 @@
             <h2 class="text-3xl sm:text-5xl font-display font-bold theme-heading tracking-tight">
               Featured Work
             </h2>
-            <p class="text-xs sm:text-sm theme-body mt-2 font-normal">Mobile Apps, Design Systems, and User-Centered Experiences.</p>
+            <div class="mt-2.5">
+              <span class="dark-capsule-badge text-xs sm:text-sm">
+                Mobile Apps, Design Systems, and User-Centered Experiences.
+              </span>
+            </div>
           </div>
 
           <!-- Filter Tabs -->
@@ -262,10 +274,10 @@
                 <div class="flex flex-wrap items-center gap-2 mb-4">
                   <span class="pill-badge bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5 font-semibold">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                    WISDOM SOLUTIONS (03/2026 - 06/2026)
+                    UI/UX Designer — Wisdom Solutions
                   </span>
                   <span class="pill-badge glass-box theme-muted font-medium">
-                    UI/UX Design Intern
+                    03/2026 — 06/2026
                   </span>
                   <span class="text-xs theme-muted font-mono">Figma • Framer</span>
                 </div>
@@ -544,9 +556,11 @@
               Design Methodology
             </h2>
           </div>
-          <p class="text-xs sm:text-sm theme-body max-w-md font-normal leading-relaxed">
-            4 disciplined steps from understanding user needs to shipping production-ready interfaces.
-          </p>
+          <div class="mt-2 md:mt-0">
+            <span class="dark-capsule-badge text-xs sm:text-sm">
+              4 disciplined steps from user needs to production-ready interfaces.
+            </span>
+          </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -661,9 +675,11 @@
           <h2 class="text-3xl sm:text-5xl font-display font-bold theme-heading tracking-tight">
             Empathy & Systematic Design
           </h2>
-          <p class="text-xs sm:text-sm theme-body max-w-2xl font-normal">
-            Bridging user experience design with a solid computer science background.
-          </p>
+          <div class="mt-2">
+            <span class="dark-capsule-badge text-xs sm:text-sm">
+              Bridging user experience design with a solid computer science background.
+            </span>
+          </div>
         </div>
 
         <!-- MASTER ROW 1: Experience & Education (Option 2: Unified Master Card) -->
@@ -707,13 +723,13 @@
                 <span class="absolute left-0 top-1.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-500/20"></span>
                 <div class="flex items-baseline justify-between gap-2 mb-1">
                   <h5 class="font-display font-bold text-base theme-card-heading">
-                    Wisdom Solutions
+                    UI/UX Designer — Wisdom Solutions
                   </h5>
                   <span class="text-[10px] font-mono font-semibold text-emerald-700 dark:text-emerald-300">
                     03/2026 — 06/2026
                   </span>
                 </div>
-                <span class="text-xs font-mono season-highlight font-medium block mb-2">UI/UX Design Intern</span>
+                <span class="text-xs font-mono season-highlight font-medium block mb-2">EV Charging Ecosystem</span>
                 <p class="text-xs theme-card-body leading-relaxed mb-3">
                   Redesigned the EV Smart Charging app (key flows & screens) and standardized scalable Figma design tokens for driver and admin flows.
                 </p>
@@ -892,38 +908,6 @@
             <button type="button" class="copy-email-btn btn-secondary">
               <i data-lucide="copy" class="w-4 h-4 season-highlight"></i> Copy Email
             </button>
-          </div>
-        </div>
-
-        <!-- Interactive 3D Studio Spatial Beacon Card -->
-        <div class="reveal studio-card p-6 sm:p-8 rounded-2xl flex flex-col md:flex-row items-center justify-between gap-6 border border-white/20 dark:border-white/10 relative overflow-hidden">
-          <div class="flex flex-col gap-2.5 z-10 max-w-lg">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-              <span class="text-xs font-mono font-bold season-highlight uppercase tracking-wider">3D Quantum Beacon</span>
-            </div>
-            <h3 class="font-display font-bold text-xl sm:text-2xl theme-card-heading">
-              Crafted in Three.js with Real-Time Spatial Physics
-            </h3>
-            <p class="text-xs sm:text-sm theme-card-body leading-relaxed">
-              Drag to spin this gyroscopic core. Features refractive glass transmission, dual orbital quantum rings, and responsive gravitational particle inertia.
-            </p>
-            <div class="flex flex-wrap items-center gap-2 mt-1 text-xs font-mono theme-muted">
-              <span class="px-2.5 py-1 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center gap-1.5">
-                <i data-lucide="move" class="w-3.5 h-3.5 season-highlight"></i> Drag to Spin
-              </span>
-              <span class="px-2.5 py-1 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center gap-1.5">
-                <i data-lucide="mouse-pointer" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i> Cursor Gravity
-              </span>
-              <span class="px-2.5 py-1 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex items-center gap-1.5">
-                <i data-lucide="sparkles" class="w-3.5 h-3.5 text-amber-500"></i> Physical Damping
-              </span>
-            </div>
-          </div>
-
-          <!-- 3D Beacon Viewport Canvas -->
-          <div class="w-52 h-52 sm:w-60 sm:h-60 relative flex items-center justify-center shrink-0">
-            <div id="contact-three-canvas" class="w-full h-full cursor-grab active:cursor-grabbing"></div>
           </div>
         </div>
 

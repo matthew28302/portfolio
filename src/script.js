@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = 'xuanmai032004@gmail.com';
       navigator.clipboard.writeText(email).then(() => {
         const originalText = btn.innerHTML;
-        btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-blue-500"></i> Copied to clipboard!`;
+        btn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-500"></i> Copied!`;
         if (window.lucide) window.lucide.createIcons();
         setTimeout(() => {
           btn.innerHTML = originalText;

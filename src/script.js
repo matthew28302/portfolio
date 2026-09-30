@@ -71,6 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
             mainImg.src = imagesList[index];
             mainImg.style.opacity = '1';
             mainImg.style.transform = 'scale(1)';
+            const phoneScroll = container.querySelector('.phone-screen-scroll');
+            if (phoneScroll) {
+              phoneScroll.scrollTop = 0;
+              const hint = container.querySelector('.phone-scroll-hint');
+              if (hint) hint.classList.remove('opacity-0', 'pointer-events-none');
+            }
           }, 100);
 
           // Update Dynamic Text Descriptions (if present)
@@ -269,6 +275,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 2000);
       });
     });
+  });
+
+  // --- 8b. Drag-to-Scroll for Phone Mockup Screens ---
+  const phoneScrollContainers = document.querySelectorAll('.phone-screen-scroll');
+  phoneScrollContainers.forEach(container => {
+    let isDown = false;
+    let startY = 0;
+    let scrollTop = 0;
+    const parent = container.closest('.phone-mockup-frame') || container.parentElement;
+    const hint = parent ? parent.querySelector('.phone-scroll-hint') : null;
+
+    const hideHint = () => {
+      if (hint && !hint.classList.contains('opacity-0')) {
+        hint.classList.add('opacity-0', 'pointer-events-none');
+      }
+    };
+
+    container.addEventListener('mousedown', (e) => {
+      isDown = true;
+      container.classList.add('cursor-grabbing');
+      container.classList.remove('cursor-grab');
+      startY = e.pageY - container.offsetTop;
+      scrollTop = container.scrollTop;
+    });
+
+    const stopDrag = () => {
+      if (!isDown) return;
+      isDown = false;
+      container.classList.remove('cursor-grabbing');
+      container.classList.add('cursor-grab');
+    };
+
+    container.addEventListener('mouseleave', stopDrag);
+    container.addEventListener('mouseup', stopDrag);
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const y = e.pageY - container.offsetTop;
+      const walk = (y - startY) * 1.5;
+      container.scrollTop = scrollTop - walk;
+      hideHint();
+    });
+
+    container.addEventListener('scroll', hideHint, { passive: true });
   });
 
   // --- 9. Scroll Reveal with IntersectionObserver ---

@@ -221,7 +221,7 @@
           seeds: ["music", "audio", "player", "concert", "dark", "sound", "artist", "dashboard", "track"]
         },
         5: {
-          title: "Trạm Điện Xanh (Smart Station) — EV Smart Charging",
+          title: "Smart Station — EV Smart Charging App",
           subtitle: "Internship project at Wisdom Engineering & Business Solutions: Redesigned the Customer & Admin mobile experience for EV charging station discovery, booking, live charging, and e-wallet payments.",
           category: "Enterprise Internship • Mobile UI/UX Design",
           role: "UI/UX Design Intern",
@@ -574,9 +574,9 @@
 
         let imagesHtml = '';
         if (project.isVerticalLayout) {
-          // Responsive 2-Column Grid Layout for vertical mobile screens
+          // Responsive 2-Column Grid Layout with Uniform Drag & Scroll Phone Frames (560px Uniform Height)
           imagesHtml = `
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 mb-14">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-10 mb-14">
               ${project.images.map((item, index) => {
                 const screenNum = String(index + 1).padStart(2, '0');
                 const totalScreens = String(project.images.length).padStart(2, '0');
@@ -585,7 +585,7 @@
                 const badge = typeof item === 'string' ? 'Mobile UI' : (item.badge || 'Screen');
                 const desc = typeof item === 'string' ? '' : item.desc;
                 return `
-                  <div class="reveal-scale studio-card spotlight-card rounded-[2rem] overflow-hidden border border-white/25 dark:border-white/10 shadow-lg flex flex-col group cursor-pointer" onclick="openLightbox('${imgSrc}', '${title}')">
+                  <div class="reveal-scale studio-card spotlight-card rounded-[2.5rem] overflow-hidden border border-white/25 dark:border-white/10 shadow-lg flex flex-col group">
                     
                     <!-- Screen Header -->
                     <div class="px-5 py-3.5 border-b border-white/20 dark:border-white/10 bg-white/15 dark:bg-white/[0.03] flex items-center justify-between text-xs theme-muted font-mono">
@@ -593,23 +593,43 @@
                         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
                         <span class="font-bold theme-card-heading">${badge}</span>
                       </div>
-                      <div class="flex items-center gap-1.5 font-bold season-highlight">
-                        <span>SCREEN ${screenNum} / ${totalScreens}</span>
+                      <div class="flex items-center gap-3">
+                        <button type="button" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-black/10 dark:bg-white/10 hover:bg-emerald-600 hover:text-white transition-all text-[11px] font-semibold text-slate-800 dark:text-zinc-200 cursor-pointer shadow-2xs" onclick="openLightbox('${imgSrc}', '${title}')" title="Zoom Full Screen">
+                          <i data-lucide="maximize-2" class="w-3 h-3"></i>
+                          <span>Zoom</span>
+                        </button>
+                        <span class="font-bold season-highlight">SCREEN ${screenNum} / ${totalScreens}</span>
                       </div>
                     </div>
 
-                    <!-- Vertical Screen in Device Frame -->
-                    <div class="p-6 sm:p-8 bg-black/10 dark:bg-black/30 backdrop-blur-xs flex items-center justify-center relative overflow-hidden flex-1">
-                      <div class="w-full max-w-[320px] rounded-[2rem] overflow-hidden border-[5px] border-zinc-800/80 dark:border-zinc-700/80 shadow-2xl bg-white dark:bg-zinc-900 transition-all duration-300 group-hover:scale-[1.02] group-hover:shadow-emerald-500/20">
-                        <img src="${imgSrc}" alt="${title}" class="w-full h-auto block object-cover" loading="lazy" />
+                    <!-- Vertical Screen in Uniform Phone Device Frame (Fixed Height: 560px) -->
+                    <div class="p-6 sm:p-8 bg-black/10 dark:bg-black/30 backdrop-blur-xs flex items-center justify-center relative overflow-hidden flex-1 select-none">
+                      
+                      <!-- Phone Chassis (Uniform 560px Height) -->
+                      <div class="phone-mockup-frame relative w-full max-w-[285px] sm:max-w-[305px] h-[520px] sm:h-[560px] rounded-[2.75rem] border-[8px] border-zinc-900 dark:border-zinc-800 bg-black shadow-2xl overflow-hidden flex flex-col transition-all duration-300 group-hover:shadow-emerald-500/20">
+                        
+                        <!-- Dynamic Island (Top Sensor) -->
+                        <div class="absolute top-2.5 left-1/2 -translate-x-1/2 w-24 h-5 bg-black rounded-full z-30 pointer-events-none flex items-center justify-between px-2.5 shadow-sm border border-white/5">
+                          <span class="w-2 h-2 rounded-full bg-zinc-900 border border-zinc-700/60 inline-block"></span>
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500/80 animate-pulse inline-block"></span>
+                        </div>
+
+                        <!-- Inner Screen (Scrollable & Draggable) -->
+                        <div class="phone-screen-scroll w-full h-full overflow-y-auto overflow-x-hidden relative cursor-grab active:cursor-grabbing select-none" style="scrollbar-width: none; -ms-overflow-style: none;">
+                          <img src="${imgSrc}" alt="${title}" class="w-full h-auto block select-none pointer-events-none" loading="lazy" draggable="false" />
+                        </div>
+
+                        <!-- Home Indicator Bar (Bottom) -->
+                        <div class="absolute bottom-1.5 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/40 dark:bg-zinc-400/40 rounded-full z-30 pointer-events-none shadow-sm"></div>
+
+                        <!-- Floating Scroll / Drag Hint (Fades out once user scrolls/drags) -->
+                        <div class="phone-scroll-hint absolute bottom-5 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[11px] font-mono pointer-events-none flex items-center gap-1.5 transition-opacity duration-300 z-20 shadow-lg border border-white/15">
+                          <i data-lucide="chevrons-up-down" class="w-3.5 h-3.5 text-emerald-400 animate-bounce"></i>
+                          <span>Scroll / Drag to explore</span>
+                        </div>
+
                       </div>
 
-                      <!-- Hover Zoom Hint -->
-                      <div class="absolute inset-0 bg-black/35 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                        <span class="px-4 py-2 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold flex items-center gap-2 shadow-xl border border-white/20">
-                          <i data-lucide="zoom-in" class="w-4 h-4 text-emerald-400"></i> Click to zoom
-                        </span>
-                      </div>
                     </div>
 
                     <!-- Description Footer -->
@@ -797,6 +817,55 @@
           setTimeout(initRevealObserver, 80);
         });
 
+
+        // ── Drag-to-Scroll & Mouse-Drag Simulator for Phone Screens ────────────
+        function initDragToScroll() {
+          const containers = document.querySelectorAll('.phone-screen-scroll');
+          containers.forEach((container) => {
+            let isDown = false;
+            let startY = 0;
+            let scrollTop = 0;
+            const parent = container.closest('.phone-mockup-frame');
+            const hint = parent ? parent.querySelector('.phone-scroll-hint') : null;
+
+            const hideHint = () => {
+              if (hint && !hint.classList.contains('opacity-0')) {
+                hint.classList.add('opacity-0', 'pointer-events-none');
+              }
+            };
+
+            container.addEventListener('mousedown', (e) => {
+              isDown = true;
+              container.classList.add('cursor-grabbing');
+              container.classList.remove('cursor-grab');
+              startY = e.pageY - container.offsetTop;
+              scrollTop = container.scrollTop;
+            });
+
+            const stopDrag = () => {
+              if (!isDown) return;
+              isDown = false;
+              container.classList.remove('cursor-grabbing');
+              container.classList.add('cursor-grab');
+            };
+
+            container.addEventListener('mouseleave', stopDrag);
+            container.addEventListener('mouseup', stopDrag);
+
+            container.addEventListener('mousemove', (e) => {
+              if (!isDown) return;
+              e.preventDefault();
+              const y = e.pageY - container.offsetTop;
+              const walk = (y - startY) * 1.5;
+              container.scrollTop = scrollTop - walk;
+              hideHint();
+            });
+
+            container.addEventListener('scroll', hideHint, { passive: true });
+          });
+        }
+
+        initDragToScroll();
 
         if (window.lucide) {
           lucide.createIcons();

@@ -186,6 +186,25 @@ html.dark .dark-narrative-card {
   text-shadow: none !important;
 }
 
+/* Uniform Smartphone Device Mockup with Drag-to-Scroll */
+.phone-screen-scroll {
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  -webkit-overflow-scrolling: touch;
+}
+.phone-screen-scroll::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+.phone-mockup-frame {
+  box-shadow: 
+    0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 25px 50px -12px rgba(0, 0, 0, 0.45),
+    0 12px 24px -8px rgba(0, 0, 0, 0.25);
+}
+
 /* Atmospheric Luminous Text Contrast for Dynamic Canvas (Zero-box contrast halo) */
 .hero-text-luminous {
   text-shadow: 

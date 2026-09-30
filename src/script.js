@@ -71,12 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
             mainImg.src = imagesList[index];
             mainImg.style.opacity = '1';
             mainImg.style.transform = 'scale(1)';
-            const phoneScroll = container.querySelector('.phone-screen-scroll');
-            if (phoneScroll) {
-              phoneScroll.scrollTop = 0;
-              const hint = container.querySelector('.phone-scroll-hint');
-              if (hint) hint.classList.remove('opacity-0', 'pointer-events-none');
-            }
           }, 100);
 
           // Update Dynamic Text Descriptions (if present)

@@ -341,6 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let ghibliInstance = null;
   if (ghibliCanvas) {
     ghibliInstance = new GhibliSeasonsCanvas('ghibli-canvas');
+    window.ghibliInstance = ghibliInstance;
     initGhibliControls(ghibliInstance);
   }
 
@@ -571,10 +572,33 @@ function initGhibliControls(ghibliInstance) {
     applyAdaptiveTextColors(currentProgress);
   });
 
+  // Global helper for interactive season previews
+  window.setGhibliSeason = function(seasonName) {
+    if (seasonName === 'auto') {
+      window.__seasonLocked = false;
+      if (!heroSection || !workSection || !aboutSection || !contactSection) {
+        calculateProjectScrollProgress();
+      } else {
+        calculateScrollProgress();
+      }
+      return;
+    }
+    const map = { spring: 0, summer: 1, autumn: 2, winter: 3 };
+    if (seasonName in map) {
+      window.__seasonLocked = true;
+      const progress = map[seasonName];
+      currentProgress = progress;
+      ghibliInstance.setSeasonProgress(progress);
+      applyAdaptiveTextColors(progress);
+      updateActiveSeasonUI(progress);
+    }
+  };
+
   if (!heroSection || !workSection || !aboutSection || !contactSection) {
     // Project detail page: divide the entire page scroll into 4 seasonal sections (Spring -> Summer -> Autumn -> Winter)
     let isProjectTicking = false;
     function calculateProjectScrollProgress() {
+      if (window.__seasonLocked) return;
       const scrollY = window.pageYOffset || document.documentElement.scrollTop;
       const docHeight = Math.max(
         document.body.scrollHeight, document.documentElement.scrollHeight,

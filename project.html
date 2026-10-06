@@ -363,38 +363,40 @@
     <script>
       const projects = {
         3: {
-          title: "Meowlish — Interactive English Learning",
-          subtitle: "A playful, cat-themed interactive English learning app designed to boost vocabulary retention through smart flashcards, contextual quizzes, and habit tracking.",
-          category: "EdTech • UI/UX Design & Prototype",
+          title: "Meowlish — English Learning Platform",
+          subtitle: "A playful, cat-mascot English learning website grounded in user research and validated through a live Framer prototype — covering vocabulary, grammar, practice exercises, and study tips.",
+          category: "EdTech • UI/UX Design & Web Prototype",
           role: "UI/UX Designer",
           team: "Team of 5",
-          tools: ["Framer", "Procreate", "Figma", "User Research"],
+          tools: ["Framer", "User Research", "Wireframing", "Interaction Design"],
           demoLink: "https://imfishball.framer.website/chitiet/trang-chu",
           flowImage: "/images/meowlish/project-3-flow.jpg",
           contextAndProblem: {
-            challenge: "Learners struggled with low retention and high dropout rates in traditional apps due to monotonous repetition and lack of gamification.",
+            challenge: "Vietnamese English learners often drop off traditional resources because lessons feel dry, repetitive, and disconnected from a clear daily learning motivation.",
             painPoints: [
-              { title: "High Dropout Rates", desc: "Repetitive memorization felt like a chore without immediate positive feedback." },
-              { title: "Static Interactions", desc: "Static flashcards failed to reinforce memory retention through active recall." },
-              { title: "Broken Study Habits", desc: "Lack of contextual streak tracking caused learners to drop off after 3-4 days." }
+              { title: "Low Learner Motivation", desc: "Text-heavy lessons without a friendly character or sense of progress discouraged daily practice." },
+              { title: "Scattered Content", desc: "Vocabulary, grammar, and exercises were spread across many tools with no clear learning path." },
+              { title: "No Daily Habit Hook", desc: "Without a friendly identity or small daily wins ('one step forward every day'), learners quickly lost the habit." }
             ]
           },
           strategicSolutions: [
-            { icon: "gamepad-2", title: "Gamified Study Loops", desc: "Playful mascot reactions, contextual flashcards, and streak milestone celebrations." },
-            { icon: "layers", title: "Modular Design System", desc: "Systematic typography tokens, cute feline illustrations, and adaptive multi-device layouts." },
-            { icon: "smartphone", title: "Interactive Prototype", desc: "Realistic card-flipping mechanics tested and validated via a live Framer prototype." }
+            { icon: "sparkles", title: "Playful Cat Mascot", desc: "A friendly Meowlish cat illustration and soft green-white palette make the learning site feel welcoming and memorable for all ages." },
+            { icon: "layers", title: "Clear Information Architecture", desc: "Content organized into four learning pillars — vocabulary, grammar, practice exercises, study tips — with a clear Home / Courses / Blog navigation map." },
+            { icon: "smartphone", title: "Live Framer Prototype", desc: "High-fidelity interactive prototype built in Framer, including micro-interactions, navigation flows, and working Login / Sign Up CTAs, used for usability validation." }
           ],
           impactMetrics: [
-            { value: "Live", label: "Interactive Prototype", sub: "Built & tested in Framer" },
-            { value: "3 Platforms", label: "Responsive Layouts", sub: "Desktop • Tablet • Mobile" },
-            { value: "7+ Views", label: "End-to-End Screens", sub: "Onboarding to streak logs" },
+            { value: "Live", label: "Framer Prototype", sub: "High-fidelity, user-tested web app" },
+            { value: "3+", label: "Main Sections", sub: "Home • Courses • Blog" },
+            { value: "2 Key Pages", label: "Detail Screens", sub: "Lesson detail • Listening detail" },
+            { value: "4 Pillars", label: "Content Pillars", sub: "Vocab • Grammar • Practice • Tips" },
             { value: "5 Members", label: "Agile Teamwork", sub: "User research & co-design" }
           ],
           highlights: [
-            "Researched learner behaviors to optimize core user loops: interactive flashcards, multi-format quizzes, and personalized streak tracking.",
-            "Built a systematic Figma Design System with reusable components and interactive variants to ensure dev consistency.",
-            "Engineered responsive layouts ensuring cohesive usability across Desktop, Tablet, and Mobile.",
-            "Constructed a high-fidelity interactive Framer prototype to test micro-interactions and usability."
+            "Conducted user research and defined core learning flows, focusing on a usable information architecture for vocabulary, grammar, practice exercises, and study tips.",
+            "Designed a consistent visual identity system — green palette, rounded typography, friendly cat mascot — applied across hero, navigation, and call-to-action components.",
+            "Designed the detailed lesson page and the detailed audio-listening page with clear information hierarchy for lesson content, exercises, player controls, and progress tracking.",
+            "Wireframed and built high-fidelity interactive prototypes in Framer to simulate navigation across Home, Courses, and Blog, with micro-interactions on CTAs.",
+            "Collaborated in a team of 5 through user research synthesis, design reviews, iteration, and prototype testing."
           ],
           images: [
             "/images/meowlish/project-3-1.jpg", 
@@ -408,42 +410,42 @@
           seeds: ["cat", "pet", "learning", "study", "app", "mobile", "playful"]
         },
         4: {
-          title: "Soundly — Next-Gen Music Streaming Experience",
-          subtitle: "A modern dark-mode music discovery platform combining glassmorphism aesthetics, refined contrast, and fluid micro-interactions.",
-          category: "Music & Entertainment • UI Design System",
+          title: "Soundly — Music Streaming Website",
+          subtitle: "A dark-mode desktop music platform with a persistent now-playing bar, live queue panel, and an aurora-glass login — prototyped end-to-end in Figma.",
+          category: "Music & Entertainment • Web UI Design System",
           role: "UI Designer",
           team: "Independent Project",
-          tools: ["Figma", "Adobe Illustrator", "Smart Animate", "Design System"],
+          tools: ["Figma", "Smart Animate", "Auto Layout", "Design Tokens"],
           demoLink: "https://www.figma.com/proto/AaMitEGHtijZykVF5xurET/Web-nh%E1%BA%A1c?node-id=34-3&t=RsLmEIl3UbhO9yVZ-1",
           contextAndProblem: {
-            challenge: "Listeners faced high cognitive fatigue from dense visual noise, harsh neon contrasts, and multi-layered playlist navigation during playback.",
+            challenge: "Desktop music streaming apps often bury playback controls behind too many clicks, overwhelm users with cluttered menus, and offer no clear entry point to discover new music, playlists, or podcasts.",
             painPoints: [
-              { title: "Visual Fatigue", desc: "Unbalanced contrast ratios caused eye strain during late-night and low-light listening." },
-              { title: "Buried Library", desc: "Finding saved tracks, filtered genres, and recent queues required 4+ navigation layers." },
-              { title: "Static Transitions", desc: "Abrupt screen changes broke the fluid, immersive audio discovery flow." }
+              { title: "Cluttered Navigation", desc: "Multiple competing menus and oversized banners make it hard to focus on the actual listening experience." },
+              { title: "Hidden Playback Controls", desc: "Now-playing controls sit behind extra screens, interrupting the flow when users just want to pause, skip, or queue." },
+              { title: "Weak Discovery Entry Points", desc: "Trending charts, curated playlists, and podcast topics lack clear access points, so exploration feels like luck." }
             ]
           },
           strategicSolutions: [
-            { icon: "sliders", title: "Calibrated Dark Mode", desc: "WCAG AAA compliant glassmorphic hierarchy designed for effortless night listening." },
-            { icon: "sparkles", title: "Smart Animate", desc: "Fluid screen transitions and playback micro-interactions modeled in Figma." },
-            { icon: "music", title: "Streamlined Flow", desc: "1-tap direct access to Liked Songs, personalized weekly mixes, and artist hubs." }
+            { icon: "layers", title: "Three-Zone Architecture", desc: "A fixed library sidebar, a central discovery feed, and a persistent queue/now-playing rail keep every key action one click away." },
+            { icon: "sparkles", title: "Ambient Dark Theme", desc: "High-contrast near-black surfaces with a signature green accent and an aurora-gradient login card guide attention to primary actions." },
+            { icon: "music", title: "One-Tap Discovery", desc: "Release-date and genre filters, trending charts, podcast topics, and artist hubs are surfaced directly on the Home dashboard." }
           ],
           impactMetrics: [
-            { value: "09 Screens", label: "High-Fidelity Flows", sub: "Auth to Now Playing" },
-            { value: "WCAG AAA", label: "Contrast Standard", sub: "Optimized dark glassmorphism" },
-            { value: "100%", label: "Auto-Layout Structure", sub: "Pixel-perfect Figma components" },
-            { value: "Smooth", label: "Smart Animate", sub: "Interactive Figma prototype" }
+            { value: "09 Screens", label: "High-Fidelity Flows", sub: "Login to Now Playing" },
+            { value: "3 Zones", label: "App Layout", sub: "Sidebar • Feed • Queue" },
+            { value: "Persistent", label: "Now-Playing Bar", sub: "Always-visible playback controls" },
+            { value: "Live", label: "Figma Prototype", sub: "Smart Animate transitions" }
           ],
           highlights: [
-            "Designed a refined dark-mode interface and design system with glassmorphic accents, high contrast, and auto-layout variants.",
-            "Optimized information architecture for seamless music browsing, trending charts, artist hubs, and curated playlists.",
-            "Prototyped smooth screen transitions and audio playback animations using Figma Smart Animate."
+            "Designed a premium dark-mode music streaming interface and design system using glassmorphism, emerald accents, and Figma Variants for core components.",
+            "Optimized content hierarchy for music discovery, ensuring intuitive access to trending tracks, artist hubs, and personalized playlists.",
+            "Developed high-fidelity prototypes with Smart Animate to simulate seamless transitions and interactive playback flows."
           ],
           images: [
             {
               title: "Welcome Back & Login",
               src: "/images/soundly/project-4-1.jpg",
-              desc: "Secure login flow supporting SSO via Google and Facebook in dark glassmorphism."
+              desc: "Login over an ambient green-purple aurora gradient, with a frosted-glass card, Google/Facebook SSO, and email credentials."
             },
             {
               title: "Choose Your Plan",
@@ -453,7 +455,7 @@
             {
               title: "Home Dashboard & Now Playing",
               src: "/images/soundly/project-4-3.jpg",
-              desc: "Main audio dashboard with featured album, recently played queue, and floating player."
+              desc: "Featured album hero, recent releases with release-date/genre filters, live queue panel, and persistent now-playing bar."
             },
             {
               title: "Liked Songs Collection",
@@ -510,13 +512,13 @@
             ],
             columns: [
               [
-                { title: "Charging Hub — Landmark 81", src: "/images/tram-dien-xanh/station-detail.png" },
+                { title: "Home Dashboard", src: "/images/tram-dien-xanh/home.png" },
                 { title: "Station Discovery Map", src: "/images/tram-dien-xanh/map-station-list.png" },
                 { title: "Station Specs & Amenities", src: "/images/tram-dien-xanh/station-detail-3.png" }
               ],
               [
                 { title: "Live Charging (32.6 kW)", src: "/images/tram-dien-xanh/charging.png" },
-                { title: "Home Dashboard", src: "/images/tram-dien-xanh/home.png" },
+                { title: "Charging Hub — Landmark 81", src: "/images/tram-dien-xanh/station-detail.png" },
                 { title: "Zopay E-Wallet Hub", src: "/images/tram-dien-xanh/wallet.png" }
               ],
               [
@@ -551,17 +553,17 @@
           },
           designSystemImage: "/images/tram-dien-xanh/color-palette.png",
           contextAndProblem: {
-            challenge: "EV drivers often experienced range anxiety due to hard-to-find station information, confusing payment steps, and a lack of live updates during charging sessions.",
+            challenge: "EV drivers faced range anxiety with confusing station information, no clear view of charging progress, and friction at checkout — leading to lost time, money, and trust.",
             painPoints: [
-              { title: "Scattered Station Info", desc: "Drivers had to switch between multiple screens just to check if compatible charging plugs were open." },
-              { title: "Confusing Payment Steps", desc: "Complicated wallet top-up and disconnected charging records caused friction during checkout." },
-              { title: "Limited Operator Visibility", desc: "Station staff lacked a clear, simple screen to check charger status and resolve driver issues promptly." }
+              { title: "Range Anxiety Meets Wrong Information", desc: "Drivers often arrived at stations only to find no compatible open stalls — costing time, fuel, and trust in the brand." },
+              { title: "Limited Charging Visibility", desc: "Drivers lacked a clear, centralized view of battery %, charging speed, and running cost during a charging session, making it harder to understand progress at a glance and harder for operators to identify issues early." },
+              { title: "Money Friction at Checkout", desc: "Wallet top-ups required too many steps, session records were disconnected, and when problems happened, drivers could not reach a human support channel quickly — a bad experience at the most critical step." }
             ]
           },
           strategicSolutions: [
-            { icon: "zap", title: "Live Charging Monitor", desc: "Clear real-time display of battery percentage, charging speed (kW), energy delivered (kWh), and current cost." },
-            { icon: "wallet", title: "In-App Wallet", desc: "Clean balance overview with automated payment deduction and itemized e-invoices after each session." },
-            { icon: "component", title: "Figma UI Components", desc: "Built reusable UI components with consistent colors, typography, and interactive states for clear UI specifications." }
+            { icon: "map", title: "Trustworthy Station Discovery", desc: "Map and list views with verified open-stall counts, plug types, pricing, and amenities so drivers can book with confidence." },
+            { icon: "zap", title: "Live Charging Visibility", desc: "A single, clear screen showing battery %, kW charging speed, kWh delivered, and live cost — for both drivers and the admin monitoring dashboard." },
+            { icon: "wallet", title: "Frictionless Wallet & One-Tap Support", desc: "Faster wallet top-up, automatic session billing with itemized e-invoice, plus quick-access support channels right after charging." }
           ],
           impactMetrics: [
             { value: "Modular UI", label: "Screen Redesigns", sub: "Redesigned key flows & edge states" },

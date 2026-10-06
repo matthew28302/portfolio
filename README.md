@@ -20,7 +20,7 @@ Website portfolio cá nhân của **Nguyen Vu Xuan Mai** — **UI/UX Designer**,
   - **Live Prototype Launchers:** Mở trực tiếp Figma Smart Animate & Framer Live Prototype.
 - **Core Tech Stack:**
   - **Bundler:** Vite 6 (MPA Rollup input: `index.html` và `project.html`).
-  - **Styling:** Tailwind CSS v4 (`@tailwindcss/vite`), Custom CSS Variables.
+  - **Styling:** Custom CSS Variables.
   - **Typography:** Google Fonts (`Plus Jakarta Sans`, `Outfit`).
   - **Icons:** Lucide Icons.
 
@@ -37,8 +37,8 @@ Website portfolio cá nhân của **Nguyen Vu Xuan Mai** — **UI/UX Designer**,
 
 ## 📊 3. Danh Mục Dự Án (Projects Catalog)
 
-1. **Trạm Điện Xanh — Ứng Dụng Quản Lý & Định Vị Trạm Sạc** (Thực tập doanh nghiệp • UI/UX Mobile App • Thiết kế giao diện dọc tối ưu • Figma & Canva • Redesign & Core Flows).
-2. **Soundly — Music Streaming Platform** (UI Designer • Dark Mode Design System, Glassmorphism, Smart Animate, Figma Variants).
+1. **Smart Station — EV Smart Charging App** (Thực tập doanh nghiệp • UI/UX Mobile App • Thiết kế giao diện dọc tối ưu • Figma & Canva • Redesign & Core Flows).
+2. **Soundly — Music Streaming Website** (UI Designer • Dark Mode Design System, Glassmorphism, Smart Animate, Figma Variants).
 3. **Meowlish — English Learning Platform** (UI/UX Designer • Team of 5 • User Research, Component Library, Responsive Breakpoints, Framer Prototype).
 4. **Watermelon Music Festival — Event Platform** (Web Developer & UI • One-page layout, Interactive ticket booking, Maps integration).
 5. **Watermelon Shop — E-Commerce Platform** (Web Developer & UI • Catalog filtering, Cart drawer, Checkout flow).

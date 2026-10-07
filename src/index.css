@@ -182,10 +182,6 @@ html.dark .dark-narrative-card {
   border-left-color: #FB923C !important;
 }
 
-.dark-narrative-card p {
-  text-shadow: none !important;
-}
-
 /* Uniform Smartphone Device Mockup with Drag-to-Scroll */
 .phone-screen-scroll {
   scrollbar-width: none !important;

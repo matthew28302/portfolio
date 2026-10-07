@@ -1,0 +1,20 @@
+/* Overrides for built CSS to ensure standard backdrop-filter applies */
+.studio-card, .glass-card {
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+}
+
+html.dark .studio-card, html.dark .glass-card {
+  backdrop-filter: blur(16px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
+}
+
+.studio-nav {
+  backdrop-filter: blur(20px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
+}
+
+.frosted-capsule, .dark-capsule-badge, .glass-box {
+  backdrop-filter: blur(14px) saturate(150%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+}

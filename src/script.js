@@ -235,11 +235,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const filter = btn.getAttribute('data-filter');
 
         filterBtns.forEach(b => {
-          b.classList.remove('bg-blue-600', 'text-white');
-          b.classList.add('text-zinc-600', 'dark:text-zinc-400');
+          b.classList.remove('bg-slate-900', 'text-white', 'dark:bg-white', 'dark:text-zinc-900', 'shadow-md', 'font-bold');
+          b.classList.add('theme-body', 'hover:theme-heading', 'font-semibold');
         });
-        btn.classList.add('bg-blue-600', 'text-white');
-        btn.classList.remove('text-zinc-600', 'dark:text-zinc-400');
+        btn.classList.add('bg-slate-900', 'text-white', 'dark:bg-white', 'dark:text-zinc-900', 'shadow-md', 'font-bold');
+        btn.classList.remove('theme-body', 'hover:theme-heading', 'font-semibold');
 
         projectItems.forEach(item => {
           const category = item.getAttribute('data-category');

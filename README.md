@@ -37,7 +37,7 @@ Website portfolio cá nhân của **Nguyen Vu Xuan Mai** — **UI/UX Designer**,
 
 ## 📊 3. Danh Mục Dự Án (Projects Catalog)
 
-1. **Smart Station — EV Smart Charging App** (Thực tập doanh nghiệp • UI/UX Mobile App • Thiết kế giao diện dọc tối ưu • Figma & Canva • Redesign & Core Flows).
+1. **Smart Station — EV Smart Charging App** (Thực tập doanh nghiệp • UI/UX Mobile App • Thiết kế giao diện dọc tối ưu • Figma • Redesign & Core Flows).
 2. **Soundly — Music Streaming Website** (UI Designer • Dark Mode Design System, Glassmorphism, Smart Animate, Figma Variants).
 3. **Meowlish — English Learning Platform** (UI/UX Designer • Team of 5 • User Research, Component Library, Responsive Breakpoints, Framer Prototype).
 4. **Watermelon Music Festival — Event Platform** (Web Developer & UI • One-page layout, Interactive ticket booking, Maps integration).

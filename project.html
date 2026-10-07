@@ -368,7 +368,7 @@
           category: "EdTech • UI/UX Design & Web Prototype",
           role: "UI/UX Designer",
           team: "Team of 5",
-          tools: ["Framer", "User Research", "Wireframing", "Interaction Design"],
+          tools: ["Framer", "User Research", "Wireframing"],
           demoLink: "https://imfishball.framer.website/chitiet/trang-chu",
           flowImage: "/images/meowlish/project-3-flow.jpg",
           contextAndProblem: {
@@ -386,7 +386,6 @@
           ],
           impactMetrics: [
             { value: "Live", label: "Framer Prototype", sub: "High-fidelity, user-tested web app" },
-            { value: "3+", label: "Main Sections", sub: "Home • Courses • Blog" },
             { value: "2 Key Pages", label: "Detail Screens", sub: "Lesson detail • Listening detail" },
             { value: "4 Pillars", label: "Content Pillars", sub: "Vocab • Grammar • Practice • Tips" },
             { value: "5 Members", label: "Agile Teamwork", sub: "User research & co-design" }
@@ -403,7 +402,7 @@
             "/images/meowlish/project-3-2.jpg", 
             "/images/meowlish/project-3-3.jpg", 
             "/images/meowlish/project-3-4.jpg", 
-            "/images/meowlish/project-3-5.jpg", 
+            "/images/meowlish/listening-detail.png",
             "/images/meowlish/project-3-6.jpg", 
             "/images/meowlish/project-3-7.jpg"
           ],
@@ -415,10 +414,10 @@
           category: "Music & Entertainment • Web UI Design System",
           role: "UI Designer",
           team: "Independent Project",
-          tools: ["Figma", "Smart Animate", "Auto Layout", "Design Tokens"],
+          tools: ["Figma", "Smart Animate", "Auto Layout", "Design Tokens", "Design System"],
           demoLink: "https://www.figma.com/proto/AaMitEGHtijZykVF5xurET/Web-nh%E1%BA%A1c?node-id=34-3&t=RsLmEIl3UbhO9yVZ-1",
           contextAndProblem: {
-            challenge: "Desktop music streaming apps often bury playback controls behind too many clicks, overwhelm users with cluttered menus, and offer no clear entry point to discover new music, playlists, or podcasts.",
+            challenge: "Desktop music streaming experiences can make everyday listening feel unnecessarily cumbersome — with cluttered navigation, hidden playback controls, and weak discovery entry points that force users to spend more effort managing the experience instead of enjoying their music.",
             painPoints: [
               { title: "Cluttered Navigation", desc: "Multiple competing menus and oversized banners make it hard to focus on the actual listening experience." },
               { title: "Hidden Playback Controls", desc: "Now-playing controls sit behind extra screens, interrupting the flow when users just want to pause, skip, or queue." },
@@ -426,9 +425,9 @@
             ]
           },
           strategicSolutions: [
-            { icon: "layers", title: "Three-Zone Architecture", desc: "A fixed library sidebar, a central discovery feed, and a persistent queue/now-playing rail keep every key action one click away." },
-            { icon: "sparkles", title: "Ambient Dark Theme", desc: "High-contrast near-black surfaces with a signature green accent and an aurora-gradient login card guide attention to primary actions." },
-            { icon: "music", title: "One-Tap Discovery", desc: "Release-date and genre filters, trending charts, podcast topics, and artist hubs are surfaced directly on the Home dashboard." }
+            { icon: "layers", title: "Three-Zone Architecture", desc: "A fixed library sidebar, a central discovery feed, and a persistent queue/now-playing rail laid out in Figma so every key action sits in the same place on every screen." },
+            { icon: "play", title: "Persistent Now-Playing Controls", desc: "A floating player bar (album art, play/pause/skip, progress, volume, device) stays visible across Home, Artists, Trending, and Playlists — no extra screen to reach the basics." },
+            { icon: "music", title: "One-Tap Discovery", desc: "Release-date and genre filters on Home, trending charts, artist hubs, curated playlists, and podcast topics are surfaced as clear entry points instead of being buried." }
           ],
           impactMetrics: [
             { value: "09 Screens", label: "High-Fidelity Flows", sub: "Login to Now Playing" },
@@ -453,14 +452,9 @@
               desc: "Clear pricing comparison between Free and Premium plans with highlight perks."
             },
             {
-              title: "Home Dashboard & Now Playing",
-              src: "/images/soundly/project-4-3.jpg",
-              desc: "Featured album hero, recent releases with release-date/genre filters, live queue panel, and persistent now-playing bar."
-            },
-            {
-              title: "Liked Songs Collection",
-              src: "/images/soundly/project-4-4.jpg",
-              desc: "Curated collection of 1,200+ saved tracks with quick alphabetical filter and instant search."
+              title: "Featured Artist (Taylor Swift)",
+              src: "/images/soundly/project-4-9.jpg",
+              desc: "Hero artist takeover banner (The Eras Tour) with top-level audio category filters."
             },
             {
               title: "Trending Now & Weekly Discover",
@@ -468,14 +462,14 @@
               desc: "Viral charts, trending global hits, and personalized algorithmic discover mixes."
             },
             {
-              title: "Artist Profile (Billie Eilish)",
-              src: "/images/soundly/project-4-6.jpg",
-              desc: "Verified artist page showing 58.4M monthly listeners, follow actions, and discography."
-            },
-            {
               title: "Curated Playlists & Collection",
               src: "/images/soundly/project-4-7.jpg",
               desc: "Custom user playlists alongside editorial picks with rich album artwork."
+            },
+            {
+              title: "Liked Songs Collection",
+              src: "/images/soundly/project-4-4.jpg",
+              desc: "Curated collection of saved tracks with quick alphabetical filter and instant search."
             },
             {
               title: "Podcasts & Topic Discovery",
@@ -483,9 +477,14 @@
               desc: "Specialized podcast channels spanning Tech, Business, True Crime, and Wellness."
             },
             {
-              title: "Featured Artist (Taylor Swift)",
-              src: "/images/soundly/project-4-9.jpg",
-              desc: "Hero artist takeover banner (The Eras Tour) with top-level audio category filters."
+              title: "Artist Profile (Billie Eilish)",
+              src: "/images/soundly/project-4-6.jpg",
+              desc: "Verified artist page showing 58.4M monthly listeners, follow actions, and discography."
+            },
+            {
+              title: "Home Dashboard & Now Playing",
+              src: "/images/soundly/project-4-3.jpg",
+              desc: "Featured album hero, recent releases with release-date/genre filters, live queue panel, and persistent now-playing bar."
             }
           ],
           seeds: ["music", "audio", "player", "concert", "dark", "sound", "artist", "dashboard", "track"]
@@ -498,7 +497,7 @@
           company: "Wisdom Engineering & Business Solutions Co., Ltd",
           timeline: "03/2026 — 08/2026",
           team: "Wisdom Engineering & Business Solutions Co., Ltd",
-          tools: ["Figma", "Framer", "Canva", "Design System"],
+          tools: ["Figma", "Design System", "UI Specifications"],
           isVerticalLayout: true,
           heroImage: "/images/tram-dien-xanh/station-detail.png",
           heroPins: ["📍 Landmark 81 Hub", "⚡ 24/24 Fast Charging"],
@@ -569,7 +568,7 @@
             { value: "Modular UI", label: "Screen Redesigns", sub: "Redesigned key flows & edge states" },
             { value: "100%", label: "Component Consistency", sub: "Standardized Figma design kit" },
             { value: "40+", label: "Screens Redesigned", sub: "Driver, Station & Operational Modules" },
-            { value: "03–08/26", label: "Wisdom Engineering & Business Solutions Co., Ltd Internship", sub: "Real-world production deliverables" }
+            { value: "03–08/26", label: "Wisdom Internship", sub: "Real-world production deliverables" }
           ],
           highlights: [
             "Internship project at Wisdom Engineering & Business Solutions Co., Ltd: redesigned key mobile screens for both EV Drivers and Station Admins.",
@@ -609,14 +608,6 @@
           ],
           images: [
             {
-              title: "Station Detail — Landmark 81 Hub",
-              src: "/images/tram-dien-xanh/station-detail.png",
-              badge: "Station Hub",
-              microTag: "📍 Landmark 81 • 24/24",
-              flow: "core",
-              desc: "Station address, 24/24 operating status, nearby amenities (cafes, dining, Wi-Fi), connector availability, and one-tap booking."
-            },
-            {
               title: "Home Dashboard",
               src: "/images/tram-dien-xanh/home.png",
               badge: "Home",
@@ -633,6 +624,14 @@
               desc: "Interactive map with GPS geolocation, showing distance, open stalls, and live directions."
             },
             {
+              title: "Station Detail — Landmark 81 Hub",
+              src: "/images/tram-dien-xanh/station-detail.png",
+              badge: "Station Hub",
+              microTag: "📍 Landmark 81 • 24/24",
+              flow: "core",
+              desc: "Station address, 24/24 operating status, nearby amenities (cafes, dining, Wi-Fi), connector availability, and one-tap booking."
+            },
+            {
               title: "Charger Detail",
               src: "/images/tram-dien-xanh/charger-detail.png",
               badge: "Connectors & kW",
@@ -641,7 +640,7 @@
               desc: "Connector selection (CCS2, Type 2, GB/T), DC fast charging vs AC standard, and transparent electricity rates."
             },
             {
-              title: "Live Charging",
+              title: "Live Status",
               src: "/images/tram-dien-xanh/charging.png",
               badge: "Live Status",
               microTag: "⏱ Real-Time Progress",
@@ -769,7 +768,7 @@
                   <div class="flex flex-col justify-between ${idx > 0 ? 'sm:pl-6 pt-3 sm:pt-0' : 'pt-3 sm:pt-0'}">
                     <div>
                       <span class="text-2xl sm:text-3xl lg:text-4xl font-display font-black season-highlight tracking-tight block counter-value" data-counter-target="${metric.value}">${metric.value}</span>
-                      <span class="text-xs font-bold theme-card-heading block leading-snug mt-1">${metric.label}</span>
+                      <span class="text-xs font-bold theme-card-heading block leading-snug mt-1 whitespace-nowrap overflow-hidden text-ellipsis">${metric.label}</span>
                     </div>
                     <span class="text-[11px] theme-muted font-mono block mt-1">${metric.sub}</span>
                   </div>
@@ -790,7 +789,7 @@
                   <span>THE PROBLEM STATEMENT</span>
                 </div>
                 <h3 class="text-2xl sm:text-3xl font-display font-bold theme-card-heading tracking-tight mb-3">
-                  The Challenge & Operational Friction
+                  The Challenge & UX Friction
                 </h3>
                 <p class="text-sm sm:text-base theme-card-body leading-relaxed max-w-2xl italic border-l-2 border-rose-500 pl-4 py-1">
                   "${project.contextAndProblem.challenge}"
@@ -1088,12 +1087,13 @@
                 </h3>
                 <p class="text-xs sm:text-sm theme-card-body max-w-xl">Eco-green color tokens, typography scale, and reusable design components on Figma</p>
               </div>
-              <div class="rounded-3xl overflow-hidden border border-white/30 dark:border-white/10 shadow-2xl p-3 sm:p-5 bg-zinc-950/20 backdrop-blur-xs cursor-pointer group flex items-center justify-center relative" onclick="openLightbox('${project.designSystemImage}', 'Design System & Color Palette')">
-                <img src="${project.designSystemImage}" alt="Color Palette & Design System" class="w-auto h-auto max-h-[460px] max-w-full object-contain rounded-2xl group-hover:scale-[1.01] transition-transform" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-5 rounded-3xl">
-                  <span class="text-white text-xs font-mono font-medium bg-black/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 flex items-center gap-2">
-                    <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-emerald-400"></i> Click to view high-resolution tokens
-                  </span>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="md:col-span-2 rounded-3xl overflow-hidden border border-white/30 dark:border-white/10 shadow-2xl p-3 sm:p-5 bg-zinc-950/20 backdrop-blur-xs flex items-center justify-center relative">
+                  <img src="${project.designSystemImage}" alt="Color Palette & Design System" class="w-auto h-auto max-h-[460px] max-w-full object-contain rounded-2xl" />
+                </div>
+                <div class="rounded-3xl overflow-hidden border border-white/30 dark:border-white/10 shadow-2xl p-3 sm:p-5 bg-white dark:bg-zinc-900/80 flex flex-col relative">
+                  <div class="text-[11px] font-mono font-bold uppercase tracking-wider theme-muted mb-3 pb-2 border-b border-black/5 dark:border-white/10">Typography Tokens</div>
+                  <img src="/images/tram-dien-xanh/typography-tokens.png" alt="Typography Tokens" class="w-auto h-auto max-h-[460px] max-w-full object-contain rounded-2xl mx-auto" />
                 </div>
               </div>
             </div>

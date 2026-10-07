@@ -165,21 +165,21 @@ html.dark .dark-capsule-badge {
 
 /* Dark Editorial Narrative Box (Góc vuông 100% sắc nét cho Intro Bio) */
 .dark-narrative-card {
-  padding: 0.85rem 1.15rem;
+  padding: 0.15rem 0 0.15rem 1rem;
   border-radius: 0 !important;
-  background-color: rgba(15, 23, 42, 0.90);
-  color: #f8fafc !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.16);
+  background: transparent !important;
+  color: #1c1917 !important;
+  border: none !important;
+  border-left: 2px solid #C2410C !important;
+  box-shadow: none !important;
   text-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 html.dark .dark-narrative-card {
-  background-color: rgba(9, 9, 11, 0.88);
-  border-color: rgba(255, 255, 255, 0.14);
-  color: #f8fafc !important;
+  color: #e7e5e4 !important;
+  border-left-color: #FB923C !important;
 }
 
 .dark-narrative-card p {

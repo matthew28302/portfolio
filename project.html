@@ -274,12 +274,26 @@
       .seagull-glide-1 { animation: seagullGlideEast 24s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
       .seagull-glide-2 { animation: seagullGlideWest 28s cubic-bezier(0.4, 0, 0.6, 1) infinite 6s; }
       .seagull-glide-3 { animation: seagullGlideEast 20s cubic-bezier(0.4, 0, 0.6, 1) infinite 13s; }
+
+      /* Neumorphic card treatment, applied on case-study page */
+      .glass-box, .studio-card {
+        background: #f3f4f6 !important;
+        border: none !important;
+        box-shadow: 8px 8px 16px rgba(0,0,0,0.08), -8px -8px 16px rgba(255,255,255,0.85) !important;
+      }
+      html.dark .glass-box, html.dark .studio-card {
+        background: #1f2937 !important;
+        box-shadow: 8px 8px 16px rgba(0,0,0,0.35), -8px -8px 16px rgba(51,65,84,0.35) !important;
+      }
+      .glass-box:hover, .studio-card-hover:hover {
+        box-shadow: 4px 4px 8px rgba(0,0,0,0.08), -4px -4px 8px rgba(255,255,255,0.85) !important;
+      }
     </style>
   </head>
   <body class="overflow-x-hidden relative min-h-screen" data-season="spring">
     
-    <!-- Parallax soft gradient mesh background -->
-    <div id="project-bg" class="fixed inset-0 w-full h-full z-0 block bg-gradient-to-br from-slate-50 via-blue-50 to-amber-50 dark:from-slate-950 dark:via-blue-950 dark:to-amber-950 transition-transform will-change-transform" style="transform: translateY(0);"></div>
+    <!-- Ghibli 4-Seasons Living Anime Background Canvas (Spring to Winter Timelapse on Scroll) -->
+    <canvas id="ghibli-canvas" class="fixed inset-0 w-full h-full z-0 block"></canvas>
 
     <!-- Floating Navbar -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-5 transition-all">
@@ -492,7 +506,7 @@
         },
         5: {
           title: "Smart Station — EV Smart Charging App",
-          subtitle: "Internship project at Wisdom Engineering & Business Solutions Co., Ltd: Redesigned key modular mobile screens for EV charging station discovery, booking, live charging, and e-wallet payments.",
+          subtitle: "Internship project at Wisdom Engineering & Business Solutions Co., Ltd: Redesigned key modular mobile screens covering station discovery, booking, charging, payment, and related station operations and monitoring features.",
           category: "Internship Case Study • Mobile UI/UX Design",
           role: "UI/UX Design Intern",
           company: "Wisdom Engineering & Business Solutions Co., Ltd",
@@ -1965,7 +1979,9 @@
             
             <!-- Hero Info (First-Fold Split Editorial Showcase) -->
             <div id="overview" class="scroll-mt-24 reveal pt-2 pb-6 sm:pb-8 mb-8 sm:mb-12 relative">
-              
+              <!-- Subtle parallax scrim halo behind hero content -->
+              <div id="hero-parallax-halo" class="absolute -inset-4 sm:-inset-6 rounded-3xl bg-gradient-to-b from-white/15 via-transparent to-transparent dark:from-black/15 dark:via-transparent dark:to-transparent blur-3xl pointer-events-none opacity-70"></div>
+
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
                 <!-- Left Column (58%): Narrative, Typography, Meta Strip, CTAs -->
@@ -2835,6 +2851,14 @@
         }
 
         // ── Smart Navbar: Auto-hide on Scroll Down, Reveal on Scroll Up ───────
+        function initHeroParallax() {
+          const halo = document.getElementById('hero-parallax-halo');
+          if (!halo) return;
+          window.addEventListener('scroll', () => {
+            halo.style.transform = 'translateY(' + (window.scrollY * 0.18) + 'px)';
+          }, { passive: true });
+        }
+
         function initSmartNavbar() {
           const navbar = document.getElementById('navbar');
           if (!navbar) return;
@@ -3329,6 +3353,7 @@
         initComparisonSlider();
         initSmartNavbar();
         initVerticalRiverJourney();
+        initHeroParallax();
 
         if (window.lucide) {
           lucide.createIcons();

@@ -345,15 +345,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initGhibliControls(ghibliInstance);
   }
 
-  // --- 10b. Parallax gradient mesh for project detail pages ---
-  const projectBg = document.getElementById('project-bg');
-  if (projectBg) {
-    window.addEventListener('scroll', () => {
-      const scrollValue = window.scrollY || document.documentElement.scrollTop;
-      projectBg.style.transform = `translateY(${Math.round(scrollValue * 0.25)}px)`;
-    }, { passive: true });
-  }
-
   // --- 11. Full-screen ThreeUI 3D Background Engine & Interactive Spatial Gallery ---
   const threeBgCanvas = document.getElementById('three-bg-canvas');
   let threeBgInstance = null;

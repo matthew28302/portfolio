@@ -3387,5 +3387,30 @@
         <p id="lightbox-caption" class="mt-3 text-sm font-medium text-white/90 text-center font-display"></p>
       </div>
     </div>
+  <script>
+    (function(){
+      const blocked = (e) => { e.preventDefault(); return false; };
+      document.addEventListener('contextmenu', blocked);
+      document.addEventListener('dragstart', blocked);
+      document.addEventListener('selectstart', e => { if(e.target.tagName==='IMG') blocked(e); });
+      document.addEventListener('keydown', e => {
+        if (e.key === 'F12' ||
+            (e.ctrlKey && e.shiftKey && ['I','J','C','E'].includes(e.key.toUpperCase())) ||
+            (e.ctrlKey && ['U','S','P'].includes(e.key.toUpperCase()))) {
+          blocked(e);
+        }
+      });
+      const isAllowed = src => {
+        if(!src) return true;
+        try { const u = new URL(src, location.href); return u.origin === location.origin || src.includes('lucide') || src.includes('cdn.jsdelivr.net'); }
+        catch { return true; }
+      };
+      new MutationObserver(muts => {
+        for (const m of muts) for (const n of m.addedNodes) {
+          if (n.nodeName === 'SCRIPT' && !isAllowed(n.src)) n.remove();
+        }
+      }).observe(document.documentElement, { childList: true, subtree: true });
+    })();
+  </script>
   </body>
 </html>

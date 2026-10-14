@@ -1,8 +1,10 @@
 import './security.js';
-import { ThreeUIBackground } from './three-background.js';
-import { MiniThreePreviewEngine } from './mini-previews.js';
-import { ThreeUIHeroArtefact, ThreeUISpatialBento, ThreeUIContactBeacon } from './three-effects.js';
 import { GhibliSeasonsCanvas } from './ghibli-canvas.js';
+// NOTE: the Three.js modules (three-background / three-effects /
+// mini-previews) are NOT imported statically any more. They drag the whole
+// three package (~500 KB) into the bundle although neither page ships a
+// single 3D canvas. They are loaded on demand via dynamic import() at the
+// exact places that first check for the matching DOM element.
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- 1. Theme Management (Studio Light / Studio Dark) ---
@@ -124,8 +126,23 @@ document.addEventListener('DOMContentLoaded', () => {
           }, 2600);
         };
 
-        // Start auto cycle immediately on page load
-        startAutoCycle();
+        const stopAutoCycle = () => {
+          if (autoCycleTimer) { clearInterval(autoCycleTimer); autoCycleTimer = null; }
+        };
+
+        // Cycling swaps large images forever, even far below the fold where
+        // nobody sees it. Only run the timer while the card is on screen.
+        if ('IntersectionObserver' in window) {
+          const cycleVisibility = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) startAutoCycle();
+              else stopAutoCycle();
+            });
+          }, { threshold: 0.15 });
+          cycleVisibility.observe(container);
+        } else {
+          startAutoCycle();
+        }
 
         // Manual Tab click switches immediately and refreshes the timer
         tabBtns.forEach((tab, tIdx) => {
@@ -277,6 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isDown = false;
     let startY = 0;
     let scrollTop = 0;
+    let cachedOffsetTop = 0;
     const parent = container.closest('.phone-mockup-frame') || container.parentElement;
     const hint = parent ? parent.querySelector('.phone-scroll-hint') : null;
 
@@ -290,7 +308,9 @@ document.addEventListener('DOMContentLoaded', () => {
       isDown = true;
       container.classList.add('cursor-grabbing');
       container.classList.remove('cursor-grab');
-      startY = e.pageY - container.offsetTop;
+      // Cache offsetTop once per drag instead of forcing layout on every move
+      cachedOffsetTop = container.offsetTop;
+      startY = e.pageY - cachedOffsetTop;
       scrollTop = container.scrollTop;
     });
 
@@ -307,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     container.addEventListener('mousemove', (e) => {
       if (!isDown) return;
       e.preventDefault();
-      const y = e.pageY - container.offsetTop;
+      const y = e.pageY - cachedOffsetTop;
       const walk = (y - startY) * 1.5;
       container.scrollTop = scrollTop - walk;
       hideHint();
@@ -347,10 +367,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 11. Full-screen ThreeUI 3D Background Engine & Interactive Spatial Gallery ---
   const threeBgCanvas = document.getElementById('three-bg-canvas');
-  let threeBgInstance = null;
   if (threeBgCanvas) {
-    threeBgInstance = new ThreeUIBackground('three-bg-canvas');
-    initThreeGalleryModal(threeBgInstance);
+    // Three.js weighs ~500 KB. Only fetch and parse it when the page really
+    // has a 3D surface to draw on.
+    import('./three-background.js').then(({ ThreeUIBackground }) => {
+      const threeBgInstance = new ThreeUIBackground('three-bg-canvas');
+      initThreeGalleryModal(threeBgInstance);
+    });
   }
 
   // --- 12. Interactive Micro-Interactions & Physics Suite ---
@@ -621,6 +644,18 @@ function initGhibliControls(ghibliInstance) {
     }
 
     function handleProjectScroll() {
+      // Same half-rate canvas throttle as the home page: the season colour
+      // morph keeps flowing during scroll, at half the paint cost.
+      if (ghibliInstance && typeof ghibliInstance.setScrolling === 'function') {
+        ghibliInstance.setScrolling(true);
+      }
+      clearTimeout(projectScrollIdleTimer);
+      projectScrollIdleTimer = setTimeout(() => {
+        if (ghibliInstance && typeof ghibliInstance.setScrolling === 'function') {
+          ghibliInstance.setScrolling(false);
+        }
+      }, 140);
+
       if (!isProjectTicking) {
         requestAnimationFrame(() => {
           calculateProjectScrollProgress();
@@ -630,6 +665,7 @@ function initGhibliControls(ghibliInstance) {
       }
     }
 
+    let projectScrollIdleTimer = null;
     window.addEventListener('scroll', handleProjectScroll, { passive: true });
     window.addEventListener('resize', handleProjectScroll, { passive: true });
     
@@ -755,83 +791,98 @@ function initGhibliControls(ghibliInstance) {
 // (Bespoke 3D Artefacts embedded directly into UI components)
 // ============================================================================
 function initDedicatedThreeEffects() {
-  // 1. Hero Profile Card: 3D Kinetic Torus Knot vs Portrait Photo Toggle
-  const tabPhoto = document.getElementById('tab-profile-photo');
-  const tab3D = document.getElementById('tab-profile-3d');
-  const photoLayer = document.getElementById('profile-photo-layer');
-  const layer3D = document.getElementById('profile-3d-layer');
-  const heroContainer = document.getElementById('hero-three-container');
+  // Bail out BEFORE pulling in Three.js: none of these elements exist on
+  // the current pages, and importing three-effects.js would ship the entire
+  // three package (~500 KB) for nothing.
+  const hasHeroArtefact = !!(
+    document.getElementById('tab-profile-3d') &&
+    document.getElementById('profile-photo-layer') &&
+    document.getElementById('profile-3d-layer') &&
+    document.getElementById('hero-three-container')
+  );
+  const hasBento = !!document.getElementById('bento-three-canvas');
+  const hasContact = !!document.getElementById('contact-three-canvas');
+  if (!hasHeroArtefact && !hasBento && !hasContact) return;
 
-  let heroArtefactInstance = null;
+  import('./three-effects.js').then(({ ThreeUIHeroArtefact, ThreeUISpatialBento, ThreeUIContactBeacon }) => {
+    // 1. Hero Profile Card: 3D Kinetic Torus Knot vs Portrait Photo Toggle
+    const tabPhoto = document.getElementById('tab-profile-photo');
+    const tab3D = document.getElementById('tab-profile-3d');
+    const photoLayer = document.getElementById('profile-photo-layer');
+    const layer3D = document.getElementById('profile-3d-layer');
+    const heroContainer = document.getElementById('hero-three-container');
 
-  if (tabPhoto && tab3D && photoLayer && layer3D && heroContainer) {
-    const switchView = (mode) => {
-      if (mode === '3d') {
-        // Activate 3D Artefact
-        photoLayer.classList.add('hidden', 'opacity-0');
-        layer3D.classList.remove('hidden');
-        requestAnimationFrame(() => {
-          layer3D.classList.remove('opacity-0');
-        });
+    let heroArtefactInstance = null;
 
-        // Update tab styles
-        tab3D.className = 'profile-view-tab flex-1 py-1.5 px-3 rounded-xl font-bold transition-all bg-white dark:bg-[#262421] text-[#1A1917] dark:text-[#F5F3EF] shadow-xs flex items-center justify-center gap-1.5 cursor-pointer';
-        tabPhoto.className = 'profile-view-tab flex-1 py-1.5 px-3 rounded-xl font-bold transition-all text-[#78716C] dark:text-[#A8A29E] hover:text-[#1A1917] dark:hover:text-[#F5F3EF] flex items-center justify-center gap-1.5 cursor-pointer';
+    if (tabPhoto && tab3D && photoLayer && layer3D && heroContainer) {
+      const switchView = (mode) => {
+        if (mode === '3d') {
+          // Activate 3D Artefact
+          photoLayer.classList.add('hidden', 'opacity-0');
+          layer3D.classList.remove('hidden');
+          requestAnimationFrame(() => {
+            layer3D.classList.remove('opacity-0');
+          });
 
-        if (!heroArtefactInstance) {
-          heroArtefactInstance = new ThreeUIHeroArtefact('hero-three-container');
+          // Update tab styles
+          tab3D.className = 'profile-view-tab flex-1 py-1.5 px-3 rounded-xl font-bold transition-all bg-white dark:bg-[#262421] text-[#1A1917] dark:text-[#F5F3EF] shadow-xs flex items-center justify-center gap-1.5 cursor-pointer';
+          tabPhoto.className = 'profile-view-tab flex-1 py-1.5 px-3 rounded-xl font-bold transition-all text-[#78716C] dark:text-[#A8A29E] hover:text-[#1A1917] dark:hover:text-[#F5F3EF] flex items-center justify-center gap-1.5 cursor-pointer';
+
+          if (!heroArtefactInstance) {
+            heroArtefactInstance = new ThreeUIHeroArtefact('hero-three-container');
+          } else {
+            heroArtefactInstance.resume();
+          }
         } else {
-          heroArtefactInstance.resume();
+          // Activate Photo
+          layer3D.classList.add('opacity-0');
+          setTimeout(() => {
+            layer3D.classList.add('hidden');
+          }, 150);
+          photoLayer.classList.remove('hidden', 'opacity-0');
+
+          // Update tab styles
+          tabPhoto.className = 'profile-view-tab flex-1 py-1.5 px-3 rounded-xl font-bold transition-all bg-white dark:bg-[#262421] text-[#1A1917] dark:text-[#F5F3EF] shadow-xs flex items-center justify-center gap-1.5 cursor-pointer';
+          tab3D.className = 'profile-view-tab flex-1 py-1.5 px-3 rounded-xl font-bold transition-all text-[#78716C] dark:text-[#A8A29E] hover:text-[#1A1917] dark:hover:text-[#F5F3EF] flex items-center justify-center gap-1.5 cursor-pointer';
+
+          if (heroArtefactInstance) {
+            heroArtefactInstance.pause();
+          }
         }
-      } else {
-        // Activate Photo
-        layer3D.classList.add('opacity-0');
-        setTimeout(() => {
-          layer3D.classList.add('hidden');
-        }, 150);
-        photoLayer.classList.remove('hidden', 'opacity-0');
+      };
 
-        // Update tab styles
-        tabPhoto.className = 'profile-view-tab flex-1 py-1.5 px-3 rounded-xl font-bold transition-all bg-white dark:bg-[#262421] text-[#1A1917] dark:text-[#F5F3EF] shadow-xs flex items-center justify-center gap-1.5 cursor-pointer';
-        tab3D.className = 'profile-view-tab flex-1 py-1.5 px-3 rounded-xl font-bold transition-all text-[#78716C] dark:text-[#A8A29E] hover:text-[#1A1917] dark:hover:text-[#F5F3EF] flex items-center justify-center gap-1.5 cursor-pointer';
-
-        if (heroArtefactInstance) {
-          heroArtefactInstance.pause();
-        }
-      }
-    };
-
-    tabPhoto.addEventListener('click', (e) => {
-      e.preventDefault();
-      switchView('photo');
-    });
-
-    tab3D.addEventListener('click', (e) => {
-      e.preventDefault();
-      switchView('3d');
-    });
-
-    const quickTryBtn = document.getElementById('quick-try-3d-btn');
-    if (quickTryBtn) {
-      quickTryBtn.addEventListener('click', (e) => {
+      tabPhoto.addEventListener('click', (e) => {
         e.preventDefault();
-        e.stopPropagation();
+        switchView('photo');
+      });
+
+      tab3D.addEventListener('click', (e) => {
+        e.preventDefault();
         switchView('3d');
       });
+
+      const quickTryBtn = document.getElementById('quick-try-3d-btn');
+      if (quickTryBtn) {
+        quickTryBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          switchView('3d');
+        });
+      }
     }
-  }
 
-  // 2. Bento Grid: 3D Crystal Lab in "Interactive UI" Card
-  const bentoCanvas = document.getElementById('bento-three-canvas');
-  if (bentoCanvas) {
-    new ThreeUISpatialBento('bento-three-canvas');
-  }
+    // 2. Bento Grid: 3D Crystal Lab in "Interactive UI" Card
+    const bentoCanvas = document.getElementById('bento-three-canvas');
+    if (bentoCanvas) {
+      new ThreeUISpatialBento('bento-three-canvas');
+    }
 
-  // 3. Contact Section: 3D Interactive Spatial Beacon
-  const contactCanvas = document.getElementById('contact-three-canvas');
-  if (contactCanvas) {
-    new ThreeUIContactBeacon('contact-three-canvas');
-  }
+    // 3. Contact Section: 3D Interactive Spatial Beacon
+    const contactCanvas = document.getElementById('contact-three-canvas');
+    if (contactCanvas) {
+      new ThreeUIContactBeacon('contact-three-canvas');
+    }
+  });
 }
 
 // ============================================================================
@@ -991,16 +1042,31 @@ function initMagneticButtons() {
   const buttons = document.querySelectorAll('.btn-primary, .btn-secondary');
 
   buttons.forEach(btn => {
-    btn.addEventListener('mousemove', (e) => {
-      const rect = btn.getBoundingClientRect();
-      const x = e.clientX - rect.left - rect.width / 2;
-      const y = e.clientY - rect.top - rect.height / 2;
+    // getBoundingClientRect() forces layout; calling it on every mousemove
+    // thrashes the main thread. Read it once on enter and throttle writes
+    // to one per frame.
+    let rect = null;
+    let ticking = false;
 
-      btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+    btn.addEventListener('mouseenter', () => {
+      rect = btn.getBoundingClientRect();
     });
+
+    btn.addEventListener('mousemove', (e) => {
+      if (!rect || ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+        ticking = false;
+      });
+    }, { passive: true });
 
     btn.addEventListener('mouseleave', () => {
       btn.style.transform = '';
+      rect = null;
+      ticking = false;
     });
   });
 }
@@ -1009,6 +1075,15 @@ function initMagneticButtons() {
 // 4. ThreeUI 3D Spatial Gallery Modal (Ultra-Performance Singleton Modal)
 // ============================================================================
 function initThreeGalleryModal(threeBgInstance) {
+  if (!threeBgInstance) return;
+
+  // Loaded on demand together with the rest of the Three.js stack.
+  import('./mini-previews.js').then(({ MiniThreePreviewEngine }) => {
+    initThreeGalleryModalInner(threeBgInstance, MiniThreePreviewEngine);
+  });
+}
+
+function initThreeGalleryModalInner(threeBgInstance, MiniThreePreviewEngine) {
   if (!threeBgInstance) return;
 
   const miniPreviewEngine = new MiniThreePreviewEngine();

@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nguyễn Vũ Xuân Mai — UI/UX Designer Portfolio</title>
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons CDN: defer so it stops blocking first paint.
+         Every call site guards on window.lucide and script.js re-runs
+         createIcons() on DOMContentLoaded, after deferred scripts ran. -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <link rel="stylesheet" href="/src/index.css">
     <link rel="stylesheet" href="/overrides.css">
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -352,7 +354,7 @@
                 <div class="w-[185px] sm:w-[205px] lg:w-[215px]">
                   <a href="/project.html?id=5" class="project-img-wrapper rounded-[1.85rem] sm:rounded-[2rem] overflow-hidden border-[3.5px] border-zinc-800/95 dark:border-zinc-700/80 bg-zinc-950 shadow-2xl relative cursor-pointer group aspect-[430/932] block ring-1 ring-black/10 dark:ring-white/10 hover:scale-[1.02] transition-transform duration-300">
                     <!-- Screen Image -->
-                    <img src="/images/tram-dien-xanh/station-detail.png" alt="Smart Station Screen Preview — Landmark 81" class="project-main-image carousel-image w-full h-full object-cover object-top block" />
+                    <img src="/images/tram-dien-xanh/station-detail.png" loading="lazy" alt="Smart Station Screen Preview - Landmark 81" class="project-main-image carousel-image w-full h-full object-cover object-top block" />
                     
                     <!-- Hover Quick Overlay -->
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-3 text-white z-20">
@@ -446,7 +448,7 @@
             <!-- Right Interactive Device Frame (7 cols) -->
             <div class="lg:col-span-7 flex flex-col">
               <a href="/project.html?id=4" class="project-img-wrapper aspect-video rounded-xl overflow-hidden border border-white/20 dark:border-white/10 bg-slate-950 shadow-lg relative cursor-pointer group block">
-                <img src="/images/soundly/project-4-3.jpg" onerror="this.src='https://picsum.photos/seed/music/900/600'" alt="Soundly Screen Preview" class="project-main-image carousel-image w-full h-full object-cover" />
+                <img src="/images/soundly/project-4-3.jpg" loading="lazy" onerror="this.src='https://picsum.photos/seed/music/900/600'" alt="Soundly Screen Preview" class="project-main-image carousel-image w-full h-full object-cover" />
                 
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-5 text-white">
                   <span class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-xl transition-all group-hover:scale-105">
@@ -499,7 +501,7 @@
                     <i data-lucide="git-branch" class="w-3.5 h-3.5 text-purple-500"></i>
                   </div>
                   <div class="rounded-lg overflow-hidden border border-white/20 dark:border-white/10">
-                    <img src="/images/meowlish/project-3-flow.jpg" onerror="this.src='https://picsum.photos/seed/flowchart/800/450'" alt="Meowlish User Flow" class="w-full h-24 object-cover object-top" />
+                    <img src="/images/meowlish/project-3-flow.jpg" loading="lazy" onerror="this.src='https://picsum.photos/seed/flowchart/800/450'" alt="Meowlish User Flow" class="w-full h-24 object-cover object-top" />
                   </div>
                 </div>
 
@@ -530,7 +532,7 @@
             <!-- Right: UI Mockup Preview (6 cols) -->
             <div class="lg:col-span-6">
               <a href="/project.html?id=3" class="project-img-wrapper aspect-[16/11] rounded-xl overflow-hidden border border-zinc-200 dark:border-white/10 bg-[#f4fff0] dark:bg-zinc-900 shadow-lg relative cursor-pointer group block">
-                <img src="/images/meowlish/project-3-1.jpg" onerror="this.src='https://picsum.photos/seed/cat/900/600'" alt="Meowlish Screen Preview" class="project-main-image carousel-image w-full h-full object-contain bg-[#f4fff0]" />
+                <img src="/images/meowlish/project-3-1.jpg" loading="lazy" onerror="this.src='https://picsum.photos/seed/cat/900/600'" alt="Meowlish Screen Preview" class="project-main-image carousel-image w-full h-full object-contain bg-[#f4fff0]" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-end p-5 text-white">
                   <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-xl transition-all group-hover:scale-105">
                     <span>View Case Study</span>
@@ -962,9 +964,12 @@
 
     <script type="module" src="/src/script.js"></script>
     <script>
-      if (window.lucide) {
-        lucide.createIcons();
-      }
+      // Runs after deferred scripts (incl. lucide) have executed.
+      window.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      });
     </script>
   <script>
     (function(){

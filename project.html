@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Case Study Details — Nguyen Vu Xuan Mai</title>
-    <!-- Lucide Icons CDN -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons CDN: defer so it stops blocking first paint.
+         script.js re-runs createIcons() on DOMContentLoaded, which fires
+         after deferred scripts have executed. -->
+    <script src="https://unpkg.com/lucide@latest" defer></script>
     <link rel="stylesheet" href="/src/index.css">
     <link rel="stylesheet" href="/overrides.css">
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
@@ -1095,11 +1097,11 @@
               </div>
               <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div class="md:col-span-2 rounded-3xl overflow-hidden border border-white/30 dark:border-white/10 shadow-2xl p-3 sm:p-5 bg-zinc-950/20 backdrop-blur-xs flex items-center justify-center relative">
-                  <img src="${project.designSystemImage}" alt="Color Palette & Design System" class="w-auto h-auto max-h-[460px] max-w-full object-contain rounded-2xl" />
+                  <img src="${project.designSystemImage}" loading="lazy" alt="Color Palette & Design System" class="w-auto h-auto max-h-[460px] max-w-full object-contain rounded-2xl" />
                 </div>
                 <div class="rounded-3xl overflow-hidden border border-white/30 dark:border-white/10 shadow-2xl p-3 sm:p-5 bg-white dark:bg-zinc-900/80 flex flex-col relative">
                   <div class="text-[11px] font-mono font-bold uppercase tracking-wider theme-muted mb-3 pb-2 border-b border-black/5 dark:border-white/10">Typography Tokens</div>
-                  <img src="/images/tram-dien-xanh/typography-tokens.png" alt="Typography Tokens" class="w-auto h-auto max-h-[460px] max-w-full object-contain rounded-2xl mx-auto" />
+                  <img src="/images/tram-dien-xanh/typography-tokens.png" loading="lazy" alt="Typography Tokens" class="w-auto h-auto max-h-[460px] max-w-full object-contain rounded-2xl mx-auto" />
                 </div>
               </div>
             </div>
@@ -1587,7 +1589,7 @@
                 </h3>
               </div>
               <div class="rounded-3xl overflow-hidden border border-white/30 dark:border-white/10 shadow-2xl p-3 sm:p-5 bg-zinc-950/20 backdrop-blur-xs cursor-pointer group flex items-center justify-center relative" onclick="openLightbox('${project.flowImage}', 'User Flow Diagram')">
-                <img src="${project.flowImage}" onerror="this.src='https://picsum.photos/seed/flowchart/1200/800'" alt="${project.title} User Flow" class="w-auto h-auto max-h-[460px] max-w-full object-contain rounded-2xl group-hover:scale-[1.01] transition-transform" />
+                <img src="${project.flowImage}" loading="lazy" onerror="this.src='https://picsum.photos/seed/flowchart/1200/800'" alt="${project.title} User Flow" class="w-auto h-auto max-h-[460px] max-w-full object-contain rounded-2xl group-hover:scale-[1.01] transition-transform" />
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-5 rounded-3xl">
                   <span class="text-white text-xs font-mono font-medium bg-black/70 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 flex items-center gap-2">
                     <i data-lucide="zoom-in" class="w-3.5 h-3.5 text-emerald-400"></i> Click to zoom high-resolution flow
@@ -2014,9 +2016,6 @@
             
             <!-- Hero Info (First-Fold Split Editorial Showcase) -->
             <div id="overview" class="scroll-mt-24 reveal pt-2 pb-6 sm:pb-8 mb-8 sm:mb-12 relative">
-              <!-- Subtle parallax scrim halo behind hero content -->
-              <div id="hero-parallax-halo" class="absolute -inset-4 sm:-inset-6 rounded-3xl bg-gradient-to-b from-white/15 via-transparent to-transparent dark:from-black/15 dark:via-transparent dark:to-transparent blur-3xl pointer-events-none opacity-70"></div>
-
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
                 <!-- Left Column (58%): Narrative, Typography, Meta Strip, CTAs -->
@@ -2740,15 +2739,29 @@
         function initMagneticButtons() {
           const btns = document.querySelectorAll('.magnetic-btn');
           btns.forEach(btn => {
+            // One rect read per hover, one transform write per frame
+            let rect = null;
+            let ticking = false;
+
+            btn.addEventListener('mouseenter', () => {
+              rect = btn.getBoundingClientRect();
+            });
+
             btn.addEventListener('mousemove', (e) => {
-              const rect = btn.getBoundingClientRect();
-              const x = e.clientX - rect.left - rect.width / 2;
-              const y = e.clientY - rect.top - rect.height / 2;
-              btn.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px) scale(1.02)`;
+              if (!rect || ticking) return;
+              ticking = true;
+              requestAnimationFrame(() => {
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.18}px, ${y * 0.18}px) scale(1.02)`;
+                ticking = false;
+              });
             }, { passive: true });
 
             btn.addEventListener('mouseleave', () => {
               btn.style.transform = '';
+              rect = null;
+              ticking = false;
             }, { passive: true });
           });
         }
@@ -3084,20 +3097,6 @@
           warm(0);
           warm(1);
           paint();
-        }
-
-        function initHeroParallax() {
-          const halo = document.getElementById('hero-parallax-halo');
-          if (!halo) return;
-          let ticking = false;
-          const update = () => {
-            halo.style.transform = 'translate3d(0,' + (window.scrollY * 0.18) + 'px,0)';
-            ticking = false;
-          };
-          window.addEventListener('scroll', () => {
-            if (!ticking) { ticking = true; requestAnimationFrame(update); }
-          }, { passive: true });
-          update();
         }
 
         function initSmartNavbar() {
@@ -3500,6 +3499,7 @@
             const ctx = canvas.getContext('2d');
             let ripples = [];
             let lastMove = 0;
+            let rippleAnimId = null;
 
             function resizeCanvas() {
               canvas.width = track.offsetWidth || 1000;
@@ -3520,6 +3520,7 @@
                     speed: 1.25,
                     color: 'rgba(45, 212, 191, 0.85)'
                   });
+                  ensureRippleLoop();
                 }, i * 140);
               }
             }
@@ -3549,8 +3550,12 @@
                 speed: 1.1,
                 color: 'rgba(56, 189, 248, 0.75)'
               });
+              ensureRippleLoop();
             }, { passive: true });
 
+            // The loop parks itself once the last ripple dies instead of
+            // ticking requestAnimationFrame and clearing a full-size canvas
+            // every frame for the rest of the session.
             function renderRipples() {
               ctx.clearRect(0, 0, canvas.width, canvas.height);
               for (let i = ripples.length - 1; i >= 0; i--) {
@@ -3579,9 +3584,18 @@
                 }
                 ctx.restore();
               }
-              requestAnimationFrame(renderRipples);
+              if (ripples.length > 0) {
+                rippleAnimId = requestAnimationFrame(renderRipples);
+              } else {
+                rippleAnimId = null;
+              }
             }
-            renderRipples();
+
+            function ensureRippleLoop() {
+              if (rippleAnimId == null) {
+                rippleAnimId = requestAnimationFrame(renderRipples);
+              }
+            }
           }
         }
 
@@ -3594,7 +3608,6 @@
         initComparisonSlider();
         initSmartNavbar();
         initVerticalRiverJourney();
-        initHeroParallax();
         initSingleScreenViewer(singleScreenData);
 
         if (window.lucide) {

@@ -209,6 +209,7 @@ export class GhibliSeasonsCanvas {
     this.height = 0;
     this.isRunning = true;
     this.isScrolling = false;
+    this.scrollTick = 0;
 
     // Animals and campfire embers
     this.initFauna();
@@ -585,8 +586,12 @@ export class GhibliSeasonsCanvas {
     const W = this.width;
     const H = this.height;
 
-    // Fast, buttery-smooth timelapse scrub
-    this.seasonProgress += (this.targetSeasonProgress - this.seasonProgress) * 0.18;
+    // Fast, buttery-smooth timelapse scrub. While scrolling we render at half
+    // the frame rate, so double the lerp factor to keep the same per-second
+    // morph speed (0.33 * 30fps ≈ 0.18 * 60fps) — otherwise the colour change
+    // visibly slows down during scroll and catches up after.
+    const seasonEase = this.isScrolling ? 0.33 : 0.18;
+    this.seasonProgress += (this.targetSeasonProgress - this.seasonProgress) * seasonEase;
     this.darkFactor += (this.targetDarkFactor - this.darkFactor) * 0.09;
     this.audio.setSeason(this.seasonProgress);
 
@@ -2736,22 +2741,27 @@ export class GhibliSeasonsCanvas {
 
   animate() {
     if (!this.isRunning) return;
-    // Skip redraws while the page is scrolling: the canvas is fixed, so its
-    // last frame stays valid and this frees the CPU/GPU for smooth scrolling.
-    if (this.isScrolling) { this.animId = null; return; }
     this.animId = requestAnimationFrame((t) => {
-      this.render(t);
+      // While the page is scrolling, draw at half rate instead of freezing.
+      // A hard freeze stalls the season colour morph mid-scroll ("khựng")
+      // and then makes it play catch-up once scrolling stops. Half rate
+      // keeps the morph flowing continuously at half the paint cost.
+      if (this.isScrolling) {
+        this.scrollTick = (this.scrollTick + 1) % 2;
+        if (this.scrollTick === 0) {
+          this.render(t);
+        }
+      } else {
+        this.scrollTick = 0;
+        this.render(t);
+      }
       this.animate();
     });
   }
 
-  /** Called by the scroll handler: freeze rendering during scroll, resume after idle. */
+  /** Called by the scroll handler: the loop keeps running, just cheaper. */
   setScrolling(isScrolling) {
-    if (this.isScrolling === isScrolling) return;
-    this.isScrolling = isScrolling;
-    if (!isScrolling && this.isRunning && !this.animId) {
-      this.animate();
-    }
+    this.isScrolling = !!isScrolling;
   }
 
   destroy() {

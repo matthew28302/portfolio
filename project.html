@@ -271,23 +271,17 @@
       .ocean-glimmer-3 { animation: oceanSparkleTwinkle 4.2s ease-in-out infinite 2.1s; }
       .ocean-mist { animation: oceanMistDrift 18s ease-in-out infinite; }
       .ocean-horizon-glow { animation: oceanHorizonPulse 7s ease-in-out infinite; }
+      /* Dark mode: calm the "Safe Harbor" scene — muted moon, dimmer sparkles */
+      html.dark .ocean-horizon-glow { opacity: 0.5; }
+      html.dark .ocean-glimmer-1,
+      html.dark .ocean-glimmer-2,
+      html.dark .ocean-glimmer-3 { opacity: 0.3; filter: saturate(0.45); }
+
+      /* Desaturate the painted ocean panorama to match the flat dark palette */
+      html.dark .ocean-pano { filter: saturate(0.3) brightness(0.74) contrast(0.95); }
       .seagull-glide-1 { animation: seagullGlideEast 24s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
       .seagull-glide-2 { animation: seagullGlideWest 28s cubic-bezier(0.4, 0, 0.6, 1) infinite 6s; }
       .seagull-glide-3 { animation: seagullGlideEast 20s cubic-bezier(0.4, 0, 0.6, 1) infinite 13s; }
-
-      /* Neumorphic card treatment, applied on case-study page */
-      .glass-box, .studio-card {
-        background: #f3f4f6 !important;
-        border: none !important;
-        box-shadow: 8px 8px 16px rgba(0,0,0,0.08), -8px -8px 16px rgba(255,255,255,0.85) !important;
-      }
-      html.dark .glass-box, html.dark .studio-card {
-        background: #1f2937 !important;
-        box-shadow: 8px 8px 16px rgba(0,0,0,0.35), -8px -8px 16px rgba(51,65,84,0.35) !important;
-      }
-      .glass-box:hover, .studio-card-hover:hover {
-        box-shadow: 4px 4px 8px rgba(0,0,0,0.08), -4px -4px 8px rgba(255,255,255,0.85) !important;
-      }
     </style>
   </head>
   <body class="overflow-x-hidden relative min-h-screen" data-season="spring">
@@ -387,17 +381,17 @@
           demoLink: "https://imfishball.framer.website/chitiet/trang-chu",
           flowImage: "/images/meowlish/project-3-flow.jpg",
           contextAndProblem: {
-            challenge: "Vietnamese English learners often drop off traditional resources because lessons feel dry, repetitive, and disconnected from a clear daily learning motivation.",
+            challenge: "Self-taught English learners drop off within days: lessons feel dry, content is scattered across tools, and nothing rewards them for coming back tomorrow.",
             painPoints: [
-              { title: "Low Learner Motivation", desc: "Text-heavy lessons without a friendly character or sense of progress discouraged daily practice." },
-              { title: "Scattered Content", desc: "Vocabulary, grammar, and exercises were spread across many tools with no clear learning path." },
-              { title: "No Daily Habit Hook", desc: "Without a friendly identity or small daily wins ('one step forward every day'), learners quickly lost the habit." }
+              { title: "Low Retention", desc: "Text-heavy lessons with no personality or visible progress left learners with little reason to return." },
+              { title: "No Clear Path", desc: "Vocabulary, grammar, practice and study tips were split across separate tools with no guided sequence." },
+              { title: "No Habit Loop", desc: "With no daily win or friendly cue, motivation dropped off within the first few sessions." }
             ]
           },
           strategicSolutions: [
-            { icon: "sparkles", title: "Playful Cat Mascot", desc: "A friendly Meowlish cat illustration and soft green-white palette make the learning site feel welcoming and memorable for all ages." },
-            { icon: "layers", title: "Clear Information Architecture", desc: "Content organized into four learning pillars — vocabulary, grammar, practice exercises, study tips — with a clear Home / Courses / Blog navigation map." },
-            { icon: "smartphone", title: "Live Framer Prototype", desc: "High-fidelity interactive prototype built in Framer, including micro-interactions, navigation flows, and working Login / Sign Up CTAs, used for usability validation." }
+            { icon: "sparkles", title: "Mascot Identity", desc: "A friendly cat character and warm green-and-white palette turn a study tool into something learners want to open." },
+            { icon: "layers", title: "Guided Content Path", desc: "Four clear pillars — vocabulary, grammar, practice, study tips — mapped into Home / Courses / Blog so every session has a next step." },
+            { icon: "target", title: "Visible Daily Wins", desc: "Lesson and audio-listening detail screens surface progress and completion states so effort is felt, not assumed." }
           ],
           impactMetrics: [
             { value: "Live", label: "Framer Prototype", sub: "High-fidelity, user-tested web app" },
@@ -432,17 +426,17 @@
           tools: ["Figma", "Smart Animate", "Auto Layout", "Design Tokens", "Design System"],
           demoLink: "https://www.figma.com/proto/AaMitEGHtijZykVF5xurET/Web-nh%E1%BA%A1c?node-id=34-3&t=RsLmEIl3UbhO9yVZ-1",
           contextAndProblem: {
-            challenge: "Desktop music streaming experiences can make everyday listening feel unnecessarily cumbersome — with cluttered navigation, hidden playback controls, and weak discovery entry points that force users to spend more effort managing the experience instead of enjoying their music.",
+            challenge: "On desktop, music apps make listening feel like admin work: controls hide behind extra clicks, navigation competes for attention, and discovery is buried.",
             painPoints: [
-              { title: "Cluttered Navigation", desc: "Multiple competing menus and oversized banners make it hard to focus on the actual listening experience." },
-              { title: "Hidden Playback Controls", desc: "Now-playing controls sit behind extra screens, interrupting the flow when users just want to pause, skip, or queue." },
-              { title: "Weak Discovery Entry Points", desc: "Trending charts, curated playlists, and podcast topics lack clear access points, so exploration feels like luck." }
+              { title: "Navigation Noise", desc: "Competing menus and oversized banners pulled focus away from the music itself." },
+              { title: "Buried Playback", desc: "Pause, skip and queue lived behind extra screens — basic actions cost extra clicks mid-session." },
+              { title: "Weak Discovery", desc: "Trending charts, artist hubs and podcast topics had no clear entry point, so browsing felt accidental." }
             ]
           },
           strategicSolutions: [
-            { icon: "layers", title: "Three-Zone Architecture", desc: "A fixed library sidebar, a central discovery feed, and a persistent queue/now-playing rail laid out in Figma so every key action sits in the same place on every screen." },
-            { icon: "play", title: "Persistent Now-Playing Controls", desc: "A floating player bar (album art, play/pause/skip, progress, volume, device) stays visible across Home, Artists, Trending, and Playlists — no extra screen to reach the basics." },
-            { icon: "music", title: "One-Tap Discovery", desc: "Release-date and genre filters on Home, trending charts, artist hubs, curated playlists, and podcast topics are surfaced as clear entry points instead of being buried." }
+            { icon: "layers", title: "Three-Zone Layout", desc: "Fixed library sidebar, central discovery feed and a right-side queue keep every destination in the same predictable place." },
+            { icon: "play", title: "Always-On Player", desc: "A persistent now-playing bar (play/pause, skip, progress, volume) follows the user across every screen — basics never cost a click." },
+            { icon: "music", title: "One-Tap Discovery", desc: "Trending charts, artist hubs, curated playlists and podcast topics sit one tap from Home instead of being buried." }
           ],
           impactMetrics: [
             { value: "09 Screens", label: "High-Fidelity Flows", sub: "Login to Now Playing" },
@@ -567,17 +561,17 @@
           },
           designSystemImage: "/images/tram-dien-xanh/color-palette.png",
           contextAndProblem: {
-            challenge: "EV drivers faced range anxiety with confusing station information, no clear view of charging progress, and friction at checkout — leading to lost time, money, and trust.",
+            challenge: "EV charging is a trust problem: drivers reach a station unsure it's usable, can't tell what's happening mid-charge, and hit a confusing checkout at the worst moment.",
             painPoints: [
-              { title: "Range Anxiety Meets Wrong Information", desc: "Drivers often arrived at stations only to find no compatible open stalls — costing time, fuel, and trust in the brand." },
-              { title: "Limited Charging Visibility", desc: "Drivers lacked a clear, centralized view of battery %, charging speed, and running cost during a charging session, making it harder to understand progress at a glance and harder for operators to identify issues early." },
-              { title: "Money Friction at Checkout", desc: "Wallet top-ups required too many steps, session records were disconnected, and when problems happened, drivers could not reach a human support channel quickly — a bad experience at the most critical step." }
+              { title: "Range Anxiety", desc: "Drivers reached stations without reliable open-stall and plug info — losing time, fuel and confidence in the network." },
+              { title: "Charging in the Dark", desc: "No live view of battery %, kW or running cost, so progress was guesswork and operators spotted faults late." },
+              { title: "Checkout Friction", desc: "Multi-step top-ups, disconnected records and slow support access — friction at the most critical step." }
             ]
           },
           strategicSolutions: [
-            { icon: "map", title: "Trustworthy Station Discovery", desc: "Map and list views with verified open-stall counts, plug types, pricing, and amenities so drivers can book with confidence." },
-            { icon: "zap", title: "Live Charging Visibility", desc: "A single, clear screen showing battery %, kW charging speed, kWh delivered, and live cost — for both drivers and the admin monitoring dashboard." },
-            { icon: "wallet", title: "Frictionless Wallet & One-Tap Support", desc: "Faster wallet top-up, automatic session billing with itemized e-invoice, plus quick-access support channels right after charging." }
+            { icon: "map", title: "Certainty Before Arrival", desc: "Map and list views surface verified open stalls, plug types, pricing and amenities, so drivers book with confidence." },
+            { icon: "zap", title: "Live Charging Monitor", desc: "One screen for battery %, kW speed, kWh delivered and running cost — mirrored on the admin dashboard for early fault detection." },
+            { icon: "wallet", title: "Wallet & One-Tap Support", desc: "Fewer top-up steps, automatic session billing with an itemized e-invoice, and support one tap away the moment something goes wrong." }
           ],
           impactMetrics: [
             { value: "Modular UI", label: "Screen Redesigns", sub: "Redesigned key flows & edge states" },
@@ -1398,12 +1392,10 @@
                 <div class="relative w-full h-72 sm:h-84 md:h-96 overflow-hidden rounded-3xl sm:rounded-[3rem] bg-gradient-to-b from-sky-100/50 via-teal-100/30 to-teal-50/15 dark:from-zinc-950 dark:via-teal-950/30 dark:to-zinc-900/80 shadow-[0_20px_50px_-15px_rgba(13,148,136,0.12)] dark:shadow-[0_24px_60px_-15px_rgba(0,0,0,0.6)] border border-teal-500/15 dark:border-white/10 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)] [mask-image:-webkit-linear-gradient(to_bottom,transparent,black_10%,black_90%,transparent)]">
                   
                   <!-- Horizon Light Glow Aura (Bầu trời ửng sáng dịu êm) -->
-                  <div class="ocean-horizon-glow absolute top-8 sm:top-12 left-1/2 -translate-x-1/2 w-80 sm:w-110 h-52 rounded-full bg-gradient-to-b from-amber-200/40 via-teal-300/30 to-cyan-400/20 dark:from-amber-400/25 dark:via-teal-400/20 dark:to-cyan-500/15 pointer-events-none"></div>
+                  <div class="ocean-horizon-glow absolute top-8 sm:top-12 left-1/2 -translate-x-1/2 w-80 sm:w-110 h-52 rounded-full bg-gradient-to-b from-amber-200/40 via-teal-300/30 to-cyan-400/20 dark:from-slate-400/10 dark:via-slate-500/5 dark:to-transparent pointer-events-none"></div>
 
-                  <!-- Glowing Rising Sun / Moon Disc at Horizon -->
-                  <div class="absolute top-14 sm:top-18 left-1/2 -translate-x-1/2 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-gradient-to-b from-amber-50 via-teal-100 to-teal-300/40 dark:from-amber-100/60 dark:via-teal-200/30 dark:to-teal-400/10 shadow-[0_0_50px_rgba(45,212,191,0.65)] border border-white/60 dark:border-white/20 pointer-events-none flex items-center justify-center">
-                    <div class="w-16 h-16 rounded-full bg-white/45 blur-xs"></div>
-                  </div>
+                  <!-- Rising Sun / Moon Disc at Horizon — one continuous radial falloff, no banding -->
+                  <div class="absolute top-14 sm:top-18 left-1/2 -translate-x-1/2 w-28 h-28 sm:w-32 sm:h-32 rounded-full pointer-events-none bg-[radial-gradient(circle_at_50%_56%,rgba(255,255,255,0.88)_0%,rgba(255,250,235,0.74)_18%,rgba(190,242,226,0.44)_42%,rgba(45,212,191,0.18)_64%,rgba(45,212,191,0.06)_84%,transparent_100%)] dark:bg-[radial-gradient(circle_at_50%_56%,rgba(248,250,252,0.50)_0%,rgba(233,238,243,0.38)_20%,rgba(170,182,196,0.21)_44%,rgba(100,116,139,0.10)_66%,rgba(71,85,105,0.04)_85%,transparent_100%)] shadow-[0_0_46px_rgba(45,212,191,0.35)] dark:shadow-[0_0_38px_rgba(148,163,184,0.11)]"></div>
 
                   <!-- Soaring Seagulls in the Vast Open Sky (Lượn sóng bay lượn sinh động) -->
                   <div class="absolute inset-x-0 top-6 sm:top-8 h-28 pointer-events-none overflow-hidden">
@@ -1431,7 +1423,7 @@
                   <div class="ocean-mist absolute inset-x-0 top-24 sm:top-32 h-20 bg-gradient-to-r from-transparent via-teal-100/60 dark:via-teal-400/10 to-transparent blur-lg pointer-events-none"></div>
 
                   <!-- Panoramic SVG Canvas: Distant Mountain Silhouettes & 3 Layered Rolling Waves -->
-                  <svg class="absolute inset-0 w-full h-full" viewBox="0 0 1200 320" fill="none" preserveAspectRatio="none">
+                  <svg class="ocean-pano absolute inset-0 w-full h-full" viewBox="0 0 1200 320" fill="none" preserveAspectRatio="none">
                     <defs>
                       <linearGradient id="panoMtnFar" x1="0" y1="0" x2="0" y2="1">
                         <stop offset="0%" stop-color="#99f6e4" stop-opacity="0.45" />
@@ -1726,6 +1718,7 @@
         }
 
         let imagesHtml = '';
+        let singleScreenData = null;
         if (project.isVerticalLayout) {
           // Sleek Cover Flow Perspective Showcase (Cardless Landing Page + Compact Proportions)
           imagesHtml = `
@@ -1764,41 +1757,83 @@
             </div>
           `;
         } else {
-          // Standard horizontal screen listing
+          // Single-screen viewer: one screen at a time, Next/Prev switches image + title
+          const total = project.images.length;
+          const pad = (n) => String(n).padStart(2, '0');
+          const getSrc = (img) => (typeof img === 'string' ? img : img.src);
+          const getTitle = (img, i) =>
+            typeof img === 'string' ? `${project.title.split('—')[0].trim()} • Screen ${pad(i + 1)}` : img.title;
+          const getDesc = (img) => (typeof img === 'string' ? '' : img.desc || '');
+          const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) =>
+            ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+          singleScreenData = project.images.map((img, i) => ({
+            src: getSrc(img),
+            title: getTitle(img, i),
+            desc: getDesc(img),
+            seed: (project.seeds && project.seeds[i]) || 'design'
+          }));
+
+          const firstTitle = esc(getTitle(project.images[0], 0));
+          const firstDesc = getDesc(project.images[0]);
+          const firstSeed = (project.seeds && project.seeds[0]) || 'design';
+
           imagesHtml = `
-            <div class="flex flex-col gap-2 mb-14">
-              ${project.images.map((img, index) => {
-                const seed = (project.seeds && project.seeds[index]) || 'design';
-                const screenNum = String(index + 1).padStart(2, '0');
-                const totalScreens = String(project.images.length).padStart(2, '0');
-                const imgSrc = typeof img === 'string' ? img : img.src;
-                const title = typeof img === 'string' ? `${project.title.split('—')[0].trim()} • Screen ${screenNum}` : img.title;
-                const desc = typeof img === 'string' ? '' : (img.desc || '');
-                return `
-                  <div class="reveal studio-card spotlight-card rounded-[2rem] overflow-hidden mb-8 border border-white/25 dark:border-white/10 shadow-lg">
-                    <div class="px-5 py-3.5 border-b border-white/20 dark:border-white/10 bg-white/15 dark:bg-white/[0.03] flex items-center justify-between text-xs theme-muted font-mono">
-                      <div class="flex items-center gap-2">
-                        <span class="w-3 h-3 rounded-full bg-red-400/80 inline-block"></span>
-                        <span class="w-3 h-3 rounded-full bg-amber-400/80 inline-block"></span>
-                        <span class="w-3 h-3 rounded-full bg-emerald-400/80 inline-block"></span>
-                        <span class="ml-2 font-bold theme-card-heading">${title}</span>
-                      </div>
-                      <div class="flex items-center gap-2 font-bold season-highlight">
-                        <span>SCREEN ${screenNum} / ${totalScreens}</span>
-                      </div>
-                    </div>
-                    <div class="bg-black/10 dark:bg-black/40 backdrop-blur-xs p-2 sm:p-4 cursor-pointer" onclick="openLightbox('${imgSrc}', '${title}')">
-                      <img src="${imgSrc}" onerror="this.src='https://picsum.photos/seed/${seed}/1200/800'" alt="${title}" class="w-full h-auto object-contain rounded-xl" loading="lazy" />
-                    </div>
-                    ${desc ? `
-                      <div class="p-4 px-6 border-t border-white/20 dark:border-white/10 bg-white/10 dark:bg-white/[0.02]">
-                        <p class="text-xs theme-card-body leading-relaxed">${desc}</p>
-                      </div>
-                    ` : ''}
-                  </div>
-                `;
-              }).join('')}
-            </div>
+            <figure id="screen-viewer" class="reveal studio-card spotlight-card rounded-[2rem] overflow-hidden mb-6 border border-white/25 dark:border-white/10 shadow-lg">
+
+              <!-- Header: window dots + active screen title + section tag -->
+              <figcaption class="sv-head">
+                <span class="sv-dots-ico" aria-hidden="true">
+                  <i class="bg-red-400/80"></i><i class="bg-amber-400/80"></i><i class="bg-emerald-400/80"></i>
+                </span>
+                <span id="screen-viewer-title" class="sv-title">${firstTitle}</span>
+                <span class="sv-tag">UI Gallery</span>
+              </figcaption>
+
+              <!-- Stage: one screen, with symmetric round arrows overlaid -->
+              <div class="sv-stage" id="screen-viewer-stage">
+                <button type="button" id="screen-viewer-prev" class="sv-btn sv-btn--prev" aria-label="Previous screen">
+                  <i data-lucide="chevron-left" width="18" height="18" aria-hidden="true"></i>
+                  <span class="sv-tip" id="screen-viewer-prev-tip" aria-hidden="true"></span>
+                </button>
+
+                <button type="button" id="screen-viewer-next" class="sv-btn sv-btn--next" aria-label="Next screen">
+                  <i data-lucide="chevron-right" width="18" height="18" aria-hidden="true"></i>
+                  <span class="sv-tip" id="screen-viewer-next-tip" aria-hidden="true"></span>
+                </button>
+
+                <img id="screen-viewer-img" class="sv-img"
+                     src="${getSrc(project.images[0])}"
+                     onerror="this.src='https://picsum.photos/seed/${firstSeed}/1200/800'"
+                     alt="${firstTitle}" decoding="async" />
+
+                <span class="sv-zoom" aria-hidden="true">
+                  <i data-lucide="maximize-2" width="12" height="12"></i> View full size
+                </span>
+              </div>
+
+              <!-- Controls: counter + single-line dots + input hints -->
+              <div class="sv-bar">
+                <span class="sv-count" aria-live="polite">
+                  Screen <b id="screen-viewer-index">01</b><span class="sv-count-sep">/</span><span id="screen-viewer-total">${pad(total)}</span>
+                </span>
+                <div id="screen-viewer-dots" class="sv-dots" role="tablist" aria-label="Choose screen"></div>
+                <span class="sv-hint">
+                  <i data-lucide="move-horizontal" width="12" height="12" aria-hidden="true"></i>
+                  Swipe &middot; &larr; &rarr;
+                </span>
+              </div>
+
+              <!-- Reading-progress style position track -->
+              <div class="sv-track" aria-hidden="true"><i id="screen-viewer-track"></i></div>
+
+              <!-- Description of the active screen -->
+              <div id="screen-viewer-desc-wrap" class="sv-desc${firstDesc ? '' : ' is-empty'}">
+                <p id="screen-viewer-desc" class="sv-desc-text">${esc(firstDesc)}</p>
+              </div>
+            </figure>
+
+            <div class="mb-14"></div>
           `;
         }
 
@@ -2851,12 +2886,218 @@
         }
 
         // ── Smart Navbar: Auto-hide on Scroll Down, Reveal on Scroll Up ───────
+        // ── Single Screen Viewer (UI Gallery: one screen at a time + Next/Prev) ──
+        function initSingleScreenViewer(screens) {
+          const root     = document.getElementById('screen-viewer');
+          const stage    = document.getElementById('screen-viewer-stage');
+          const img      = document.getElementById('screen-viewer-img');
+          const titleEl  = document.getElementById('screen-viewer-title');
+          const indexEl  = document.getElementById('screen-viewer-index');
+          const totalEl  = document.getElementById('screen-viewer-total');
+          const descEl   = document.getElementById('screen-viewer-desc');
+          const descWrap = document.getElementById('screen-viewer-desc-wrap');
+          const dotsEl   = document.getElementById('screen-viewer-dots');
+          const trackEl  = document.getElementById('screen-viewer-track');
+          const prevBtn  = document.getElementById('screen-viewer-prev');
+          const nextBtn  = document.getElementById('screen-viewer-next');
+          const prevTip  = document.getElementById('screen-viewer-prev-tip');
+          const nextTip  = document.getElementById('screen-viewer-next-tip');
+
+          if (!root || !img || !dotsEl || !titleEl || !Array.isArray(screens) || screens.length === 0) return;
+
+          const total = screens.length;
+          const pad = (n) => String(n).padStart(2, '0');
+          const clamp = (i) => Math.max(0, Math.min(total - 1, i));
+          const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+          let index = 0;
+          let swapTimer = 0;
+
+          /* ── Preload neighbours so switching never stalls on the network ── */
+          const warmed = new Set();
+          const warm = (i) => {
+            const s = screens[i];
+            if (!s || warmed.has(s.src)) return;
+            warmed.add(s.src);
+            const pre = new Image();
+            pre.src = s.src;
+          };
+
+          /* ── Pagination dots: one line, tooltip carries the screen name ── */
+          const escAttr = (v) => String(v == null ? '' : v)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+
+          dotsEl.innerHTML = screens.map((s, i) => `
+            <button type="button" role="tab" class="sv-dot" data-dot="${i}"
+                    aria-selected="${i === 0}" tabindex="${i === 0 ? '0' : '-1'}"
+                    title="${escAttr(pad(i + 1))} · ${escAttr(s.title)}"
+                    aria-label="${escAttr('Screen ' + pad(i + 1) + ' of ' + pad(total) + ': ' + s.title)}"></button>
+          `).join('');
+
+          const dots = Array.from(dotsEl.querySelectorAll('[data-dot]'));
+
+          /* ── Reflect state across every control at once ── */
+          function paint() {
+            const s = screens[index];
+
+            titleEl.textContent = s.title;
+            img.alt = s.title;
+            if (indexEl) indexEl.textContent = pad(index + 1);
+            if (totalEl) totalEl.textContent = pad(total);
+
+            if (descWrap) {
+              const has = !!s.desc;
+              descWrap.classList.toggle('is-empty', !has);
+              if (has && descEl) descEl.textContent = s.desc;
+            }
+
+            dots.forEach((d, i) => {
+              const on = i === index;
+              d.setAttribute('aria-selected', on ? 'true' : 'false');
+              d.tabIndex = on ? 0 : -1;
+            });
+
+            if (trackEl) trackEl.style.width = (((index + 1) / total) * 100).toFixed(2) + '%';
+
+            // Linear flow: mark the ends instead of silently wrapping around
+            const atStart = index === 0;
+            const atEnd = index === total - 1;
+            if (prevBtn) {
+              prevBtn.classList.toggle('is-end', atStart);
+              prevBtn.setAttribute('aria-disabled', atStart ? 'true' : 'false');
+            }
+            if (nextBtn) {
+              nextBtn.classList.toggle('is-end', atEnd);
+              nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
+            }
+            if (prevTip) prevTip.textContent = atStart ? 'Start of gallery' : screens[index - 1].title;
+            if (nextTip) nextTip.textContent = atEnd ? 'End of gallery' : screens[index + 1].title;
+
+            warm(index - 1);
+            warm(index + 1);
+
+            // Keep the active dot visible when the row overflows
+            if (dots[index] && dotsEl.scrollWidth > dotsEl.clientWidth + 1) {
+              dots[index].scrollIntoView({
+                block: 'nearest',
+                inline: 'center',
+                behavior: reduceMotion ? 'auto' : 'smooth'
+              });
+            }
+          }
+
+          /* ── Directional cross-fade; timer cleared so fast clicks stay safe ── */
+          function swap(src, dir) {
+            window.clearTimeout(swapTimer);
+            if (img.getAttribute('src') === src) return;
+
+            if (reduceMotion) {
+              img.src = src;
+              return;
+            }
+
+            img.classList.remove('sv-in-left', 'sv-in-right');
+            img.classList.add(dir > 0 ? 'sv-out-right' : 'sv-out-left');
+
+            swapTimer = window.setTimeout(() => {
+              img.src = src;
+              img.classList.remove('sv-out-right', 'sv-out-left');
+              img.classList.add(dir > 0 ? 'sv-in-right' : 'sv-in-left');
+              window.requestAnimationFrame(() => {
+                window.requestAnimationFrame(() => {
+                  img.classList.remove('sv-in-right', 'sv-in-left');
+                });
+              });
+            }, 170);
+          }
+
+          function go(target) {
+            const next = clamp(target);
+            if (next === index) return;
+
+            const dir = next > index ? 1 : -1;
+            index = next;
+
+            paint();
+            swap(screens[index].src, dir);
+          }
+
+          /* ── Wiring ── */
+          if (prevBtn) prevBtn.addEventListener('click', () => { if (!prevBtn.classList.contains('is-end')) go(index - 1); });
+          if (nextBtn) nextBtn.addEventListener('click', () => { if (!nextBtn.classList.contains('is-end')) go(index + 1); });
+          dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+
+          /* ── Drag / swipe on the image, tap to open full size ── */
+          if (img) {
+            let startX = 0;
+            let startY = 0;
+            let dragging = false;
+            let moved = false;
+
+            img.addEventListener('pointerdown', (e) => {
+              if (e.pointerType === 'mouse' && e.button !== 0) return;
+              startX = e.clientX;
+              startY = e.clientY;
+              dragging = true;
+              moved = false;
+            });
+
+            img.addEventListener('pointermove', (e) => {
+              if (!dragging) return;
+              if (Math.abs(e.clientX - startX) > 8) moved = true;
+            });
+
+            img.addEventListener('pointerup', (e) => {
+              if (!dragging) return;
+              dragging = false;
+              const dx = e.clientX - startX;
+              const dy = e.clientY - startY;
+
+              if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+                go(index + (dx < 0 ? 1 : -1));
+                return;
+              }
+              if (!moved) openLightbox(screens[index].src, screens[index].title);
+            });
+
+            img.addEventListener('pointercancel', () => { dragging = false; });
+            img.addEventListener('dragstart', (e) => e.preventDefault());
+          }
+
+          /* ── Keyboard: ← → to step, Home/End to jump ── */
+          window.addEventListener('keydown', (e) => {
+            const r = root.getBoundingClientRect();
+            const visible = r.top < window.innerHeight * 0.8 && r.bottom > window.innerHeight * 0.2;
+            if (!visible) return;
+
+            const tag = (e.target.tagName || '').toLowerCase();
+            if (tag === 'input' || tag === 'textarea' || e.metaKey || e.ctrlKey || e.altKey) return;
+
+            if (e.key === 'ArrowRight') { e.preventDefault(); go(index + 1); }
+            else if (e.key === 'ArrowLeft') { e.preventDefault(); go(index - 1); }
+            else if (e.key === 'Home') { e.preventDefault(); go(0); }
+            else if (e.key === 'End') { e.preventDefault(); go(total - 1); }
+          });
+
+          /* ── Boot ── */
+          warm(0);
+          warm(1);
+          paint();
+        }
+
         function initHeroParallax() {
           const halo = document.getElementById('hero-parallax-halo');
           if (!halo) return;
+          let ticking = false;
+          const update = () => {
+            halo.style.transform = 'translate3d(0,' + (window.scrollY * 0.18) + 'px,0)';
+            ticking = false;
+          };
           window.addEventListener('scroll', () => {
-            halo.style.transform = 'translateY(' + (window.scrollY * 0.18) + 'px)';
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
           }, { passive: true });
+          update();
         }
 
         function initSmartNavbar() {
@@ -3354,6 +3595,7 @@
         initSmartNavbar();
         initVerticalRiverJourney();
         initHeroParallax();
+        initSingleScreenViewer(singleScreenData);
 
         if (window.lucide) {
           lucide.createIcons();

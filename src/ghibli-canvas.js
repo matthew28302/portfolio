@@ -208,6 +208,7 @@ export class GhibliSeasonsCanvas {
     this.width = 0;
     this.height = 0;
     this.isRunning = true;
+    this.isScrolling = false;
 
     // Animals and campfire embers
     this.initFauna();
@@ -488,7 +489,9 @@ export class GhibliSeasonsCanvas {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
 
-    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Cap DPR at 1.5: full-screen canvas at DPR 2 quadruples the pixel work and
+    // is the single biggest source of scroll jank on retina/large screens.
+    this.dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     this.canvas.width = Math.floor(this.width * this.dpr);
     this.canvas.height = Math.floor(this.height * this.dpr);
     this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
@@ -2733,10 +2736,22 @@ export class GhibliSeasonsCanvas {
 
   animate() {
     if (!this.isRunning) return;
+    // Skip redraws while the page is scrolling: the canvas is fixed, so its
+    // last frame stays valid and this frees the CPU/GPU for smooth scrolling.
+    if (this.isScrolling) { this.animId = null; return; }
     this.animId = requestAnimationFrame((t) => {
       this.render(t);
       this.animate();
     });
+  }
+
+  /** Called by the scroll handler: freeze rendering during scroll, resume after idle. */
+  setScrolling(isScrolling) {
+    if (this.isScrolling === isScrolling) return;
+    this.isScrolling = isScrolling;
+    if (!isScrolling && this.isRunning && !this.animId) {
+      this.animate();
+    }
   }
 
   destroy() {

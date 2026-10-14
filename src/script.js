@@ -643,7 +643,20 @@ function initGhibliControls(ghibliInstance) {
 
   // Fast, buttery-smooth scroll progress calculation
   let isTicking = false;
+  let scrollIdleTimer = null;
   function handleScroll() {
+    // Freeze the (fixed) background canvas while scrolling: it never needs to
+    // redraw mid-scroll and skipping it removes most of the visible jank.
+    if (ghibliInstance && typeof ghibliInstance.setScrolling === 'function') {
+      ghibliInstance.setScrolling(true);
+    }
+    clearTimeout(scrollIdleTimer);
+    scrollIdleTimer = setTimeout(() => {
+      if (ghibliInstance && typeof ghibliInstance.setScrolling === 'function') {
+        ghibliInstance.setScrolling(false);
+      }
+    }, 140);
+
     if (!isTicking) {
       requestAnimationFrame(() => {
         calculateScrollProgress();

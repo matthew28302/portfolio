@@ -1,5 +1,6 @@
 import './security.js';
 import { GhibliSeasonsCanvas } from './ghibli-canvas.js';
+import { initLiquidGlass } from './glass.js';
 // NOTE: the Three.js modules (three-background / three-effects /
 // mini-previews) are NOT imported statically any more. They drag the whole
 // three package (~500 KB) into the bundle although neither page ships a
@@ -7,17 +8,23 @@ import { GhibliSeasonsCanvas } from './ghibli-canvas.js';
 // exact places that first check for the matching DOM element.
 
 document.addEventListener('DOMContentLoaded', () => {
-  // --- 1. Theme Management (Studio Light / Studio Dark) ---
+  // --- 1. Theme Management (Studio Light / Studio Dark + prefers-color-scheme) ---
   const themeToggleButtons = document.querySelectorAll('.theme-toggle');
   
   const savedTheme = localStorage.getItem('theme');
-  const isDarkMode = savedTheme === 'dark';
+  const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const isDarkMode = savedTheme ? savedTheme === 'dark' : systemPrefersDark;
 
   if (isDarkMode) {
     document.documentElement.classList.add('dark');
+    document.documentElement.setAttribute('data-theme', 'dark');
   } else {
     document.documentElement.classList.remove('dark');
+    document.documentElement.setAttribute('data-theme', 'light');
   }
+
+  // Initialize Apple iOS 26 Liquid Glass system (SVG refraction, pointer highlights, nav morph)
+  initLiquidGlass();
 
   function updateThemeIcons() {
     const isDark = document.documentElement.classList.contains('dark');
@@ -167,31 +174,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // --- 3. Ambient Generative Background ---
-  initAmbientCanvas();
+  // --- 3. Lightweight static backdrop (ambient RAF loop removed to prevent scroll lag) ---
 
-  // --- 4. Floating Navbar Shrink on Scroll (Optimized with RAF & Passive) ---
-  const navbar = document.getElementById('navbar');
-  const navContainer = document.getElementById('nav-container');
-  
-  if (navbar && navContainer) {
-    let scrollTicking = false;
-    window.addEventListener('scroll', () => {
-      if (!scrollTicking) {
-        requestAnimationFrame(() => {
-          if (window.scrollY > 20) {
-            navbar.classList.remove('py-5');
-            navbar.classList.add('py-2.5');
-          } else {
-            navbar.classList.add('py-5');
-            navbar.classList.remove('py-2.5');
-          }
-          scrollTicking = false;
-        });
-        scrollTicking = true;
-      }
-    }, { passive: true });
-  }
+  // --- 4. Floating Navbar Morphing on Scroll is handled by src/glass.js (spring-eased pill shrink/expand) ---
 
   // --- 5. Smooth Scroll for Internal Anchors ---
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -262,7 +247,10 @@ document.addEventListener('DOMContentLoaded', () => {
           const category = item.getAttribute('data-category');
           if (filter === 'all' || category.includes(filter)) {
             item.style.display = '';
-            setTimeout(() => item.classList.add('animate-in'), 30);
+            requestAnimationFrame(() => {
+              item.classList.add('animate-in');
+              item.querySelectorAll('.reveal-item').forEach(child => child.classList.add('animate-in'));
+            });
           } else {
             item.style.display = 'none';
           }
@@ -336,20 +324,75 @@ document.addEventListener('DOMContentLoaded', () => {
     container.addEventListener('scroll', hideHint, { passive: true });
   });
 
-  // --- 9. Scroll Reveal with IntersectionObserver ---
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.08,
-    rootMargin: '0px 0px -30px 0px'
-  });
+  // --- 9. Scroll-Triggered Staggered Reveal (Fade-first ~1s + subtle rise, runs once) ---
+  window.initScrollReveal = function initScrollReveal(root = document) {
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = Array.from(
+      root.querySelectorAll('[data-reveal-group], .reveal, .reveal-left, .reveal-scale')
+    ).filter(el => !el.dataset.revealObserved && !el.classList.contains('animate-in'));
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    if (targets.length === 0) return;
+
+    const markRevealed = (el, delayMs = 0) => {
+      if (el.classList.contains('animate-in')) return;
+
+      if (delayMs > 0 && !el.style.getPropertyValue('--reveal-delay') && !el.hasAttribute('data-reveal-step')) {
+        el.style.setProperty('--reveal-delay', `${delayMs}ms`);
+      }
+
+      el.classList.add('animate-in');
+
+      // If this is a reveal group, trigger all inner staggered items (Title -> Desc -> CTA)
+      if (el.hasAttribute('data-reveal-group')) {
+        el.querySelectorAll('.reveal-item').forEach(item => {
+          item.classList.add('animate-in');
+        });
+      }
+
+      // Free GPU compositor layer once transition completes
+      const cleanupDelay = Math.max(1250, delayMs + 1150);
+      setTimeout(() => {
+        el.classList.add('reveal-done');
+        if (el.hasAttribute('data-reveal-group')) {
+          el.querySelectorAll('.reveal-item').forEach(item => item.classList.add('reveal-done'));
+        }
+      }, cleanupDelay);
+    };
+
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+      targets.forEach(el => markRevealed(el, 0));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      // Collect all newly visible entries in this frame and sort top-to-bottom, left-to-right
+      const visible = entries
+        .filter(entry => entry.isIntersecting)
+        .sort((a, b) => {
+          const topDiff = a.boundingClientRect.top - b.boundingClientRect.top;
+          if (Math.abs(topDiff) > 24) return topDiff;
+          return a.boundingClientRect.left - b.boundingClientRect.left;
+        });
+
+      visible.forEach((entry, idx) => {
+        const el = entry.target;
+        observer.unobserve(el); // Strictly once — never replays on scroll up/down
+        const batchDelay = el.hasAttribute('data-reveal-group') ? 0 : Math.min(idx * 120, 420);
+        markRevealed(el, batchDelay);
+      });
+    }, {
+      threshold: 0.04,
+      rootMargin: '0px 0px -24px 0px'
+    });
+
+    targets.forEach(el => {
+      // Skip child .reveal elements inside a [data-reveal-group] if they use .reveal-item
+      el.dataset.revealObserved = '1';
+      observer.observe(el);
+    });
+  };
+
+  window.initScrollReveal(document);
 
   // --- 10. Dynamic Year ---
   document.querySelectorAll('.current-year').forEach(el => {
@@ -376,14 +419,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 12. Interactive Micro-Interactions & Physics Suite ---
-  initSpotlightCards();
-  initMagneticButtons();
-
-  // --- 13. Dedicated In-Page Three.js Spatial Effects Suite ---
+  // --- 12. Dedicated In-Page Three.js Spatial Effects Suite (only loads if canvases exist) ---
   initDedicatedThreeEffects();
 
-  // --- 14. Re-initialize Lucide Icons ---
+  // --- 13. Re-initialize Lucide Icons ---
   if (window.lucide) {
     window.lucide.createIcons();
   }
@@ -620,22 +659,30 @@ function initGhibliControls(ghibliInstance) {
   if (!heroSection || !workSection || !aboutSection || !contactSection) {
     // Project detail page: divide the entire page scroll into 4 seasonal sections (Spring -> Summer -> Autumn -> Winter)
     let isProjectTicking = false;
+    let cachedMaxScroll = 1;
+    let lastProjectColorProgress = -1;
+
+    function refreshProjectMaxScroll() {
+      const docHeight = Math.max(
+        document.body.scrollHeight, document.documentElement.scrollHeight
+      );
+      const winHeight = window.innerHeight || document.documentElement.clientHeight;
+      cachedMaxScroll = Math.max(1, docHeight - winHeight);
+    }
+
     function calculateProjectScrollProgress() {
       if (window.__seasonLocked) return;
       const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-      const docHeight = Math.max(
-        document.body.scrollHeight, document.documentElement.scrollHeight,
-        document.body.offsetHeight, document.documentElement.offsetHeight,
-        document.body.clientHeight, document.documentElement.clientHeight
-      );
-      const winHeight = window.innerHeight || document.documentElement.clientHeight;
-      const maxScroll = Math.max(1, docHeight - winHeight);
-      const ratio = Math.max(0, Math.min(1, scrollY / maxScroll));
+      const ratio = Math.max(0, Math.min(1, scrollY / cachedMaxScroll));
       const progress = ratio * 3.0; // 0: Spring -> 1: Summer -> 2: Autumn -> 3: Winter
 
       currentProgress = progress;
       ghibliInstance.setSeasonProgress(progress);
-      applyAdaptiveTextColors(progress);
+
+      if (Math.abs(progress - lastProjectColorProgress) >= 0.04) {
+        lastProjectColorProgress = progress;
+        applyAdaptiveTextColors(progress);
+      }
 
       const activeIdx = Math.min(3, Math.max(0, Math.round(progress)));
       if (activeIdx !== currentActiveIndex) {
@@ -667,13 +714,16 @@ function initGhibliControls(ghibliInstance) {
 
     let projectScrollIdleTimer = null;
     window.addEventListener('scroll', handleProjectScroll, { passive: true });
-    window.addEventListener('resize', handleProjectScroll, { passive: true });
+    window.addEventListener('resize', () => {
+      refreshProjectMaxScroll();
+      handleProjectScroll();
+    }, { passive: true });
     
     // Initial sync & periodic check after dynamic images render
+    refreshProjectMaxScroll();
     calculateProjectScrollProgress();
-    setTimeout(calculateProjectScrollProgress, 120);
-    setTimeout(calculateProjectScrollProgress, 400);
-    setTimeout(calculateProjectScrollProgress, 1200);
+    setTimeout(() => { refreshProjectMaxScroll(); calculateProjectScrollProgress(); }, 180);
+    setTimeout(() => { refreshProjectMaxScroll(); calculateProjectScrollProgress(); }, 700);
     return;
   }
 
@@ -702,36 +752,48 @@ function initGhibliControls(ghibliInstance) {
     }
   }
 
+  // Cache section offsets to prevent synchronous layout reflow on every scroll frame
+  let cachedOffsets = { p0: 0, p1: 800, p2: 2400, p3: 3600, vh: window.innerHeight };
+  let lastColorProgress = -1;
+
+  function refreshSectionOffsets() {
+    if (!heroSection || !workSection || !aboutSection || !contactSection) return;
+    cachedOffsets = {
+      p0: heroSection.offsetTop,
+      p1: workSection.offsetTop,
+      p2: aboutSection.offsetTop,
+      p3: contactSection.offsetTop,
+      vh: window.innerHeight
+    };
+  }
+
   function calculateScrollProgress() {
     if (!heroSection || !workSection || !aboutSection || !contactSection) return;
 
     const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-    const vh = window.innerHeight;
+    const { p0, p1, p2, p3, vh } = cachedOffsets;
     const triggerOffset = vh * 0.35;
-
-    const p0 = heroSection.offsetTop;
-    const p1 = workSection.offsetTop;
-    const p2 = aboutSection.offsetTop;
-    const p3 = contactSection.offsetTop;
 
     let progress = 0;
     if (scrollY < p1 - triggerOffset) {
-      // 0 to 1 (Spring to Summer)
       const range = Math.max(1, (p1 - triggerOffset) - p0);
       progress = Math.max(0, Math.min(1, (scrollY - p0) / range));
     } else if (scrollY < p2 - triggerOffset) {
-      // 1 to 2 (Summer to Autumn)
       const range = Math.max(1, (p2 - triggerOffset) - (p1 - triggerOffset));
       progress = 1.0 + Math.max(0, Math.min(1, (scrollY - (p1 - triggerOffset)) / range));
     } else {
-      // 2 to 3 (Autumn to Winter)
       const range = Math.max(1, (p3 - triggerOffset) - (p2 - triggerOffset));
       progress = 2.0 + Math.max(0, Math.min(1, (scrollY - (p2 - triggerOffset)) / range));
     }
 
     currentProgress = progress;
     ghibliInstance.setSeasonProgress(progress);
-    applyAdaptiveTextColors(progress);
+
+    // Only write :root CSS variables when progress shifts meaningfully (avoids 60Hz full-DOM style recalc)
+    if (Math.abs(progress - lastColorProgress) >= 0.04) {
+      lastColorProgress = progress;
+      applyAdaptiveTextColors(progress);
+    }
 
     const activeIdx = Math.min(3, Math.max(0, Math.round(progress)));
     if (activeIdx !== currentActiveIndex) {
@@ -739,8 +801,19 @@ function initGhibliControls(ghibliInstance) {
     }
   }
 
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      refreshSectionOffsets();
+      calculateScrollProgress();
+    }, 150);
+  }, { passive: true });
+
   window.addEventListener('scroll', handleScroll, { passive: true });
+  refreshSectionOffsets();
   calculateScrollProgress();
+  setTimeout(refreshSectionOffsets, 500);
 
   // Audio Toggle
   const audioBtn = document.getElementById('ghibli-audio-toggle');
@@ -886,193 +959,7 @@ function initDedicatedThreeEffects() {
 }
 
 // ============================================================================
-// 1. Ambient Spotlight & Luminous Floating Stardust Background Engine
-// (The industry-standard effect used by Linear, Vercel, Stripe & Apple)
-// ============================================================================
-function initAmbientCanvas() {
-  const canvas = document.getElementById('ambient-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-
-  let W = 0, H = 0, dpr = 1;
-  let time = 0;
-  let lastT = performance.now();
-
-  let targetMouseX = -1000;
-  let targetMouseY = -1000;
-  let currentMouseX = -1000;
-  let currentMouseY = -1000;
-
-  // Theme tracking
-  let isDark = document.documentElement.classList.contains('dark');
-  let darkFactor = isDark ? 1 : 0;
-  let darkTarget = darkFactor;
-
-  window.addEventListener('themeChanged', (e) => {
-    isDark = e.detail.isDark;
-    darkTarget = isDark ? 1 : 0;
-  });
-
-  function resize() {
-    W = window.innerWidth;
-    H = window.innerHeight;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.floor(W * dpr);
-    canvas.height = Math.floor(H * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  window.addEventListener('mousemove', (e) => {
-    targetMouseX = e.clientX;
-    targetMouseY = e.clientY;
-  }, { passive: true });
-
-  window.addEventListener('mouseleave', () => {
-    targetMouseX = -1000;
-    targetMouseY = -1000;
-  });
-
-  // Stardust Particles
-  const PARTICLE_COUNT = 65;
-  const particles = [];
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    particles.push({
-      x: Math.random(),
-      y: Math.random(),
-      radius: 0.8 + Math.random() * 1.8,
-      speedY: -0.0001 - Math.random() * 0.00025,
-      driftX: (Math.random() - 0.5) * 0.00015,
-      phase: Math.random() * Math.PI * 2,
-      twinkleSpeed: 0.6 + Math.random() * 0.8,
-      baseAlpha: 0.15 + Math.random() * 0.35,
-    });
-  }
-
-  function lerp(a, b, t) {
-    return a + (b - a) * t;
-  }
-  function lerp3(a, b, t) {
-    return [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t];
-  }
-  function col(l, d) {
-    return lerp3(l, d, darkFactor);
-  }
-  function rgba(c, a) {
-    return `rgba(${c[0]|0},${c[1]|0},${c[2]|0},${Math.max(0, Math.min(1, a))})`;
-  }
-
-  // Palettes (Warm Gallery Paper & Warm Espresso Obsidian)
-  const L_BG = [251, 249, 245]; // Warm Gallery Linen #FBF9F5
-  const D_BG = [21, 20, 19];    // Warm Espresso Obsidian #151413
-
-  let animId = null;
-
-  function render(now) {
-    const dt = Math.min((now - lastT) / 1000, 0.1);
-    lastT = now;
-    time += dt;
-
-    darkFactor += (darkTarget - darkFactor) * 0.08;
-
-    // Clean Organic Warm Background Fill
-    const bg = col(L_BG, D_BG);
-    ctx.fillStyle = rgba(bg, 1);
-    ctx.fillRect(0, 0, W, H);
-
-    // Subtle gentle warmth gradient at the top (Natural studio lighting)
-    const topGlow = ctx.createLinearGradient(0, 0, 0, H * 0.6);
-    const topC = col([255, 255, 255], [28, 26, 24]);
-    const topAlpha = lerp(0.35, 0.25, darkFactor);
-    topGlow.addColorStop(0, rgba(topC, topAlpha));
-    topGlow.addColorStop(1, rgba(topC, 0));
-    ctx.fillStyle = topGlow;
-    ctx.fillRect(0, 0, W, H * 0.6);
-
-    animId = requestAnimationFrame(render);
-  }
-
-  animId = requestAnimationFrame(render);
-
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      cancelAnimationFrame(animId);
-    } else {
-      lastT = performance.now();
-      animId = requestAnimationFrame(render);
-    }
-  });
-}
-
-// ============================================================================
-// 2. Linear / Aceternity Style Spotlight Card Tracking (Ultra-Smooth 120Hz)
-// ============================================================================
-function initSpotlightCards() {
-  const cards = document.querySelectorAll('.spotlight-card');
-  cards.forEach(card => {
-    let ticking = false;
-
-    card.addEventListener('mousemove', (e) => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          card.style.setProperty('--mouse-x', `${x}px`);
-          card.style.setProperty('--mouse-y', `${y}px`);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.removeProperty('--mouse-x');
-      card.style.removeProperty('--mouse-y');
-    });
-  });
-}
-
-
-// ============================================================================
-// 3. Tactile Magnetic Physics on Interactive Action Buttons
-// ============================================================================
-function initMagneticButtons() {
-  const buttons = document.querySelectorAll('.btn-primary, .btn-secondary');
-
-  buttons.forEach(btn => {
-    // getBoundingClientRect() forces layout; calling it on every mousemove
-    // thrashes the main thread. Read it once on enter and throttle writes
-    // to one per frame.
-    let rect = null;
-    let ticking = false;
-
-    btn.addEventListener('mouseenter', () => {
-      rect = btn.getBoundingClientRect();
-    });
-
-    btn.addEventListener('mousemove', (e) => {
-      if (!rect || ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        btn.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
-        ticking = false;
-      });
-    }, { passive: true });
-
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = '';
-      rect = null;
-      ticking = false;
-    });
-  });
-}
-
-// ============================================================================
-// 4. ThreeUI 3D Spatial Gallery Modal (Ultra-Performance Singleton Modal)
+// ThreeUI 3D Spatial Gallery Modal (Ultra-Performance Singleton Modal)
 // ============================================================================
 function initThreeGalleryModal(threeBgInstance) {
   if (!threeBgInstance) return;

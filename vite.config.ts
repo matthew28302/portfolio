@@ -15,6 +15,7 @@ export default defineConfig(({mode}) => {
         input: {
           main: path.resolve(__dirname, 'index.html'),
           project: path.resolve(__dirname, 'project.html'),
+          glassDemo: path.resolve(__dirname, 'glass-demo.html'),
         },
       },
     },

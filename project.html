@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Case Study Details — Nguyen Vu Xuan Mai</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <!-- Lucide Icons CDN: defer so it stops blocking first paint.
          script.js re-runs createIcons() on DOMContentLoaded, which fires
          after deferred scripts have executed. -->
@@ -11,7 +12,6 @@
     <link rel="stylesheet" href="/src/index.css">
     <link rel="stylesheet" href="/overrides.css">
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
     <script>
       const savedTheme = localStorage.getItem('theme');
       if (savedTheme === 'dark') {
@@ -60,13 +60,7 @@
         filter: blur(34px);
       }
 
-      /* Refined studio-nav glass uniformity to eliminate cloud glare patches */
-      html:not(.dark) .studio-nav {
-        background-color: rgba(255, 255, 255, 0.80) !important;
-        backdrop-filter: blur(24px) saturate(140%) !important;
-        -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
-        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05) !important;
-      }
+      /* Navbar Liquid Glass surface is controlled by src/glass.css */
 
       /* ── Interactive Smooth Mobile Screen Scroller ─────────────────── */
       .phone-screen-scroll {
@@ -291,9 +285,9 @@
     <!-- Ghibli 4-Seasons Living Anime Background Canvas (Spring to Winter Timelapse on Scroll) -->
     <canvas id="ghibli-canvas" class="fixed inset-0 w-full h-full z-0 block"></canvas>
 
-    <!-- Floating Navbar -->
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-5 transition-all">
-      <div id="nav-container" class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3 rounded-full studio-nav transition-all duration-300">
+    <!-- Floating Navbar (Apple iOS 26 Liquid Glass Pill — morphs on scroll) -->
+    <nav id="navbar" data-nav-state="expanded" class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-5">
+      <div id="nav-container" class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3 rounded-full studio-nav glass glass-regular glass-specular">
         
         <!-- Back to Home -->
         <a href="/" class="flex items-center gap-3 group">
@@ -302,30 +296,29 @@
           </div>
           <div class="flex items-center gap-2">
             <span class="font-display font-bold text-sm theme-heading">Back to Home</span>
-            <span class="text-xs theme-muted font-mono hidden sm:inline">• Nguyen Vu Xuan Mai</span>
+            <span class="nav-availability-badge text-xs theme-muted font-mono hidden sm:inline">• Nguyen Vu Xuan Mai</span>
           </div>
         </a>
 
         <div class="flex items-center gap-2.5 sm:gap-3">
-          <!-- Ambient River Audio Toggle (Sleek, refined sound controller) -->
-          <button id="global-audio-toggle" type="button" aria-label="Toggle Ambient Sound" title="Sound: On / Off" onclick="window.toggleRiverAudio && window.toggleRiverAudio()" class="p-2 rounded-full hover:bg-white/10 theme-nav-link transition-all relative group flex items-center justify-center cursor-pointer">
-            <i data-lucide="volume-2" id="global-audio-icon" class="w-4 h-4 text-teal-500 group-hover:scale-110 transition-transform"></i>
-            <span id="global-audio-pulse" class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-teal-400 animate-ping pointer-events-none"></span>
-            <span id="global-audio-dot" class="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-teal-500 pointer-events-none"></span>
+          <!-- Ambient River Audio Toggle -->
+          <button id="global-audio-toggle" type="button" aria-label="Toggle Ambient Sound" title="Sound: On / Off" onclick="window.toggleRiverAudio && window.toggleRiverAudio()" class="glass-interactive glass-specular p-2 rounded-full hover:bg-white/10 theme-nav-link relative group flex items-center justify-center cursor-pointer min-w-[44px] min-h-[44px]">
+            <i data-lucide="volume-2" id="global-audio-icon" class="w-4 h-4 text-teal-500"></i>
+            <span id="global-audio-dot" class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-teal-500 pointer-events-none"></span>
           </button>
 
           <!-- Dark / Light Mode Toggle -->
-          <button type="button" aria-label="Toggle Theme" class="theme-toggle p-2 rounded-full hover:bg-white/10 theme-nav-link transition-colors">
+          <button type="button" aria-label="Toggle Theme" class="theme-toggle glass-interactive glass-specular p-2 rounded-full hover:bg-white/10 theme-nav-link transition-colors">
             <i data-lucide="sun" class="w-4 h-4 sun-icon hidden text-amber-500"></i>
             <i data-lucide="moon" class="w-4 h-4 moon-icon"></i>
           </button>
 
-          <a href="/CV.pdf" download="CV_Nguyen_Vu_Xuan_Mai_UIUX_Designer.pdf" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 text-xs font-semibold glass-box theme-nav-link hover:theme-heading transition-all">
+          <a href="/CV.pdf" download="CV_Nguyen_Vu_Xuan_Mai_UIUX_Designer.pdf" class="nav-resume-btn glass-interactive glass-specular hidden sm:inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-white/20 text-xs font-semibold glass-box theme-nav-link hover:theme-heading">
             <i data-lucide="download" class="w-3.5 h-3.5 season-highlight"></i>
             Download CV (PDF)
           </a>
 
-          <a href="/#contact" class="btn-primary text-xs py-2 px-5">
+          <a href="/#contact" class="btn-primary glass-tinted glass-specular glass-interactive text-xs py-2 px-5 rounded-full">
             Get in Touch
           </a>
         </div>
@@ -336,8 +329,8 @@
     <div id="portfolio-layout" class="w-full min-h-screen relative z-10 pt-24 sm:pt-28 lg:pt-28">
       
 
-      <!-- Floating Bottom Dock Navigation (Sleek Linear Dock Style) -->
-      <nav id="bottom-dock-nav" aria-label="Case Study Navigation" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 px-2.5 py-1.5 rounded-full glass-box backdrop-blur-xl border border-white/60 dark:border-white/15 shadow-2xl flex items-center gap-1.5 max-w-[95vw] overflow-x-auto select-none transition-all duration-300 opacity-0 translate-y-10 pointer-events-none" style="scrollbar-width: none;"></nav>
+      <!-- Floating Bottom Dock Navigation (Liquid Glass Capsule) -->
+      <nav id="bottom-dock-nav" aria-label="Case Study Navigation" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 px-2.5 py-1.5 rounded-full glass glass-regular glass-specular flex items-center gap-1.5 max-w-[95vw] overflow-x-auto select-none transition-all duration-300 opacity-0 translate-y-10 pointer-events-none" style="scrollbar-width: none;"></nav>
 
       <!-- Case Study Pane (Centered Layout max-w-5xl) -->
       <main id="portfolio-pane" class="w-full max-w-5xl mx-auto relative z-10 px-4 sm:px-6 lg:px-8 pb-16 flex flex-col gap-10">
@@ -735,6 +728,123 @@
               desc: "Uses shimmer skeleton cards to prevent layout shifts on slower mobile connections, giving users visual feedback while voucher data loads."
             }
           ]
+        },
+        7: {
+          title: "Thiệp Mời Tốt Nghiệp — UIT Keepsake & Bullet Journal",
+          subtitle: "A heartfelt digital graduation invitation styled as a handmade bullet journal — featuring interactive cover card opening, real-time ceremony countdown, personalized invitation URLs (?i=...), live wish pinboard with confetti, and nostalgic Polaroid scrapbooks.",
+          category: "Creative Web & Keepsake • Interactive UI/UX Design",
+          role: "Product Designer & Front-End Developer",
+          team: "Independent Project",
+          tools: ["React 18", "Vite", "Lenis Scroll", "Canvas Confetti", "Design Tokens", "Responsive CSS"],
+          demoLink: "/projects/invitation/index.html",
+          demoLabel: "Mở Thiệp Mời Trực Tuyến",
+          githubLink: "https://github.com/imfishball/Graduation_Invitation",
+          heroImage: "/images/invitation/02-hero.jpg",
+          heroPins: ["🎓 UIT Class of 2026", "💌 Handmade Keepsake"],
+          contextAndProblem: {
+            challenge: "Graduation announcements are usually reduced to a static image or a fleeting chat message. A university graduation represents a defining milestone of 4 years of youth, requiring an interactive medium that feels personal, memorable, and participatory for every guest.",
+            painPoints: [
+              {
+                title: "Impersonal Announcements",
+                desc: "Static graphics and quick text messages fail to express personal appreciation or convey the emotional weight of graduating university."
+              },
+              {
+                title: "One-Size-Fits-All Tone",
+                desc: "Inviting a university professor requires a reverent tone (em - Thầy/Cô), while inviting close friends or parents demands warm, familial greetings."
+              },
+              {
+                title: "Lack of Pre-Event Engagement",
+                desc: "Traditional invitations offer no avenue for guests to send heartfelt blessings, RSVP, or explore campus directions before the ceremony."
+              }
+            ]
+          },
+          strategicSolutions: [
+            {
+              icon: "mail",
+              title: "Handmade Cover Opening Ritual",
+              desc: "Created a tactile first impression with a monogrammed wax seal and ribbon button (CoverCard) simulating the feeling of holding a real physical paper card."
+            },
+            {
+              icon: "users",
+              title: "Personalized Guest Routing (?i=...)",
+              desc: "Engineered a client-side URL segmentation mechanism that dynamically personalizes honorifics, body copy, and thank-you notes for Lecturers, Parents, Relatives, and Friends."
+            },
+            {
+              icon: "heart",
+              title: "Live Bullet Journal Guestbook",
+              desc: "Designed an interactive pastel sticky-note pinboard where guests can choose paper colors, leave warm wishes, and trigger joyful confetti explosions."
+            }
+          ],
+          impactMetrics: [
+            {
+              value: "08 Screens",
+              label: "Curated Views",
+              sub: "Cover Card to Polaroid Wall"
+            },
+            {
+              value: "100%",
+              label: "Personalized Routing",
+              sub: "Segmented greetings via ?i=..."
+            },
+            {
+              value: "Lenis",
+              label: "Momentum Scroll",
+              sub: "Buttery smooth physics"
+            },
+            {
+              value: "Canvas",
+              label: "Confetti Effects",
+              sub: "Real-time celebratory feedback"
+            }
+          ],
+          highlights: [
+            "Crafted a nostalgic bullet journal visual language utilizing Charm handwritten calligraphy, washi tape motifs, and delicate botanical ornaments.",
+            "Implemented an interactive UIT campus guide with Google Calendar integration and step-by-step route directions for guests arriving at the venue.",
+            "Engineered a horizontal draggable Polaroid gallery showcasing memorable campus moments across 4 years at UIT."
+          ],
+          images: [
+            {
+              title: "Tấm Bìa Thiệp Mở Màn (CoverCard)",
+              src: "/images/invitation/01-cover-card.jpg",
+              desc: "Màn hình bìa thiệp tối giản với con dấu monogram chữ M, mốc ngày 27.11.2026 và nút mở thiệp tạo cảm giác trân trọng như đang cầm tấm thiệp giấy thủ công."
+            },
+            {
+              title: "Màn Hình Chào Đầu Trang (Hero & UIT Campus)",
+              src: "/images/invitation/02-hero.jpg",
+              desc: "Không gian bầu trời xanh và tòa nhà UIT thân quen kèm lời chào tốt nghiệp, nút xác nhận tham dự, bộ điều khiển nhạc nền và thẻ 'Khoảnh khắc trọng đại'."
+            },
+            {
+              title: "Lời Chào Nhỏ & Đôi Dòng Tâm Sự",
+              src: "/images/invitation/03-about-story.jpg",
+              desc: "Bố cục ảnh kỷ yếu Polaroid 'It's me!' và góc trường 'UIT :3' kết hợp đôi dòng tâm sự tri ân Bố Mẹ, Thầy Cô và bạn bè sau 4 năm đại học."
+            },
+            {
+              title: "Save The Date — Lịch Tháng & Đếm Ngược",
+              src: "/images/invitation/04-countdown-calendar.jpg",
+              desc: "Lịch tháng 11/2026 khoanh tim ngày 27 đi kèm đồng hồ đếm ngược thời gian thực tới khung giờ đón khách & chụp ảnh kỷ niệm (15:00 – 17:00)."
+            },
+            {
+              title: "Điểm Đến Buổi Lễ & Bản Đồ Khuôn Viên UIT",
+              src: "/images/invitation/05-campus-map.jpg",
+              desc: "Bản đồ khuôn viên UIT vẽ tay theo tông màu pastel đánh dấu Cổng 1, Bãi xe Tòa A và Điểm hẹn UIT, tích hợp nút mở Google Maps và Lưu vào Lịch."
+            },
+            {
+              title: "Bảng Lưu Bút & Lời Chúc (Bullet Journal Pinboard)",
+              src: "/images/invitation/06-wishes-pinboard.jpg",
+              desc: "Bảng kỷ niệm tương tác cho phép khách mời chọn vai vế, chọn màu giấy note, gửi lời chúc và 'dán' trực tiếp lên tường lời chúc kèm hiệu ứng thả tim & pháo giấy."
+            },
+            {
+              title: "Nhìn Lại — Dấu Ấn 4 Năm Thanh Xuân",
+              src: "/images/invitation/07-journey-adventures.jpg",
+              desc: "Bộ 6 khung ảnh Polaroid dán băng keo washi lưu giữ những góc sân quen thuộc tại UIT: Sân Tòa A, Hành lang C, Góc bàn đá chạy đồ án, Sân bóng và Tòa B."
+            },
+            {
+              title: "Góc Kỷ Niệm — Khoảnh Khắc Kỷ Yếu",
+              src: "/images/invitation/08-polaroid-memories.jpg",
+              desc: "Băng ảnh kỷ yếu treo trên dây thừng bằng kẹp gỗ sắc màu với thao tác cuộn ngang mượt mà, lưu trọn cảm xúc ngày tốt nghiệp tại UIT."
+            }
+          ],
+          seeds: ["graduation", "invitation", "letter", "scrapbook", "calendar", "notes", "polaroid", "memories"]
         }
       };
 
@@ -2014,72 +2124,82 @@
         content.innerHTML = `
           <div class="flex flex-col">
             
-            <!-- Hero Info (First-Fold Split Editorial Showcase) -->
-            <div id="overview" class="scroll-mt-24 reveal pt-2 pb-6 sm:pb-8 mb-8 sm:mb-12 relative">
+            <!-- Hero Info (First-Fold Split Editorial Showcase — Staggered) -->
+            <div id="overview" data-reveal-group class="scroll-mt-24 pt-2 pb-6 sm:pb-8 mb-8 sm:mb-12 relative">
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
                 <!-- Left Column (58%): Narrative, Typography, Meta Strip, CTAs -->
                 <div class="lg:col-span-7 flex flex-col justify-center">
-                  <!-- Breadcrumbs & Category Pill with Specular Shimmer -->
-                  <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-box text-xs font-mono font-bold uppercase tracking-wider season-highlight mb-4 border border-white/30 dark:border-white/10 shadow-xs shimmer-badge w-fit">
-                    <a href="/" class="hover:underline opacity-80">Portfolio</a>
-                    <span class="opacity-40">/</span>
-                    <span>${project.category}</span>
+                  <div class="reveal-item" data-reveal-step="1">
+                    <!-- Breadcrumbs & Category Pill -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-box text-xs font-mono font-bold uppercase tracking-wider season-highlight mb-4 border border-white/30 dark:border-white/10 shadow-xs w-fit">
+                      <a href="/" class="hover:underline opacity-80">Portfolio</a>
+                      <span class="opacity-40">/</span>
+                      <span>${project.category}</span>
+                    </div>
+
+                    <!-- Grand Display Title -->
+                    <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-black theme-card-heading mb-3 tracking-tight leading-[1.12]">
+                      ${project.title}
+                    </h1>
                   </div>
 
-                  <!-- Grand Display Title -->
-                  <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-black theme-card-heading mb-3 tracking-tight leading-[1.12]">
-                    ${project.title}
-                  </h1>
+                  <div class="reveal-item" data-reveal-step="2">
+                    <!-- Lead Subtitle -->
+                    <p class="text-base sm:text-lg theme-card-body leading-relaxed max-w-xl mb-6 font-normal">
+                      ${project.subtitle}
+                    </p>
 
-                  <!-- Lead Subtitle -->
-                  <p class="text-base sm:text-lg theme-card-body leading-relaxed max-w-xl mb-6 font-normal">
-                    ${project.subtitle}
-                  </p>
-
-                  <!-- Clean Project Metadata Bar (Properly structured: Role, Company, Timeline, Tools) -->
-                  <div class="flex flex-wrap items-start gap-y-4 gap-x-6 sm:gap-x-8 py-3.5 border-y border-zinc-200/60 dark:border-white/10 mb-6 text-xs font-mono">
-                    <div>
-                      <span class="text-zinc-500 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">ROLE</span>
-                      <span class="font-bold theme-card-heading text-xs sm:text-[13px] mt-0.5 block whitespace-nowrap">${project.role || 'UI/UX Designer'}</span>
-                    </div>
-                    <div class="w-px h-8 bg-zinc-300 dark:bg-white/15 hidden sm:block self-center"></div>
-                    <div>
-                      <span class="text-zinc-500 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">${project.company ? 'COMPANY' : 'SCOPE / TEAM'}</span>
-                      <span class="font-bold theme-card-heading text-xs sm:text-[13px] mt-0.5 block leading-snug">${project.company || project.team || 'Independent Project'}</span>
-                    </div>
-                    ${project.timeline ? `
+                    <!-- Clean Project Metadata Bar -->
+                    <div class="flex flex-wrap items-start gap-y-4 gap-x-6 sm:gap-x-8 py-3.5 border-y border-zinc-200/60 dark:border-white/10 mb-6 text-xs font-mono">
+                      <div>
+                        <span class="text-zinc-500 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">ROLE</span>
+                        <span class="font-bold theme-card-heading text-xs sm:text-[13px] mt-0.5 block whitespace-nowrap">${project.role || 'UI/UX Designer'}</span>
+                      </div>
                       <div class="w-px h-8 bg-zinc-300 dark:bg-white/15 hidden sm:block self-center"></div>
                       <div>
-                        <span class="text-zinc-500 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">TIMELINE</span>
-                        <span class="font-bold text-emerald-600 dark:text-emerald-400 text-xs sm:text-[13px] mt-0.5 block whitespace-nowrap">${project.timeline}</span>
+                        <span class="text-zinc-500 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">${project.company ? 'COMPANY' : 'SCOPE / TEAM'}</span>
+                        <span class="font-bold theme-card-heading text-xs sm:text-[13px] mt-0.5 block leading-snug">${project.company || project.team || 'Independent Project'}</span>
                       </div>
-                    ` : ''}
-                    <div class="w-px h-8 bg-zinc-300 dark:bg-white/15 hidden sm:block self-center"></div>
-                    <div class="flex-1 min-w-[200px]">
-                      <span class="text-zinc-500 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">TOOLS</span>
-                      <span class="font-semibold theme-card-body text-xs mt-0.5 block leading-normal">${(project.tools || []).join(' • ')}</span>
+                      ${project.timeline ? `
+                        <div class="w-px h-8 bg-zinc-300 dark:bg-white/15 hidden sm:block self-center"></div>
+                        <div>
+                          <span class="text-zinc-500 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">TIMELINE</span>
+                          <span class="font-bold text-emerald-600 dark:text-emerald-400 text-xs sm:text-[13px] mt-0.5 block whitespace-nowrap">${project.timeline}</span>
+                        </div>
+                      ` : ''}
+                      <div class="w-px h-8 bg-zinc-300 dark:bg-white/15 hidden sm:block self-center"></div>
+                      <div class="flex-1 min-w-[200px]">
+                        <span class="text-zinc-500 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">TOOLS</span>
+                        <span class="font-semibold theme-card-body text-xs mt-0.5 block leading-normal">${(project.tools || []).join(' • ')}</span>
+                      </div>
                     </div>
                   </div>
 
                   <!-- Live Demo CTA & Jump Actions -->
-                  <div class="flex flex-wrap items-center gap-3">
+                  <div class="reveal-item flex flex-wrap items-center gap-3" data-reveal-step="3">
                     ${project.demoLink ? `
-                      <a href="${project.demoLink}" target="_blank" rel="noopener noreferrer" class="magnetic-btn shimmer-badge inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full btn-primary text-xs font-bold uppercase tracking-wider transition-all shadow-xl hover:scale-103 active:scale-97">
+                      <a href="${project.demoLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full btn-primary text-xs font-bold uppercase tracking-wider transition-colors shadow-lg">
                         <i data-lucide="external-link" class="w-4 h-4"></i>
-                        Launch Interactive Prototype
+                        ${project.demoLabel || 'Launch Interactive Prototype'}
                       </a>
                     ` : `
-                      <a href="#gallery" class="magnetic-btn shimmer-badge inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full btn-primary text-xs font-bold uppercase tracking-wider transition-all shadow-xl hover:scale-103 active:scale-97">
+                      <a href="#gallery" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full btn-primary text-xs font-bold uppercase tracking-wider transition-colors shadow-lg">
                         <i data-lucide="sparkles" class="w-4 h-4"></i>
                         Explore UI Gallery
                       </a>
                     `}
+                    ${project.githubLink ? `
+                      <a href="${project.githubLink}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-full border border-zinc-300 dark:border-white/15 bg-white/80 dark:bg-zinc-800/80 hover:bg-zinc-100 dark:hover:bg-zinc-700/80 text-xs font-bold uppercase tracking-wider transition-colors shadow-sm">
+                        <i data-lucide="github" class="w-4 h-4"></i>
+                        GitHub Repository
+                      </a>
+                    ` : ''}
                   </div>
                 </div>
 
-                <!-- Right Column (42%): Hero Mockup with Spatial Floating Pins (Flat & Stable Presentation) -->
-                <div class="lg:col-span-5 flex items-center justify-center relative mt-4 lg:mt-0">
+                <!-- Right Column (42%): Hero Mockup -->
+                <div class="reveal-item lg:col-span-5 flex items-center justify-center relative mt-4 lg:mt-0" data-reveal-step="2">
                   <div id="hero-tilt-wrapper" class="relative flex items-center justify-center p-3 select-none group">
                     <!-- Ambient Radial Glow -->
                     <div class="absolute -inset-8 bg-gradient-to-tr from-emerald-500/25 via-teal-400/20 to-blue-500/20 dark:from-emerald-400/20 dark:via-teal-400/15 dark:to-cyan-500/15 rounded-full blur-3xl -z-10 pointer-events-none"></div>
@@ -2211,36 +2331,42 @@
           </div>
         `;
 
-        // ── Scroll-Triggered Reveal with IntersectionObserver ──────────────────
+        // ── Scroll-Triggered Reveal with IntersectionObserver (Once-only, Staggered) ──
         function initRevealObserver() {
-          const ALL_REVEAL = '[class*="reveal"]';
+          if (typeof window.initScrollReveal === 'function') {
+            window.initScrollReveal(content);
+            return;
+          }
+          const targets = Array.from(content.querySelectorAll('[data-reveal-group], .reveal, .reveal-left, .reveal-scale'));
           const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                observer.unobserve(entry.target);
+            const visible = entries
+              .filter(e => e.isIntersecting)
+              .sort((a, b) => {
+                const topDiff = a.boundingClientRect.top - b.boundingClientRect.top;
+                return Math.abs(topDiff) > 24 ? topDiff : a.boundingClientRect.left - b.boundingClientRect.left;
+              });
+            visible.forEach((entry, idx) => {
+              const el = entry.target;
+              observer.unobserve(el);
+              if (!el.hasAttribute('data-reveal-group') && !el.style.getPropertyValue('--reveal-delay')) {
+                el.style.setProperty('--reveal-delay', `${Math.min(idx * 120, 420)}ms`);
+              }
+              el.classList.add('animate-in');
+              if (el.hasAttribute('data-reveal-group')) {
+                el.querySelectorAll('.reveal-item').forEach(item => item.classList.add('animate-in'));
               }
             });
           }, {
             root: null,
-            rootMargin: '0px 0px -60px 0px', // trigger 60px before bottom of viewport
-            threshold: 0.08
+            rootMargin: '0px 0px -24px 0px',
+            threshold: 0.04
           });
 
-          document.querySelectorAll(ALL_REVEAL).forEach((el, i) => {
-            // Add incremental delay based on DOM order for natural cascade
-            el.style.transitionDelay = `${Math.min(i * 0.04, 0.32)}s`;
-            observer.observe(el);
-          });
+          targets.forEach(el => observer.observe(el));
         }
 
-        // First batch (hero) immediately, rest on scroll
         requestAnimationFrame(() => {
-          const firstCard = document.querySelector('.reveal, .reveal-left, .reveal-scale');
-          if (firstCard) {
-            firstCard.classList.add('animate-in');
-          }
-          setTimeout(initRevealObserver, 80);
+          initRevealObserver();
         });
 
 

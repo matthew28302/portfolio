@@ -490,9 +490,8 @@ export class GhibliSeasonsCanvas {
     this.width = window.innerWidth;
     this.height = window.innerHeight;
 
-    // Cap DPR at 1.5: full-screen canvas at DPR 2 quadruples the pixel work and
-    // is the single biggest source of scroll jank on retina/large screens.
-    this.dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    // Cap DPR at 1.2 for smooth 60-120fps scrolling on Retina/large displays
+    this.dpr = Math.min(window.devicePixelRatio || 1, 1.2);
     this.canvas.width = Math.floor(this.width * this.dpr);
     this.canvas.height = Math.floor(this.height * this.dpr);
     this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
@@ -2727,33 +2726,27 @@ export class GhibliSeasonsCanvas {
       return;
     }
     
-    // Desktop: Almost imperceptible mist veil (2% light, 5% dark)
-    const shield = ctx.createLinearGradient(W * 0.28, 0, W, 0);
-    const maxAlpha = lerp(0.02, 0.05, this.darkFactor);
+    // Desktop: Delicate aerial mist behind right content pane so sheer Liquid Glass cards stay crystal-readable
+    const shield = ctx.createLinearGradient(W * 0.26, 0, W, 0);
+    const maxAlpha = lerp(0.08, 0.12, this.darkFactor);
 
     shield.addColorStop(0, `rgba(${r}, ${g}, ${b}, 0)`);
-    shield.addColorStop(0.35, `rgba(${r}, ${g}, ${b}, ${maxAlpha * 0.3})`);
+    shield.addColorStop(0.32, `rgba(${r}, ${g}, ${b}, ${maxAlpha * 0.45})`);
     shield.addColorStop(1, `rgba(${r}, ${g}, ${b}, ${maxAlpha})`);
 
     ctx.fillStyle = shield;
-    ctx.fillRect(W * 0.28, 0, W * 0.72, H);
+    ctx.fillRect(W * 0.26, 0, W * 0.74, H);
   }
 
   animate() {
     if (!this.isRunning) return;
     this.animId = requestAnimationFrame((t) => {
-      // While the page is scrolling, draw at half rate instead of freezing.
-      // A hard freeze stalls the season colour morph mid-scroll ("khựng")
-      // and then makes it play catch-up once scrolling stops. Half rate
-      // keeps the morph flowing continuously at half the paint cost.
-      if (this.isScrolling) {
-        this.scrollTick = (this.scrollTick + 1) % 2;
-        if (this.scrollTick === 0) {
+      if (!document.hidden) {
+        const minInterval = this.isScrolling ? 100 : 38;
+        if (!this.lastPaintTime || t - this.lastPaintTime >= minInterval) {
+          this.lastPaintTime = t;
           this.render(t);
         }
-      } else {
-        this.scrollTick = 0;
-        this.render(t);
       }
       this.animate();
     });

@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apple iOS 26 Liquid Glass — Interactive Material Showcase</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script src="https://unpkg.com/lucide@latest" defer></script>
+    <link rel="stylesheet" href="/src/index.css" />
+    <script>
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+      document.documentElement.classList.toggle('dark', isDark);
+      document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    </script>
+    <style>
+      body {
+        background: #f5f3ef;
+        color: #1a1917;
+      }
+      html.dark body {
+        background: #111114;
+        color: #f5f3ef;
+      }
+      .demo-grid-bg {
+        background-image:
+          linear-gradient(135deg, #ff5f6d 0%, #ffc371 25%, #24c6dc 55%, #514a9d 85%, #ff5f6d 100%);
+        position: relative;
+      }
+      .demo-grid-bg::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          repeating-linear-gradient(0deg, rgba(255,255,255,0.42) 0 2px, transparent 2px 32px),
+          repeating-linear-gradient(90deg, rgba(255,255,255,0.42) 0 2px, transparent 2px 32px);
+        pointer-events: none;
+      }
+      .demo-stage {
+        position: relative;
+        border-radius: 1.75rem;
+        overflow: hidden;
+        min-height: 360px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 1.5rem;
+      }
+      .demo-stage > * {
+        position: relative;
+        z-index: 2;
+      }
+      .demo-photo-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0 !important;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen overflow-x-hidden antialiased">
+    <!-- Floating Morphing Liquid Glass Top Nav -->
+    <nav id="navbar" data-nav-state="expanded" class="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 py-5">
+      <div id="nav-container" class="max-w-6xl mx-auto flex items-center justify-between px-6 py-3 rounded-full studio-nav glass glass-regular glass-specular">
+        <a href="/" class="flex items-center gap-2.5 whitespace-nowrap font-display font-bold text-sm">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span>Back to Portfolio</span>
+          <span class="nav-availability-badge hidden sm:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-mono bg-black/5 dark:bg-white/10">
+            iOS 26 Liquid Glass Demo
+          </span>
+        </a>
+
+        <div class="flex items-center gap-2.5">
+          <span id="refraction-status" class="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono bg-black/5 dark:bg-white/10">
+            Checking SVG Refraction…
+          </span>
+          <button id="demo-theme-btn" type="button" aria-label="Toggle Light/Dark Theme" class="theme-toggle glass-interactive glass-specular p-2 rounded-full border border-black/10 dark:border-white/15">
+            <i data-lucide="sun" class="w-4 h-4 sun-icon hidden text-amber-400"></i>
+            <i data-lucide="moon" class="w-4 h-4 moon-icon"></i>
+          </button>
+          <a href="#stages" class="btn-primary glass-tinted glass-specular glass-interactive text-xs py-2 px-4 rounded-full">
+            Inspect Stages
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <main id="stages" class="max-w-6xl mx-auto px-4 sm:px-6 pt-28 pb-24 flex flex-col gap-10">
+      <header class="flex flex-col gap-3">
+        <span class="text-xs font-mono uppercase tracking-widest text-amber-700 dark:text-amber-400 font-bold">
+          Material Verification Suite
+        </span>
+        <h1 class="text-3xl sm:text-5xl font-display font-bold tracking-tight">
+          Apple iOS 26 Liquid Glass Showcase
+        </h1>
+        <p class="text-sm sm:text-base text-zinc-600 dark:text-zinc-300 max-w-2xl leading-relaxed">
+          Move your pointer across any glass element to see dynamic specular rim glints, press buttons for spring scale (<code class="font-mono text-xs">0.97</code>) + highlight bloom, and scroll down/up to see the floating navbar morph. Notice how the grid lines and photos visibly bend near the glass perimeter via SVG <code class="font-mono text-xs">feDisplacementMap</code>.
+        </p>
+      </header>
+
+      <!-- STAGE 1: COLORFUL GRADIENT + GEOMETRIC GRID (Edge Refraction Stress Test) -->
+      <section class="demo-stage demo-grid-bg shadow-xl">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <span class="glass glass-regular glass-specular px-4 py-2 rounded-full text-xs font-mono font-bold text-slate-900 dark:text-white">
+            01 • Colorful Gradient + Grid (Inspect edge bending)
+          </span>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button type="button" class="glass glass-regular glass-specular glass-interactive px-5 py-2.5 rounded-full text-xs font-semibold text-slate-900 dark:text-white">
+              Regular Glass
+            </button>
+            <button type="button" class="glass glass-clear glass-specular glass-interactive px-5 py-2.5 rounded-full text-xs font-semibold text-slate-900 dark:text-white">
+              Clear Lens
+            </button>
+            <button type="button" class="btn-primary glass-tinted glass-specular glass-interactive px-5 py-2.5 rounded-full text-xs font-semibold">
+              Tinted Primary CTA
+            </button>
+            <button type="button" aria-label="Sparkles" class="glass glass-regular glass-specular glass-interactive w-11 h-11 rounded-full flex items-center justify-center text-slate-900 dark:text-white">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="glass glass-regular glass-specular glass-interactive rounded-3xl p-6 text-slate-900 dark:text-white">
+            <div class="text-[11px] font-mono uppercase tracking-wider opacity-75 mb-1">.glass-regular</div>
+            <h2 class="text-lg font-display font-bold mb-1.5">Refractive Edge Bezel</h2>
+            <p class="text-xs leading-relaxed opacity-90">
+              Center stays optically neutral for crisp reading while grid lines bend along the rounded glass rim.
+            </p>
+          </div>
+          <div class="glass glass-clear glass-specular glass-interactive rounded-3xl p-6 text-slate-900 dark:text-white">
+            <div class="text-[11px] font-mono uppercase tracking-wider opacity-75 mb-1">.glass-clear</div>
+            <h2 class="text-lg font-display font-bold mb-1.5">High-Refraction Clear Lens</h2>
+            <p class="text-xs leading-relaxed opacity-90">
+              Stronger displacement scale (72) & ultra-sheer tint designed for floating controls over vivid media.
+            </p>
+          </div>
+          <div class="glass glass-tinted glass-specular glass-interactive rounded-3xl p-6 text-white dark:text-zinc-900">
+            <div class="text-[11px] font-mono uppercase tracking-wider opacity-75 mb-1">.glass-tinted</div>
+            <h2 class="text-lg font-display font-bold mb-1.5">High-Contrast Tinted</h2>
+            <p class="text-xs leading-relaxed opacity-90">
+              Adaptive obsidian/ivory tint guarantees WCAG AA contrast for primary actions over busy scenery.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- STAGE 2: LIGHT PHOTO BACKGROUND -->
+      <section class="demo-stage shadow-xl border border-black/10">
+        <img src="/images/invitation/07-journey-adventures.jpg" alt="Light photo backdrop" class="demo-photo-bg" />
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <span class="glass glass-regular glass-specular px-4 py-2 rounded-full text-xs font-mono font-bold text-slate-900 dark:text-white">
+            02 • Light Photo Backdrop
+          </span>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button type="button" class="glass glass-clear glass-specular glass-interactive px-5 py-2.5 rounded-full text-xs font-semibold text-slate-900 dark:text-white">
+              Clear Control
+            </button>
+            <button type="button" class="btn-primary glass-tinted glass-specular glass-interactive px-5 py-2.5 rounded-full text-xs font-semibold">
+              Primary Action
+            </button>
+          </div>
+        </div>
+        <div class="glass glass-regular glass-specular rounded-3xl p-6 max-w-lg text-slate-900 dark:text-white">
+          <h2 class="text-lg font-display font-bold mb-1">Legibility Over Bright Photography</h2>
+          <p class="text-xs leading-relaxed">
+            Subtle adaptive tinting and inner rim highlights preserve WCAG AA contrast even directly over sunlit photography.
+          </p>
+        </div>
+      </section>
+
+      <!-- STAGE 3: DARK PHOTO BACKGROUND -->
+      <section class="demo-stage shadow-xl border border-white/10">
+        <img src="/images/soundly/project-4-3.jpg" alt="Dark photo backdrop" class="demo-photo-bg" />
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <span class="glass glass-clear glass-specular px-4 py-2 rounded-full text-xs font-mono font-bold text-white">
+            03 • Dark Photo Backdrop
+          </span>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button type="button" class="glass glass-clear glass-specular glass-interactive px-5 py-2.5 rounded-full text-xs font-semibold text-white">
+              Play Preview
+            </button>
+            <button type="button" aria-label="Favorite" class="glass glass-clear glass-specular glass-interactive w-11 h-11 rounded-full flex items-center justify-center text-white">
+              <i data-lucide="heart" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+        <div class="glass glass-clear glass-specular rounded-3xl p-6 max-w-lg text-white">
+          <h2 class="text-lg font-display font-bold mb-1">Luminous Rim Over Dark Media</h2>
+          <p class="text-xs leading-relaxed text-white/90">
+            Specular edge glints catch the pointer smoothly while dark artwork subtly refracts around the glass curve.
+          </p>
+        </div>
+      </section>
+
+      <!-- STAGE 4: PLAIN LIGHT & PLAIN DARK SURFACES -->
+      <section class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="demo-stage bg-[#f7f5f0] text-slate-900 border border-black/10" style="min-height: 280px;">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-600">04A • Plain Light Surface</span>
+          <div class="glass glass-regular glass-specular glass-interactive rounded-3xl p-6 text-slate-900">
+            <h2 class="text-base font-display font-bold mb-1">Clean Neutral Light</h2>
+            <p class="text-xs text-slate-700 leading-relaxed mb-4">Soft outer shadow and crisp top specular edge keep glass clearly separated from plain light paper.</p>
+            <button type="button" class="btn-primary glass-tinted glass-specular glass-interactive text-xs px-4 py-2 rounded-full">
+              Press for Spring (0.97)
+            </button>
+          </div>
+        </div>
+
+        <div class="demo-stage bg-[#141418] text-white border border-white/10" style="min-height: 280px;">
+          <span class="text-xs font-mono font-bold uppercase tracking-wider text-zinc-400">04B • Plain Dark Surface</span>
+          <div class="glass glass-clear glass-specular glass-interactive rounded-3xl p-6 text-white">
+            <h2 class="text-base font-display font-bold mb-1">Clean Neutral Dark</h2>
+            <p class="text-xs text-zinc-300 leading-relaxed mb-4">Hairline luminous border and pointer glint create tactile depth over flat dark canvas.</p>
+            <button type="button" class="glass glass-regular glass-specular glass-interactive text-xs px-4 py-2 rounded-full text-white">
+              Interactive Glass Button
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module">
+      import { initLiquidGlass } from '/src/glass.js';
+      initLiquidGlass();
+
+      const btn = document.getElementById('demo-theme-btn');
+      const syncIcons = () => {
+        const dark = document.documentElement.classList.contains('dark');
+        document.querySelectorAll('.sun-icon').forEach(el => el.classList.toggle('hidden', !dark));
+        document.querySelectorAll('.moon-icon').forEach(el => el.classList.toggle('hidden', dark));
+      };
+      syncIcons();
+      btn?.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        window.dispatchEvent(new CustomEvent('themeChanged', { detail: { isDark } }));
+        syncIcons();
+      });
+
+      const status = document.getElementById('refraction-status');
+      if (status) {
+        const supported = document.documentElement.classList.contains('glass-refraction-supported');
+        status.textContent = supported
+          ? 'SVG feDisplacementMap Active'
+          : 'Graceful Blur Fallback Active';
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+        if (window.lucide) window.lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>

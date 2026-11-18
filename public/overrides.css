@@ -1,20 +1,8 @@
-/* Overrides for built CSS to ensure standard backdrop-filter applies */
-.studio-card, .glass-card {
-  backdrop-filter: blur(16px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
-}
-
+/* Performance guardrail: keep large scrolling content cards blur-free so
+   floating Liquid Glass controls (nav, buttons, filter pill, dock) get true
+   SVG feDisplacementMap refraction at silky 60fps. */
+.studio-card, .glass-card,
 html.dark .studio-card, html.dark .glass-card {
-  backdrop-filter: blur(16px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(16px) saturate(150%) !important;
-}
-
-.studio-nav {
-  backdrop-filter: blur(20px) saturate(160%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(160%) !important;
-}
-
-.frosted-capsule, .dark-capsule-badge, .glass-box {
-  backdrop-filter: blur(14px) saturate(150%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(150%) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }

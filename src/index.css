@@ -116,30 +116,50 @@
 }
 
 /* ============================================================================
-   iOS 26 LIQUID GLASS — Warm Studio Washi Translucent Material System
-   Harmonizes seamlessly with the Studio Ghibli warm linen & living nature canvas:
-   Warm Ivory Silk & Ecru Parchment translucency (85-92%) provides 14:1+
-   crystal contrast with zero glare, soft warm umber borders, and rich espresso ink.
+   iOS 26 LIQUID GLASS — 4-Seasons Dynamic Gradient & Optical Specular Material
+   1. Không còn trắng đặc phẳng: Gradient kính mờ từ trắng 84% ở đỉnh xuống 60% ở đáy
+      (phần trên đặc hơn để chữ dễ đọc, phần dưới trong hơn để cảnh thấm qua).
+   2. Pha màu theo mùa: thẻ được pha thêm 8% màu của mùa đang chọn (Xuân/Hạ/Thu/Đông/Đêm),
+      đổi mùa thì thẻ đổi sắc theo qua biến CSS --season-card-tint.
+   3. Vệt sáng mép trên: dải sáng mỏng chạy dọc mép trên thẻ và viền sáng hơn, kiểu mặt
+      kính thật đón sáng.
+   4. Mờ nền mạnh hơn: backdrop-filter: blur(22px) saturate(175%) nhòe mềm mượt mà.
+   5. Bóng đổ mềm và sâu hơn: multi-layer warm umber shadows tỏa rộng, êm ái, nổi nhẹ.
+   6. Đồng bộ toàn trang: áp dụng thống nhất cho toàn bộ thẻ, bento, chip, filter bar.
    ============================================================================ */
 .studio-card, .glass-card {
-  background-color: #FCFAF6 !important;
-  background-image: linear-gradient(
-    148deg,
-    rgba(255, 253, 250, 0.93) 0%,
-    rgba(251, 248, 241, 0.85) 46%,
-    rgba(254, 251, 246, 0.91) 100%
-  ) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(224, 218, 206, 0.80) !important;
+  background-color: transparent !important;
+  background-image:
+    /* Dải sáng mỏng chạy dọc mép trên đón sáng */
+    linear-gradient(90deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.95) 20%, #ffffff 50%, rgba(255, 255, 255, 0.95) 80%, rgba(255, 255, 255, 0.40) 100%),
+    /* Gradient kính từ trắng 84% ở đỉnh xuống 60% ở đáy */
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.60) 100%),
+    /* 8% Pha màu theo mùa đang chọn */
+    linear-gradient(0deg, var(--season-card-tint, rgba(244, 114, 182, 0.08)), var(--season-card-tint, rgba(244, 114, 182, 0.08))) !important;
+  background-size: 100% 2px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+
+  /* Độ mờ nền 22px và độ bão hòa 175% */
+  backdrop-filter: blur(22px) saturate(175%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(175%) !important;
+
+  /* Viền đón sáng sáng hơn */
+  border: 1px solid rgba(255, 255, 255, 0.72) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+
+  /* Vệt sáng mép trên & bóng đổ ấm, sâu, tỏa rộng */
   box-shadow:
-    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.95),
-    inset 1px 0 0 0 rgba(255, 255, 255, 0.70),
-    inset 0 -1px 0 0 rgba(140, 120, 100, 0.06),
-    inset 0 0 28px rgba(255, 253, 250, 0.45),
-    0 12px 36px -8px rgba(45, 35, 25, 0.07),
-    0 2px 8px rgba(45, 35, 25, 0.03) !important;
-  transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease;
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.98),
+    inset 0 3px 12px -2px rgba(255, 255, 255, 0.55),
+    inset 1px 0 0 0 rgba(255, 255, 255, 0.45),
+    inset -1px 0 0 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 0 rgba(140, 110, 80, 0.06),
+    0 4px 12px -2px rgba(60, 42, 20, 0.04),
+    0 16px 36px -6px rgba(60, 42, 20, 0.08),
+    0 32px 64px -12px rgba(60, 42, 20, 0.08) !important;
+
+  transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease, background 0.35s ease;
 }
 
 /* Zero fuzzy text-shadow inside cards in Light Mode for razor-sharp typography */
@@ -187,14 +207,24 @@ html:not(.dark) .glass-box .text-zinc-500 {
   font-weight: 500;
 }
 
-/* Card inner chips, tags and mini badge compartments: Soft Warm Ecru Parchment */
+/* Card inner chips, tags and mini badge compartments: Unified Liquid Glass */
 html:not(.dark) .studio-card .glass-box,
 html:not(.dark) .glass-card .glass-box,
 html:not(.dark) .studio-card .bg-black\/\[0\.04\],
 html:not(.dark) .glass-card .bg-black\/\[0\.04\] {
-  background-color: rgba(244, 240, 233, 0.88) !important;
-  background-image: none !important;
-  border-color: rgba(224, 218, 206, 0.85) !important;
+  background-color: transparent !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.90) 30%, #ffffff 50%, rgba(255, 255, 255, 0.90) 70%, rgba(255, 255, 255, 0.35) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.60) 100%),
+    linear-gradient(0deg, var(--season-card-tint, rgba(244, 114, 182, 0.08)), var(--season-card-tint, rgba(244, 114, 182, 0.08))) !important;
+  background-size: 100% 1.5px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+  border: 1px solid rgba(255, 255, 255, 0.70) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.90) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 2px 6px rgba(60, 42, 20, 0.04) !important;
   color: #1A1917 !important;
   font-weight: 600;
 }
@@ -226,21 +256,18 @@ footer.glass-box,
   -webkit-backdrop-filter: none !important;
 }
 
-.studio-card-hover:hover {
-  background-image: linear-gradient(
-    148deg,
-    rgba(255, 254, 252, 0.96) 0%,
-    rgba(252, 249, 243, 0.89) 46%,
-    rgba(255, 253, 248, 0.94) 100%
-  ) !important;
-  border-color: rgba(212, 205, 191, 0.90) !important;
+.studio-card-hover:hover,
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.88) !important;
+  border-top-color: #ffffff !important;
   box-shadow:
     inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
-    inset 1px 0 0 0 rgba(255, 255, 255, 0.75),
-    inset 0 -1px 0 0 rgba(140, 120, 100, 0.08),
-    inset 0 0 32px rgba(255, 253, 250, 0.55),
-    0 16px 42px -8px rgba(45, 35, 25, 0.09),
-    0 3px 10px rgba(45, 35, 25, 0.04) !important;
+    inset 0 4px 16px -2px rgba(255, 255, 255, 0.70),
+    inset 1px 0 0 0 rgba(255, 255, 255, 0.55),
+    inset -1px 0 0 0 rgba(255, 255, 255, 0.45),
+    0 6px 16px -2px rgba(60, 42, 20, 0.05),
+    0 22px 48px -6px rgba(60, 42, 20, 0.10),
+    0 40px 80px -12px rgba(60, 42, 20, 0.10) !important;
 }
 
 /* Floating Liquid Glass Navbar — refractive filter & reduced-transparency controlled by src/glass.css */
@@ -261,49 +288,88 @@ footer.glass-box,
 
 .btn-secondary {
   @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm active:scale-[0.98] transition-colors;
-  background-color: #FCFAF6 !important;
-  background-image: linear-gradient(
-    155deg,
-    rgba(255, 253, 250, 0.95) 0%,
-    rgba(247, 243, 235, 0.90) 100%
-  ) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(220, 214, 202, 0.85) !important;
+  background-color: transparent !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.95) 30%, #ffffff 50%, rgba(255, 255, 255, 0.95) 70%, rgba(255, 255, 255, 0.40) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.60) 100%),
+    linear-gradient(0deg, var(--season-card-tint, rgba(244, 114, 182, 0.08)), var(--season-card-tint, rgba(244, 114, 182, 0.08))) !important;
+  background-size: 100% 2px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+
+  backdrop-filter: blur(22px) saturate(175%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(175%) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.75) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    0 3px 12px -3px rgba(45, 35, 25, 0.06) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
+    0 4px 14px -3px rgba(60, 42, 20, 0.06) !important;
   color: #1A1917 !important;
 }
 
 .glass-box {
-  background-color: #FCFAF6 !important;
-  background-image: linear-gradient(
-    155deg,
-    rgba(255, 253, 250, 0.94) 0%,
-    rgba(250, 246, 239, 0.88) 100%
-  ) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(224, 218, 206, 0.80) !important;
+  background-color: transparent !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.90) 30%, #ffffff 50%, rgba(255, 255, 255, 0.90) 70%, rgba(255, 255, 255, 0.35) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.60) 100%),
+    linear-gradient(0deg, var(--season-card-tint, rgba(244, 114, 182, 0.08)), var(--season-card-tint, rgba(244, 114, 182, 0.08))) !important;
+  background-size: 100% 1.5px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.70) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.90) !important;
+
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 4px 14px -3px rgba(45, 35, 25, 0.05) !important;
+    0 3px 10px -2px rgba(60, 42, 20, 0.05) !important;
+}
+
+/* Category Filter Bar (Liquid Glass Capsule) */
+.glass-filter-bar,
+html.glass-refraction-supported .glass-filter-bar {
+  background-color: transparent !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.95) 20%, #ffffff 50%, rgba(255, 255, 255, 0.95) 80%, rgba(255, 255, 255, 0.40) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.60) 100%),
+    linear-gradient(0deg, var(--season-card-tint, rgba(244, 114, 182, 0.08)), var(--season-card-tint, rgba(244, 114, 182, 0.08))) !important;
+  background-size: 100% 2px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+
+  backdrop-filter: blur(22px) saturate(175%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(175%) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.75) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+
+  box-shadow:
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.98),
+    inset 0 2px 8px -1px rgba(255, 255, 255, 0.50),
+    0 8px 24px -4px rgba(60, 42, 20, 0.08) !important;
 }
 
 /* Seasonal Liquid Glass Capsule */
 .frosted-capsule {
   background-color: transparent !important;
-  background-image: linear-gradient(
-    160deg,
-    rgba(255, 255, 255, 0.82) 0%,
-    var(--season-capsule-bg, rgba(255, 247, 237, 0.66)) 100%
-  ) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.84) !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.95) 30%, #ffffff 50%, rgba(255, 255, 255, 0.95) 70%, rgba(255, 255, 255, 0.40) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.60) 100%),
+    linear-gradient(0deg, var(--season-card-tint, rgba(244, 114, 182, 0.08)), var(--season-card-tint, rgba(244, 114, 182, 0.08))) !important;
+  background-size: 100% 1.5px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+
+  backdrop-filter: blur(22px) saturate(175%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(175%) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.78) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.95) !important;
+
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98),
     0 4px 14px -3px var(--season-capsule-glow, rgba(217, 119, 6, 0.16)) !important;
   color: var(--season-capsule-text, #9a3412) !important;
   transition: border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
@@ -335,19 +401,25 @@ footer.glass-box,
 .dark-narrative-card {
   padding: 1rem 1.25rem;
   border-radius: 1.25rem !important;
-  background-color: #FCFAF6 !important;
-  background-image: linear-gradient(
-    148deg,
-    rgba(255, 253, 250, 0.95) 0%,
-    rgba(251, 247, 240, 0.88) 100%
-  ) !important;
+  background-color: transparent !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.40) 0%, rgba(255, 255, 255, 0.95) 20%, #ffffff 50%, rgba(255, 255, 255, 0.95) 80%, rgba(255, 255, 255, 0.40) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84) 0%, rgba(255, 255, 255, 0.60) 100%),
+    linear-gradient(0deg, var(--season-card-tint, rgba(244, 114, 182, 0.08)), var(--season-card-tint, rgba(244, 114, 182, 0.08))) !important;
+  background-size: 100% 2px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+
+  backdrop-filter: blur(22px) saturate(175%) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(175%) !important;
+
   color: #1A1917 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(224, 218, 206, 0.80) !important;
+  border: 1px solid rgba(255, 255, 255, 0.72) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.92) !important;
+
   box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
-    0 8px 26px -6px rgba(45, 35, 25, 0.06) !important;
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.98),
+    0 12px 28px -6px rgba(60, 42, 20, 0.08) !important;
   text-shadow: none !important;
 }
 
@@ -603,6 +675,8 @@ img {
   --season-card-border: rgba(255, 255, 255, 0.75);
   --season-card-heading: #0f172a;
   --season-card-body: #334155;
+  --season-card-tint: rgba(244, 114, 182, 0.08); /* 8% Sakura Pink */
+  --season-card-glow: rgba(244, 114, 182, 0.18);
 }
 
 [data-season="summer"] {
@@ -621,6 +695,8 @@ img {
   --season-card-border: rgba(255, 255, 255, 0.75);
   --season-card-heading: #0f172a;
   --season-card-body: #334155;
+  --season-card-tint: rgba(16, 185, 129, 0.08); /* 8% Meadow Emerald */
+  --season-card-glow: rgba(16, 185, 129, 0.18);
 }
 
 [data-season="autumn"] {
@@ -639,6 +715,8 @@ img {
   --season-card-border: rgba(255, 255, 255, 0.75);
   --season-card-heading: #0f172a;
   --season-card-body: #334155;
+  --season-card-tint: rgba(245, 158, 11, 0.08); /* 8% Warm Amber */
+  --season-card-glow: rgba(245, 158, 11, 0.18);
 }
 
 [data-season="winter"] {
@@ -657,6 +735,8 @@ img {
   --season-card-border: rgba(255, 255, 255, 0.75);
   --season-card-heading: #0f172a;
   --season-card-body: #334155;
+  --season-card-tint: rgba(56, 189, 248, 0.08); /* 8% Glacier Ice Blue */
+  --season-card-glow: rgba(56, 189, 248, 0.18);
 }
 
 /* Dark Mode Tokens (Night Charcoal & Warm Firelight) */
@@ -678,6 +758,8 @@ html.dark, html.dark [data-season="spring"], html.dark [data-season="summer"], h
   --season-card-border: rgba(255, 255, 255, 0.14);
   --season-card-heading: #f8fafc;
   --season-card-body: #cbd5e1;
+  --season-card-tint: rgba(99, 102, 241, 0.08); /* 8% Nocturnal Indigo Glow */
+  --season-card-glow: rgba(99, 102, 241, 0.18);
 }
 
 html.dark [data-season="spring"] {
@@ -688,6 +770,7 @@ html.dark [data-season="spring"] {
   --season-capsule-border: rgba(244, 114, 182, 0.40);
   --season-capsule-glow: rgba(244, 114, 182, 0.30);
   --season-capsule-text: #fbcfe8;
+  --season-card-tint: rgba(244, 114, 182, 0.08); /* 8% Spring Night Sakura */
 }
 
 html.dark [data-season="summer"] {
@@ -698,6 +781,7 @@ html.dark [data-season="summer"] {
   --season-capsule-border: rgba(56, 189, 248, 0.40);
   --season-capsule-glow: rgba(56, 189, 248, 0.30);
   --season-capsule-text: #bae6fd;
+  --season-card-tint: rgba(56, 189, 248, 0.08); /* 8% Summer Night Cyan */
 }
 
 html.dark [data-season="autumn"] {
@@ -708,6 +792,7 @@ html.dark [data-season="autumn"] {
   --season-capsule-border: rgba(251, 146, 60, 0.40);
   --season-capsule-glow: rgba(251, 146, 60, 0.30);
   --season-capsule-text: #fed7aa;
+  --season-card-tint: rgba(251, 146, 60, 0.08); /* 8% Autumn Night Campfire Amber */
 }
 
 html.dark [data-season="winter"] {
@@ -718,6 +803,7 @@ html.dark [data-season="winter"] {
   --season-capsule-border: rgba(103, 232, 249, 0.40);
   --season-capsule-glow: rgba(103, 232, 249, 0.30);
   --season-capsule-text: #cffafe;
+  --season-card-tint: rgba(103, 232, 249, 0.08); /* 8% Winter Night Frost Cyan */
 }
 
 /* Core Typography Utility Classes with Optical Readability Halo */
@@ -868,50 +954,55 @@ html.dark {
 html.dark .studio-card,
 html.dark .glass-card {
   background-color: transparent !important;
-  background-image: linear-gradient(
-    148deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(20, 19, 22, 0.62) 44%,
-    rgba(255, 255, 255, 0.05) 100%
-  ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.17) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.55) 25%, rgba(255, 255, 255, 0.75) 50%, rgba(255, 255, 255, 0.55) 75%, rgba(255, 255, 255, 0.15) 100%),
+    linear-gradient(180deg, rgba(28, 28, 34, 0.84) 0%, rgba(18, 18, 24, 0.60) 100%),
+    linear-gradient(0deg, var(--season-card-tint, rgba(99, 102, 241, 0.08)), var(--season-card-tint, rgba(99, 102, 241, 0.08))) !important;
+  background-size: 100% 2px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+
+  backdrop-filter: blur(22px) saturate(175%) brightness(1.04) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(175%) brightness(1.04) !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.36) !important;
+
   box-shadow:
-    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.28),
-    inset 1px 0 0 0 rgba(255, 255, 255, 0.13),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.07),
-    inset 0 0 28px rgba(255, 255, 255, 0.045),
-    0 14px 36px -10px rgba(0, 0, 0, 0.50) !important;
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.38),
+    inset 0 3px 12px -2px rgba(255, 255, 255, 0.15),
+    inset 1px 0 0 0 rgba(255, 255, 255, 0.14),
+    inset -1px 0 0 0 rgba(255, 255, 255, 0.10),
+    0 4px 12px -2px rgba(0, 0, 0, 0.40),
+    0 18px 40px -8px rgba(0, 0, 0, 0.55),
+    0 36px 72px -12px rgba(0, 0, 0, 0.60) !important;
 }
 html.dark .studio-card-hover:hover,
 html.dark .glass-card:hover {
-  background-image: linear-gradient(
-    148deg,
-    rgba(255, 255, 255, 0.16) 0%,
-    rgba(26, 25, 29, 0.68) 44%,
-    rgba(255, 255, 255, 0.08) 100%
-  ) !important;
-  border-color: rgba(255, 255, 255, 0.26) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  border-top-color: rgba(255, 255, 255, 0.48) !important;
   box-shadow:
-    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.36),
-    inset 1px 0 0 0 rgba(255, 255, 255, 0.18),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.10),
-    inset 0 0 32px rgba(255, 255, 255, 0.065),
-    0 18px 42px -10px rgba(0, 0, 0, 0.58) !important;
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.48),
+    inset 0 4px 16px -2px rgba(255, 255, 255, 0.22),
+    0 6px 16px -2px rgba(0, 0, 0, 0.48),
+    0 24px 50px -8px rgba(0, 0, 0, 0.65),
+    0 44px 88px -12px rgba(0, 0, 0, 0.70) !important;
 }
 
 html.dark .glass-box {
   background-color: transparent !important;
-  background-image: linear-gradient(
-    155deg,
-    rgba(255, 255, 255, 0.10) 0%,
-    rgba(20, 19, 22, 0.52) 100%
-  ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.14) !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.50) 50%, rgba(255, 255, 255, 0.15) 100%),
+    linear-gradient(180deg, rgba(28, 28, 34, 0.84) 0%, rgba(18, 18, 24, 0.60) 100%),
+    linear-gradient(0deg, var(--season-card-tint, rgba(99, 102, 241, 0.08)), var(--season-card-tint, rgba(99, 102, 241, 0.08))) !important;
+  background-size: 100% 1.5px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.32) !important;
+
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22) !important;
 }
 
 html.dark .studio-nav {
@@ -954,13 +1045,18 @@ html.dark a.btn-primary[href="/project.html?id=3"] {
 }
 html.dark .btn-secondary {
   background-color: transparent !important;
-  background-image: linear-gradient(
-    155deg,
-    rgba(255, 255, 255, 0.12) 0%,
-    rgba(255, 255, 255, 0.05) 100%
-  ) !important;
-  border: 1px solid rgba(255, 255, 255, 0.20) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24) !important;
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.50) 50%, rgba(255, 255, 255, 0.15) 100%),
+    linear-gradient(180deg, rgba(28, 28, 34, 0.84) 0%, rgba(18, 18, 24, 0.60) 100%),
+    linear-gradient(0deg, var(--season-card-tint, rgba(99, 102, 241, 0.08)), var(--season-card-tint, rgba(99, 102, 241, 0.08))) !important;
+  background-size: 100% 1.5px, 100% 100%, 100% 100% !important;
+  background-position: top center, center center, center center !important;
+  background-repeat: no-repeat !important;
+  backdrop-filter: blur(22px) saturate(175%) brightness(1.04) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(175%) brightness(1.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 4px 14px -3px rgba(0, 0, 0, 0.40) !important;
   color: #e8e4de !important;
 }
 

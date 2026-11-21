@@ -597,6 +597,25 @@ function applyAdaptiveTextColors(progress) {
   root.style.setProperty('--season-subtle-shadow', p1.subtleShadow);
   root.style.setProperty('--season-card-bg', p1.cardBg);
   root.style.setProperty('--season-card-border', p1.cardBorder);
+
+  // 8% Seasonal Card Tint (Spring: Sakura pink, Summer: Meadow emerald, Autumn: Warm amber, Winter: Glacier ice blue)
+  const seasonTints = isDark ? [
+    { r: 244, g: 114, b: 182 }, // Spring Night: Sakura (8%)
+    { r: 56,  g: 189, b: 248 }, // Summer Night: Ice Cyan (8%)
+    { r: 251, g: 146, b: 60  }, // Autumn Night: Amber Firelight (8%)
+    { r: 103, g: 232, b: 249 }  // Winter Night: Frost Cyan (8%)
+  ] : [
+    { r: 244, g: 114, b: 182 }, // Spring: Sakura Pink (8%)
+    { r: 16,  g: 185, b: 129 }, // Summer: Meadow Emerald (8%)
+    { r: 245, g: 158, b: 11  }, // Autumn: Warm Amber (8%)
+    { r: 56,  g: 189, b: 248 }  // Winter: Glacier Ice Blue (8%)
+  ];
+  const st1 = seasonTints[idx1];
+  const st2 = seasonTints[idx2];
+  const tintR = Math.round(st1.r + (st2.r - st1.r) * t);
+  const tintG = Math.round(st1.g + (st2.g - st1.g) * t);
+  const tintB = Math.round(st1.b + (st2.b - st1.b) * t);
+  root.style.setProperty('--season-card-tint', `rgba(${tintR}, ${tintG}, ${tintB}, 0.08)`);
 }
 
 function initGhibliControls(ghibliInstance) {

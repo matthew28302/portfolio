@@ -116,34 +116,96 @@
 }
 
 /* ============================================================================
-   iOS 26 LIQUID GLASS — Zero-Blur Optical Translucency System
+   iOS 26 LIQUID GLASS — High-Contrast Translucent Material System
    Sheer diagonal liquid sheen + top-left specular rim + inner edge refraction
-   Zero backdrop-filter on scrolling cards -> 60-120fps silky scroll performance
+   Light Mode: High-opacity (90-96%) milk-glass translucency provides 14:1+
+   crystal contrast over vibrant seasonal backgrounds while preserving the
+   floating glass look and 60-120fps silky scroll performance.
    ============================================================================ */
 .studio-card, .glass-card {
-  background-color: transparent !important;
+  background-color: #FFFFFF !important;
   background-image: linear-gradient(
     148deg,
-    rgba(255, 255, 255, 0.78) 0%,
-    rgba(255, 255, 255, 0.58) 44%,
-    rgba(255, 255, 255, 0.68) 100%
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(255, 255, 255, 0.90) 44%,
+    rgba(255, 255, 255, 0.95) 100%
   ) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.82) !important;
+  border: 1px solid rgba(226, 232, 240, 0.85) !important;
   box-shadow:
-    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.96),
-    inset 1px 0 0 0 rgba(255, 255, 255, 0.60),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.40),
-    inset 0 0 26px rgba(255, 255, 255, 0.30),
-    0 12px 34px -8px rgba(15, 23, 42, 0.09),
-    0 2px 6px rgba(15, 23, 42, 0.04) !important;
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
+    inset 1px 0 0 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1px 0 0 rgba(15, 23, 42, 0.05),
+    inset 0 0 28px rgba(255, 255, 255, 0.50),
+    0 12px 34px -8px rgba(15, 23, 42, 0.08),
+    0 2px 6px rgba(15, 23, 42, 0.03) !important;
   transition: border-color 0.28s ease, box-shadow 0.28s ease;
 }
 
-/* Crisp caption legibility inside sheer Light Mode Liquid Glass cards */
-html:not(.dark) .studio-card .theme-muted {
+/* Zero fuzzy text-shadow inside cards in Light Mode for razor-sharp typography */
+html:not(.dark) .studio-card *,
+html:not(.dark) .glass-card *,
+html:not(.dark) .glass-box *,
+html:not(.dark) .dark-narrative-card * {
+  text-shadow: none !important;
+}
+
+/* Card Heading Contrast */
+html:not(.dark) .theme-card-heading,
+html:not(.dark) .studio-card h3,
+html:not(.dark) .studio-card h4,
+html:not(.dark) .studio-card h5,
+html:not(.dark) .glass-card h3,
+html:not(.dark) .glass-card h4,
+html:not(.dark) .glass-card h5 {
+  color: #0f172a !important;
+}
+
+/* Card Body Contrast (14:1+ WCAG AAA ratio) */
+html:not(.dark) .theme-card-body,
+html:not(.dark) .studio-card p,
+html:not(.dark) .glass-card p {
+  color: #1e293b !important;
+}
+
+/* Card Muted & Meta Text Contrast */
+html:not(.dark) .studio-card .theme-muted,
+html:not(.dark) .glass-card .theme-muted,
+html:not(.dark) .glass-box .theme-muted {
   color: #334155 !important;
+  font-weight: 500;
+}
+
+/* Fix pale zinc text in Light Mode cards */
+html:not(.dark) .studio-card .text-zinc-400,
+html:not(.dark) .studio-card .text-zinc-500,
+html:not(.dark) .glass-card .text-zinc-400,
+html:not(.dark) .glass-card .text-zinc-500,
+html:not(.dark) .glass-box .text-zinc-400,
+html:not(.dark) .glass-box .text-zinc-500 {
+  color: #475569 !important;
+  font-weight: 500;
+}
+
+/* Card inner chips, tags and mini badge compartments */
+html:not(.dark) .studio-card .glass-box,
+html:not(.dark) .glass-card .glass-box,
+html:not(.dark) .studio-card .bg-black\/\[0\.04\],
+html:not(.dark) .glass-card .bg-black\/\[0\.04\] {
+  background-color: #f1f5f9 !important;
+  background-image: none !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+  font-weight: 600;
+}
+
+/* Card subtle dividers in Light Mode */
+html:not(.dark) .studio-card .border-white\/20,
+html:not(.dark) .glass-card .border-white\/20,
+html:not(.dark) .studio-card .border-black\/5,
+html:not(.dark) .glass-card .border-black\/5 {
+  border-color: rgba(226, 232, 240, 0.9) !important;
 }
 
 /* Uniform Featured Work project card dimensions on desktop */
@@ -166,18 +228,18 @@ footer.glass-box,
 .studio-card-hover:hover {
   background-image: linear-gradient(
     148deg,
-    rgba(255, 255, 255, 0.82) 0%,
-    rgba(255, 255, 255, 0.56) 44%,
-    rgba(255, 255, 255, 0.70) 100%
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(255, 255, 255, 0.93) 44%,
+    rgba(255, 255, 255, 0.96) 100%
   ) !important;
-  border-color: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(203, 213, 225, 0.95) !important;
   box-shadow:
     inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
-    inset 1px 0 0 0 rgba(255, 255, 255, 0.70),
-    inset 0 -1px 0 0 rgba(255, 255, 255, 0.45),
-    inset 0 0 28px rgba(255, 255, 255, 0.36),
-    0 16px 40px -8px rgba(15, 23, 42, 0.12),
-    0 3px 10px rgba(15, 23, 42, 0.05) !important;
+    inset 1px 0 0 0 rgba(255, 255, 255, 0.90),
+    inset 0 -1px 0 0 rgba(15, 23, 42, 0.06),
+    inset 0 0 32px rgba(255, 255, 255, 0.60),
+    0 16px 42px -8px rgba(15, 23, 42, 0.11),
+    0 3px 10px rgba(15, 23, 42, 0.04) !important;
 }
 
 /* Floating Liquid Glass Navbar — refractive filter & reduced-transparency controlled by src/glass.css */
@@ -198,34 +260,34 @@ footer.glass-box,
 
 .btn-secondary {
   @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm active:scale-[0.98] transition-colors;
-  background-color: transparent !important;
+  background-color: #FFFFFF !important;
   background-image: linear-gradient(
     155deg,
-    rgba(255, 255, 255, 0.82) 0%,
-    rgba(255, 255, 255, 0.58) 100%
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(248, 250, 252, 0.92) 100%
   ) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.85) !important;
+  border: 1px solid rgba(203, 213, 225, 0.9) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.96),
+    inset 0 1px 0 rgba(255, 255, 255, 1),
     0 4px 14px -4px rgba(15, 23, 42, 0.08) !important;
   color: #0f172a !important;
 }
 
 .glass-box {
-  background-color: transparent !important;
+  background-color: #FFFFFF !important;
   background-image: linear-gradient(
     155deg,
-    rgba(255, 255, 255, 0.68) 0%,
-    rgba(255, 255, 255, 0.44) 100%
+    rgba(255, 255, 255, 0.96) 0%,
+    rgba(255, 255, 255, 0.91) 100%
   ) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.72) !important;
+  border: 1px solid rgba(226, 232, 240, 0.85) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.90),
-    0 2px 10px -2px rgba(15, 23, 42, 0.05) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 1),
+    0 4px 14px -3px rgba(15, 23, 42, 0.06) !important;
 }
 
 /* Seasonal Liquid Glass Capsule */
@@ -272,19 +334,19 @@ footer.glass-box,
 .dark-narrative-card {
   padding: 1rem 1.25rem;
   border-radius: 1.25rem !important;
-  background-color: transparent !important;
+  background-color: #FFFFFF !important;
   background-image: linear-gradient(
     148deg,
-    rgba(255, 255, 255, 0.74) 0%,
-    rgba(255, 255, 255, 0.50) 100%
+    rgba(255, 255, 255, 0.97) 0%,
+    rgba(255, 255, 255, 0.92) 100%
   ) !important;
-  color: #1c1917 !important;
+  color: #0f172a !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(255, 255, 255, 0.78) !important;
+  border: 1px solid rgba(226, 232, 240, 0.85) !important;
   box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 0.92),
-    0 8px 26px -6px rgba(15, 23, 42, 0.08) !important;
+    inset 0 1.5px 0 rgba(255, 255, 255, 1),
+    0 8px 26px -6px rgba(15, 23, 42, 0.07) !important;
   text-shadow: none !important;
 }
 

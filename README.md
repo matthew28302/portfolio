@@ -83,12 +83,6 @@ Hệ thống chuyển đổi giao diện thời gian thực với 5 bảng màu 
 
 ---
 
-### 5. 🍉 Watermelon Festival & Watermelon Shop
-- **Vai trò:** Web Developer & UI Designer.
-- **Mô tả:** Hệ thống landing page sự kiện âm nhạc tích hợp đặt vé thời gian thực và nền tảng thương mại điện tử với giỏ hàng trượt và quy trình thanh toán tinh gọn.
-
----
-
 ## 🛠️ 4. Kiến Trúc Kỹ Thuật & Tech Stack
 
 ```

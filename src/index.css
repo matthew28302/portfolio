@@ -116,31 +116,30 @@
 }
 
 /* ============================================================================
-   iOS 26 LIQUID GLASS — High-Contrast Translucent Material System
-   Sheer diagonal liquid sheen + top-left specular rim + inner edge refraction
-   Light Mode: High-opacity (90-96%) milk-glass translucency provides 14:1+
-   crystal contrast over vibrant seasonal backgrounds while preserving the
-   floating glass look and 60-120fps silky scroll performance.
+   iOS 26 LIQUID GLASS — Warm Studio Washi Translucent Material System
+   Harmonizes seamlessly with the Studio Ghibli warm linen & living nature canvas:
+   Warm Ivory Silk & Ecru Parchment translucency (85-92%) provides 14:1+
+   crystal contrast with zero glare, soft warm umber borders, and rich espresso ink.
    ============================================================================ */
 .studio-card, .glass-card {
-  background-color: #FFFFFF !important;
+  background-color: #FCFAF6 !important;
   background-image: linear-gradient(
     148deg,
-    rgba(255, 255, 255, 0.96) 0%,
-    rgba(255, 255, 255, 0.90) 44%,
-    rgba(255, 255, 255, 0.95) 100%
+    rgba(255, 253, 250, 0.93) 0%,
+    rgba(251, 248, 241, 0.85) 46%,
+    rgba(254, 251, 246, 0.91) 100%
   ) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(226, 232, 240, 0.85) !important;
+  border: 1px solid rgba(224, 218, 206, 0.80) !important;
   box-shadow:
-    inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
-    inset 1px 0 0 0 rgba(255, 255, 255, 0.85),
-    inset 0 -1px 0 0 rgba(15, 23, 42, 0.05),
-    inset 0 0 28px rgba(255, 255, 255, 0.50),
-    0 12px 34px -8px rgba(15, 23, 42, 0.08),
-    0 2px 6px rgba(15, 23, 42, 0.03) !important;
-  transition: border-color 0.28s ease, box-shadow 0.28s ease;
+    inset 0 1.5px 0 0 rgba(255, 255, 255, 0.95),
+    inset 1px 0 0 0 rgba(255, 255, 255, 0.70),
+    inset 0 -1px 0 0 rgba(140, 120, 100, 0.06),
+    inset 0 0 28px rgba(255, 253, 250, 0.45),
+    0 12px 36px -8px rgba(45, 35, 25, 0.07),
+    0 2px 8px rgba(45, 35, 25, 0.03) !important;
+  transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease;
 }
 
 /* Zero fuzzy text-shadow inside cards in Light Mode for razor-sharp typography */
@@ -151,7 +150,7 @@ html:not(.dark) .dark-narrative-card * {
   text-shadow: none !important;
 }
 
-/* Card Heading Contrast */
+/* Card Heading Contrast: Warm Espresso Obsidian Ink (15.8:1 WCAG AAA) */
 html:not(.dark) .theme-card-heading,
 html:not(.dark) .studio-card h3,
 html:not(.dark) .studio-card h4,
@@ -159,53 +158,55 @@ html:not(.dark) .studio-card h5,
 html:not(.dark) .glass-card h3,
 html:not(.dark) .glass-card h4,
 html:not(.dark) .glass-card h5 {
-  color: #0f172a !important;
+  color: #1A1917 !important;
 }
 
-/* Card Body Contrast (14:1+ WCAG AAA ratio) */
+/* Card Body Contrast: Deep Warm Charcoal (13:1 WCAG AAA) */
 html:not(.dark) .theme-card-body,
 html:not(.dark) .studio-card p,
 html:not(.dark) .glass-card p {
-  color: #1e293b !important;
+  color: #2D2A26 !important;
 }
 
-/* Card Muted & Meta Text Contrast */
+/* Card Muted & Meta Text: Warm Umber (7.2:1 WCAG AAA) */
 html:not(.dark) .studio-card .theme-muted,
 html:not(.dark) .glass-card .theme-muted,
 html:not(.dark) .glass-box .theme-muted {
-  color: #334155 !important;
+  color: #57534E !important;
   font-weight: 500;
 }
 
-/* Fix pale zinc text in Light Mode cards */
+/* Fix pale zinc text in Light Mode cards: Warm Sepia Taupe (5.6:1 WCAG AA) */
 html:not(.dark) .studio-card .text-zinc-400,
 html:not(.dark) .studio-card .text-zinc-500,
 html:not(.dark) .glass-card .text-zinc-400,
 html:not(.dark) .glass-card .text-zinc-500,
 html:not(.dark) .glass-box .text-zinc-400,
 html:not(.dark) .glass-box .text-zinc-500 {
-  color: #475569 !important;
+  color: #6B655D !important;
   font-weight: 500;
 }
 
-/* Card inner chips, tags and mini badge compartments */
+/* Card inner chips, tags and mini badge compartments: Soft Warm Ecru Parchment */
 html:not(.dark) .studio-card .glass-box,
 html:not(.dark) .glass-card .glass-box,
 html:not(.dark) .studio-card .bg-black\/\[0\.04\],
 html:not(.dark) .glass-card .bg-black\/\[0\.04\] {
-  background-color: #f1f5f9 !important;
+  background-color: rgba(244, 240, 233, 0.88) !important;
   background-image: none !important;
-  border-color: #cbd5e1 !important;
-  color: #0f172a !important;
+  border-color: rgba(224, 218, 206, 0.85) !important;
+  color: #1A1917 !important;
   font-weight: 600;
 }
 
-/* Card subtle dividers in Light Mode */
+/* Card subtle dividers in Light Mode: Warm Hairline */
 html:not(.dark) .studio-card .border-white\/20,
 html:not(.dark) .glass-card .border-white\/20,
 html:not(.dark) .studio-card .border-black\/5,
-html:not(.dark) .glass-card .border-black\/5 {
-  border-color: rgba(226, 232, 240, 0.9) !important;
+html:not(.dark) .glass-card .border-black\/5,
+html:not(.dark) .studio-card .border-zinc-200\/60,
+html:not(.dark) .glass-card .border-zinc-200\/60 {
+  border-color: rgba(224, 218, 206, 0.70) !important;
 }
 
 /* Uniform Featured Work project card dimensions on desktop */
@@ -228,18 +229,18 @@ footer.glass-box,
 .studio-card-hover:hover {
   background-image: linear-gradient(
     148deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(255, 255, 255, 0.93) 44%,
-    rgba(255, 255, 255, 0.96) 100%
+    rgba(255, 254, 252, 0.96) 0%,
+    rgba(252, 249, 243, 0.89) 46%,
+    rgba(255, 253, 248, 0.94) 100%
   ) !important;
-  border-color: rgba(203, 213, 225, 0.95) !important;
+  border-color: rgba(212, 205, 191, 0.90) !important;
   box-shadow:
     inset 0 1.5px 0 0 rgba(255, 255, 255, 1),
-    inset 1px 0 0 0 rgba(255, 255, 255, 0.90),
-    inset 0 -1px 0 0 rgba(15, 23, 42, 0.06),
-    inset 0 0 32px rgba(255, 255, 255, 0.60),
-    0 16px 42px -8px rgba(15, 23, 42, 0.11),
-    0 3px 10px rgba(15, 23, 42, 0.04) !important;
+    inset 1px 0 0 0 rgba(255, 255, 255, 0.75),
+    inset 0 -1px 0 0 rgba(140, 120, 100, 0.08),
+    inset 0 0 32px rgba(255, 253, 250, 0.55),
+    0 16px 42px -8px rgba(45, 35, 25, 0.09),
+    0 3px 10px rgba(45, 35, 25, 0.04) !important;
 }
 
 /* Floating Liquid Glass Navbar — refractive filter & reduced-transparency controlled by src/glass.css */
@@ -260,34 +261,34 @@ footer.glass-box,
 
 .btn-secondary {
   @apply inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-xs sm:text-sm active:scale-[0.98] transition-colors;
-  background-color: #FFFFFF !important;
+  background-color: #FCFAF6 !important;
   background-image: linear-gradient(
     155deg,
-    rgba(255, 255, 255, 0.98) 0%,
-    rgba(248, 250, 252, 0.92) 100%
+    rgba(255, 253, 250, 0.95) 0%,
+    rgba(247, 243, 235, 0.90) 100%
   ) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(203, 213, 225, 0.9) !important;
+  border: 1px solid rgba(220, 214, 202, 0.85) !important;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 1),
-    0 4px 14px -4px rgba(15, 23, 42, 0.08) !important;
-  color: #0f172a !important;
+    0 3px 12px -3px rgba(45, 35, 25, 0.06) !important;
+  color: #1A1917 !important;
 }
 
 .glass-box {
-  background-color: #FFFFFF !important;
+  background-color: #FCFAF6 !important;
   background-image: linear-gradient(
     155deg,
-    rgba(255, 255, 255, 0.96) 0%,
-    rgba(255, 255, 255, 0.91) 100%
+    rgba(255, 253, 250, 0.94) 0%,
+    rgba(250, 246, 239, 0.88) 100%
   ) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(226, 232, 240, 0.85) !important;
+  border: 1px solid rgba(224, 218, 206, 0.80) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 1),
-    0 4px 14px -3px rgba(15, 23, 42, 0.06) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 4px 14px -3px rgba(45, 35, 25, 0.05) !important;
 }
 
 /* Seasonal Liquid Glass Capsule */
@@ -334,19 +335,19 @@ footer.glass-box,
 .dark-narrative-card {
   padding: 1rem 1.25rem;
   border-radius: 1.25rem !important;
-  background-color: #FFFFFF !important;
+  background-color: #FCFAF6 !important;
   background-image: linear-gradient(
     148deg,
-    rgba(255, 255, 255, 0.97) 0%,
-    rgba(255, 255, 255, 0.92) 100%
+    rgba(255, 253, 250, 0.95) 0%,
+    rgba(251, 247, 240, 0.88) 100%
   ) !important;
-  color: #0f172a !important;
+  color: #1A1917 !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  border: 1px solid rgba(226, 232, 240, 0.85) !important;
+  border: 1px solid rgba(224, 218, 206, 0.80) !important;
   box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 255, 1),
-    0 8px 26px -6px rgba(15, 23, 42, 0.07) !important;
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.95),
+    0 8px 26px -6px rgba(45, 35, 25, 0.06) !important;
   text-shadow: none !important;
 }
 

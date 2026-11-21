@@ -2153,24 +2153,24 @@
                     <!-- Clean Project Metadata Bar -->
                     <div class="flex flex-wrap items-start gap-y-4 gap-x-6 sm:gap-x-8 p-4 sm:p-5 rounded-2xl studio-card glass-specular shadow-sm mb-6 text-xs font-mono">
                       <div>
-                        <span class="text-slate-600 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">ROLE</span>
+                        <span class="text-[#6B655D] dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">ROLE</span>
                         <span class="font-bold theme-card-heading text-xs sm:text-[13px] mt-0.5 block whitespace-nowrap">${project.role || 'UI/UX Designer'}</span>
                       </div>
-                      <div class="w-px h-8 bg-zinc-300 dark:bg-white/15 hidden sm:block self-center"></div>
+                      <div class="w-px h-8 bg-[#DDD6C8] dark:bg-white/15 hidden sm:block self-center"></div>
                       <div>
-                        <span class="text-slate-600 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">${project.company ? 'COMPANY' : 'SCOPE / TEAM'}</span>
+                        <span class="text-[#6B655D] dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">${project.company ? 'COMPANY' : 'SCOPE / TEAM'}</span>
                         <span class="font-bold theme-card-heading text-xs sm:text-[13px] mt-0.5 block leading-snug">${project.company || project.team || 'Independent Project'}</span>
                       </div>
                       ${project.timeline ? `
-                        <div class="w-px h-8 bg-zinc-300 dark:bg-white/15 hidden sm:block self-center"></div>
+                        <div class="w-px h-8 bg-[#DDD6C8] dark:bg-white/15 hidden sm:block self-center"></div>
                         <div>
-                          <span class="text-slate-600 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">TIMELINE</span>
+                          <span class="text-[#6B655D] dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">TIMELINE</span>
                           <span class="font-bold text-emerald-700 dark:text-emerald-400 text-xs sm:text-[13px] mt-0.5 block whitespace-nowrap">${project.timeline}</span>
                         </div>
                       ` : ''}
-                      <div class="w-px h-8 bg-zinc-300 dark:bg-white/15 hidden sm:block self-center"></div>
+                      <div class="w-px h-8 bg-[#DDD6C8] dark:bg-white/15 hidden sm:block self-center"></div>
                       <div class="flex-1 min-w-[200px]">
-                        <span class="text-slate-600 dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">TOOLS</span>
+                        <span class="text-[#6B655D] dark:text-zinc-400 block text-[10px] uppercase font-bold tracking-wider">TOOLS</span>
                         <span class="font-semibold theme-card-body text-xs mt-0.5 block leading-normal">${(project.tools || []).join(' • ')}</span>
                       </div>
                     </div>

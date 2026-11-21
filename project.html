@@ -761,18 +761,21 @@
           strategicSolutions: [
             {
               icon: "mail",
-              title: "Handmade Cover Opening Ritual",
-              desc: "Created a tactile first impression with a monogrammed wax seal and ribbon button (CoverCard) simulating the feeling of holding a real physical paper card."
+              badge: "SOLVES FRICTION 01",
+              title: "Tactile Cover Opening Ritual",
+              desc: "Directly solves Friction 01 by replacing cold static images with a ceremonial envelope opening ritual featuring a monogrammed wax seal and ribbon button (CoverCard), recreating the anticipation, warmth, and intimacy of holding an authentic handmade paper card."
             },
             {
               icon: "users",
+              badge: "SOLVES FRICTION 02",
               title: "Personalized Guest Routing (?i=...)",
-              desc: "Engineered a client-side URL segmentation mechanism that dynamically personalizes honorifics, body copy, and thank-you notes for Lecturers, Parents, Relatives, and Friends."
+              desc: "Directly solves Friction 02 by engineering a client-side URL routing parameter (?i=lecturer | parents | friend) that automatically customizes honorifics, body copy, emotional tone, and tailored thank-you messages specifically for each guest segment."
             },
             {
               icon: "heart",
-              title: "Live Bullet Journal Guestbook",
-              desc: "Designed an interactive pastel sticky-note pinboard where guests can choose paper colors, leave warm wishes, and trigger joyful confetti explosions."
+              badge: "SOLVES FRICTION 03",
+              title: "Interactive Guestbook & Live Confetti",
+              desc: "Directly solves Friction 03 by transforming passive reading into an active celebratory experience with an interactive bullet journal sticky-note pinboard, real-time confetti reactions, ceremony countdown, and an interactive UIT campus map."
             }
           ],
           impactMetrics: [
@@ -941,11 +944,14 @@
                     Strategic UX & Design System Solutions
                   </h4>
                   <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    ${project.strategicSolutions.map(sol => `
+                    ${project.strategicSolutions.map((sol, idx) => `
                       <div class="p-5 sm:p-6 rounded-3xl studio-card glass-specular border border-emerald-500/30 dark:border-emerald-500/20 flex flex-col gap-2 shadow-sm">
-                        <div class="flex items-center gap-2 text-emerald-700 dark:text-emerald-400 text-[11px] font-mono font-bold">
-                          <i data-lucide="${sol.icon || 'check'}" class="w-3.5 h-3.5"></i>
-                          <span>RESOLVED</span>
+                        <div class="flex items-center justify-between text-[11px] font-mono font-bold">
+                          <div class="flex items-center gap-1.5 text-emerald-700 dark:text-emerald-400">
+                            <i data-lucide="${sol.icon || 'check-circle-2'}" class="w-3.5 h-3.5"></i>
+                            <span>${sol.badge || `SOLVES PAIN POINT 0${idx + 1}`}</span>
+                          </div>
+                          <span class="text-[10px] text-emerald-600/80 dark:text-emerald-400/80 font-mono tracking-wider uppercase">0${idx + 1} ➔</span>
                         </div>
                         <h5 class="font-bold theme-card-heading text-sm sm:text-base">${sol.title}</h5>
                         <p class="text-xs sm:text-[13px] theme-card-body leading-relaxed">${sol.desc}</p>
